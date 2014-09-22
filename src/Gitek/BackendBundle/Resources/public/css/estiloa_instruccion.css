@@ -1,0 +1,107 @@
+
+a {
+    color: #0088cc;
+    text-decoration: none;
+    display: inline-block;
+}
+
+h3 {
+    color:#333;
+    font-size: 40px;
+}
+
+h3 a {
+    margin: 0 4px 0 4px;
+}
+
+.h1noencontrado {
+    color:#fff;
+}
+
+.noencontrado, .noencontrado:active, .noencontrado:hover, .noencontrado:focus {
+    color:#fff;
+    font-size: 3em;
+    font-style: oblique;
+    text-align: center;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+#imginstruccion {
+
+}
+
+.botones {
+	/*border: 1px solid;*/
+    height: 80px;
+    margin: 10px 0px 20px 10px;
+    width: 200px;
+}
+
+.imageninstruccion {
+    height: 700px;
+    margin: 10px auto;
+    text-align: center;
+    vertical-align: middle;
+    width: 720px;
+}
+
+.kuadro-gorria {
+    border-color: red !important;
+}
+
+.kuadro-urdina {
+    border-color: blue !important;
+}
+
+.kuadro-berdea {
+    border-color: green !important;
+}
+
+.kuadro-beltza {
+    border-color: black !important;
+}
+
+.kuadro {
+    border:8px solid;
+}
+
+.container, body {
+	/*background-image: url('/bundles/superlinea/img/bg_tile.jpg');*/
+}
+
+.rowmateriales {
+    border: 1px solid #333;
+    border-radius: 5px;
+    height: auto;
+    margin: 10px auto;
+    max-width: 700px;
+    min-height: 200px;
+    text-align: center;
+    vertical-align: middle;
+    width: 700px;
+}
+
+.pedidoencurso {
+    border-width: 20px;
+}
+
+.rowmateriales h3 {
+    margin: 10px 0 0 10px;
+}
+
+.youtubecontainer {
+    margin-top: 40px;
+}
+
+.materialescontainer {
+    margin-top: 20px;
+}
+
+
+
+
+
+
+

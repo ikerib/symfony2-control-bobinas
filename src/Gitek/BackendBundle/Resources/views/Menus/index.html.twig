@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Lineas{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu.html.twig' with {'option': 'menus'} %}{% endblock %}
+
+{% block body -%}
+
+    <div class="box">
+        <div class="box-header">
+
+        </div>
+        <!-- /.box-header -->
+
+        <div class="box-body table-responsive">
+            <a class="btn btn-primary" href="#">Nuevo Menu</a>
+            <br/>
+            <br/>
+            <table id="tablainstrucciones"
+                   class="table table-condensed table-hover table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Menusid</th>
+                        <th>Texto</th>
+                        <th>Orden</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td class="tdacciones2">
+                            <ul class="list-unstyled ullinea ulacciones">
+                                <li class="enlinea">
+                                    <a href="#"><img
+                                                src="{{ asset('bundles/superlinea/img/editar18.png') }}"
+                                                alt="Editar">&nbsp;{{ "Editar" | trans }}</a>
+                                </li>
+                                <li class="enlinea"><a
+                                            href="#"
+                                            onclick="return confirm('¿Seguro que desea eliminar?');"><img
+                                                src="{{ asset('bundles/superlinea/img/eliminar18.png') }}"
+                                                alt="Eliminar">&nbsp;{{ "Eliminar" |trans }}</a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>{{ entity.menusId }}</td>
+                        <td>{{ entity.texto }}</td>
+                        <td>{{ entity.orden }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+
+    <div style="display:visible">
+
+    </div>
+
+{% endblock %}

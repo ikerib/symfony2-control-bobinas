@@ -1,0 +1,7 @@
+.label {
+    white-space: normal !important;
+}
+
+#tablainstrucciones, #pt_penalties_list {
+    width: 100% !important;
+}

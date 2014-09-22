@@ -1,0 +1,30 @@
+menus:
+    path:     /
+    defaults: { _controller: "BackendBundle:Menus:index" }
+
+menus_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackendBundle:Menus:show" }
+
+menus_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:Menus:new" }
+
+menus_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:Menus:create" }
+    requirements: { _method: post }
+
+menus_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:Menus:edit" }
+
+menus_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:Menus:update" }
+    requirements: { _method: post|put }
+
+menus_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:Menus:delete" }
+    requirements: { _method: post|delete }

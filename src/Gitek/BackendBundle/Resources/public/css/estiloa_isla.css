@@ -1,0 +1,187 @@
+
+.navbar-inverse .navbar-inner {
+  /*background-image: url("../bundles/superlinea/img/bg_header.png") !important;*/
+  background-repeat: no-repeat;
+  background-size: 183px 40px;
+  background-color: #08c;
+  background-image: -webkit-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: -moz-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: -ms-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: -o-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: linear-gradient(to bottom, #08c, #04c);
+/* Standard syntax; must be last */
+}
+.navbar-inverse  .btn-navbar {
+  background-color: #08c;
+  background-image: -webkit-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: -moz-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: -ms-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: -o-linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: linear-gradient(bottom, #08c 45%, #04c 55%);
+  background-image: linear-gradient(to bottom, #08c, #04c);
+/* Standard syntax; must be last */
+}
+.navbar-inverse .navbar-link {
+  color: #fff;
+}
+.navbar-inverse .navbar-link:hover {
+  color: #333;
+}
+.navbar-inverse .brand,
+.navbar-inverse .nav > li > a {
+  color: #fff;
+}
+.navbar-inverse .brand,
+.navbar-inverse .nav > li > a:hover {
+  color: #333;
+}
+.navbar-inverse .nav > li > a:focus,
+.navbar-inverse .nav > li > a:hover {
+  color: #333;
+}
+.flash-notice {
+  width: 400px;
+  display: inline-block;
+  margin-left: 100px;
+}
+.row-fluid {
+  position: relative;
+  display: table;
+  border-top: 4px #e4e4e4 solid;
+}
+.sidebar {
+  padding: 19px;
+  width: 20%;
+  min-width: 188px;
+}
+.sidebar a {
+  font-size: 1.3em;
+  margin: 0;
+  color: #0069d6;
+  text-decoration: none;
+}
+.sidebar a:hover {
+  text-decoration: underline;
+}
+.content {
+  width: 100%;
+}
+
+.brand {
+  /*background-image: url("/bundles/superlinea/img/bg_header.png") !important;*/
+  background-repeat: no-repeat;
+  background-size: 348px 40px;
+  display: inline-block;
+  height: 20px;
+  width: 348px;
+}
+
+#imagenpedidomaterial {
+    width: 200px;
+}
+
+.grande {
+    border: 1px none #000000;
+    height: 500px;
+    margin: 10px auto;
+    width: 849px;
+}
+
+.divpuestos {
+    background-color: #CCCCCC;
+    border: 1px none #000000;
+    height: 100%;
+    position: relative;
+}
+
+.puestoseleccionado {
+    background-color: yellowgreen;
+}
+
+.cajapuesto {
+    border: 1px dotted #442F34;
+    height: 125px;
+    position: absolute;
+    /*width: 120px;*/
+    width: 100px;
+}
+
+.divmesa {
+    background-color: #FFFFFF;
+    height: 60px;
+    left: 120px;
+    margin: 0 auto;
+    position: absolute;
+    top: 200px;
+    width: 70%;
+    z-index: 1;
+}
+
+.kuadro-gorria {
+    /*border-color: red !important;*/
+    border: 8px solid red !important;
+}
+
+.kuadro-urdina {
+    /*border-color: blue !important;*/
+    border: 8px solid blue !important;
+}
+
+.kuadro-berdea {
+    /*border-color: green !important;*/
+    border: 8px solid green !important;
+}
+
+.kuadro-beltza {
+    /*border-color: black !important;*/
+    border: 8px solid black !important;
+}
+
+.kuadro {
+    border:1px solid;
+}
+
+.dropinstruccion {
+    height: 22px;
+    margin: 0px auto 0px auto;
+    text-align: center;
+    width: 70px;
+}
+.droptablet {
+    height: 74px;
+    margin: 2px auto 0px auto;
+    text-align: center;
+    width: 80px;
+}
+.caja {
+    display: inline-block;
+    height: 70px;
+    margin: 1px auto 0px auto;
+    text-align: center;
+    width: 80px;
+}
+.mitablet {
+    background-image: url('/bundles/superlinea/img/tablet.jpeg');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+.dropusuario {
+    height: 10px;
+    margin: 2px auto 0px;
+    width: 70px;
+}
+.imagenincorrecto {
+    background-image: url('/bundles/superlinea/img/1triste-rojo.jpg');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    width: 151px;
+    height: 151px;
+}
+.imagencorrecto {
+    background-image: url('/bundles/superlinea/img/1sonrie-verde.jpg');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 150px;
+}

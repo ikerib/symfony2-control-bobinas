@@ -1,0 +1,287 @@
+#dropeliminar {
+    border: 1px solid #000000;
+    height: 125px;
+    /*margin: 50px 0px 0px 50px;*/
+    margin: 50px 0 0 0;
+    position: absolute;
+    width: 120px;
+}
+
+#dropeliminar > p {
+    margin: 40px 5px 0;
+}
+
+
+
+.caja {
+    /*border: 1px solid #cccccc;*/
+    display: inline-block;
+    height: 70px;
+    margin: 1px auto 0px auto;
+    text-align: center;
+    width: 80px;
+}
+
+.mitablet {
+    background-image: url('/bundles/superlinea/img/tablet.jpeg');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+
+}
+
+.dropinstruccion {
+    /*border:1px solid #000000;*/
+    height: 22px;
+    margin: 2px auto 0 auto;
+    text-align: center;
+    /*width: 70px;*/
+}
+
+.droptablet {
+    /*border:1px solid #000000;*/
+    height: 74px;
+    margin: 2px auto 0px auto;
+    text-align: center;
+    width: 80px;
+}
+
+.nodroptablet {
+    /*border:1px solid #000000;*/
+    height: 74px;
+    margin: 2px auto 0px auto;
+    text-align: center;
+    width: 80px;
+}
+
+.dropusuario {
+    /*border:1px solid #000000;*/
+    height: 20px;
+    margin: 2px auto 0;
+    text-align: center;
+    /*width: 70px;*/
+}
+
+#divtablet {
+    float: right;
+    height: 80px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    /*width: 91.453%;*/
+    width: 100%;
+}
+
+#divinstrucciones {
+    float: right;
+    height: 80px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    /*width: 91.453%;*/
+    width: 100%;
+}
+
+.miinstruccion {
+    background-image: url('/bundles/superlinea/img/instruccion.png');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+
+#divusuarios {
+    float: right;
+    height: 90px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 91.453%;
+}
+
+.miusuario {
+    background-image: url('/bundles/superlinea/img/usuario.png');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+
+.elementos {
+    height: 112px;
+}
+
+.close {
+    position: absolute;
+    top: -13px;
+    right: -7px;
+}
+.divtitulo {
+    width: 79%;
+}
+
+.titulo {
+    font-family: times, Times New Roman, times-roman, georgia, serif;
+    color: #444;
+    margin: 0;
+    padding: 0px 0px 6px 0px;
+    font-size: 51px;
+    line-height: 44px;
+    letter-spacing: -2px;
+    font-weight: bold;
+}
+
+.divbotonera {
+    width: 20%;
+}
+
+.dentrotab {
+    margin: 10px auto;
+    width: 80%;
+}
+
+.tab-content label {
+    /*width: 200px !important;*/
+}
+
+.cajapuesto {
+    border: 1px dotted #442F34;
+    height: 125px;
+    position: absolute;
+    /*width: 120px;*/
+    width: 100px;
+}
+
+.cajatablet, .cajainstruccion, .cajausuario {
+    border: 1px solid #000000;
+    margin: 2px auto 0px;
+}
+
+.cajatablet {
+    height: 10px;
+    width: 70px;
+}
+
+.cajainstruccion {
+    height: 50px;
+    width: 70px;
+}
+
+.cajausuario {
+    height: 10px;
+    width: 70px;
+}
+
+.puesto {
+    margin: 2px auto;
+    /*position:inherit;*/
+    text-align: center;
+}
+
+.imagen {
+    border: none;
+    height: 50px;
+    margin: 0px auto;
+    /*position:inherit;*/
+    width: 67px;
+}
+
+.instruccion {
+    margin: 2px auto;
+    /*position:inherit;*/
+    text-align: center;
+}
+
+.usuario {
+    margin: 2px auto;
+    position: inherit;
+    text-align: center;
+}
+
+.gitektitulo {
+    width: 900px;
+}
+
+.grande {
+    border: 1px #000000;
+    height: 500px;
+    margin: 10px auto 0 auto;
+}
+
+.divpuestos {
+    background-color: #cccccc;
+    border: 1px #000000;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.divmesa {
+    background-color: #fff;
+    height: 60px;
+    left: 140px;
+    margin: 0 auto;
+    position: absolute;
+    top: 200px;
+    width: 70%;
+}
+
+/*FUNTZIOAK*/
+
+.inline {
+    display: inline-block;
+}
+
+.ezkerretara {
+    text-align: left;
+}
+
+.eskuinetara {
+    text-align: right;
+}
+
+.gorde {
+    display: none;
+}
+
+.row-fluid {
+    border-top: none;
+}
+
+#referenciaseleccion {
+    position: relative;
+}
+
+#dcmbreferencia {
+    display: inline-block;
+    vertical-align: bottom;
+    /*width: 100px;*/
+    width: 20%;
+}
+
+#cmbreferencia {
+    width: 100px;
+}
+
+#dreferencias {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -4px;
+    width: 75%;
+}
+
+#btnAddPuesto {
+    margin-bottom: 20px;
+}
+
+.tabbable {
+    width: 920px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -105,7 +105,7 @@ class MenusController extends Controller
 
         return $this->render('BackendBundle:Menus:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -120,7 +120,7 @@ class MenusController extends Controller
     private function createEditForm(Menus $entity)
     {
         $form = $this->createForm(new MenusType(), $entity, array(
-            'action' => $this->generateUrl('admin_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('menus_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -146,7 +146,7 @@ class MenusController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('menus'));
         }
 
         return $this->render('BackendBundle:Menus:edit.html.twig', array(
@@ -161,7 +161,7 @@ class MenusController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+//        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BackendBundle:Menus')->find($id);
 
@@ -171,9 +171,9 @@ class MenusController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+//        }
 
-        return $this->redirect($this->generateUrl('admin'));
+        return $this->redirect($this->generateUrl('menus'));
     }
 
     /**
@@ -186,7 +186,7 @@ class MenusController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('menus_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

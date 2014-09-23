@@ -27,4 +27,4 @@ menus_update:
 menus_delete:
     path:     /{id}/delete
     defaults: { _controller: "BackendBundle:Menus:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: post|delete|get }

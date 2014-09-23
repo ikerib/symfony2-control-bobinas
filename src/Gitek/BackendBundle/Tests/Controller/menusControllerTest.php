@@ -25,33 +25,35 @@ class MenusControllerTest extends WebTestCase
         $form = $crawler->selectButton('Crear')->form(array(
             'menus[texto]'  => 'Test',
             'menus[orden]'  => '666',
-        ), "Ez da menu berria sortzeko formularioa aurkitu");
+        ));
 
         $client->submit($form);
+        //$content = $client->getResponse()->getContent();
+        //file_put_contents('somefile', $content);
         $crawler = $client->followRedirect();
 
         // Check data in the show view
         $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
 
-//        // Edit the entity
-//        $crawler = $client->click($crawler->selectLink('Edit')->link());
-//
-//        $form = $crawler->selectButton('Update')->form(array(
-//            'gitek_backendbundle_menus[field_name]'  => 'Foo',
-//            // ... other fields to fill
-//        ));
-//
-//        $client->submit($form);
-//        $crawler = $client->followRedirect();
-//
+        // Edit the entity
+        $crawler = $client->click($crawler->selectLink('Editar')->link());
+
+        $form = $crawler->selectButton('Grabar')->form(array(
+            'menus[texto]'  => 'tesT',
+            'menus[orden]'  => '999',
+        ));
+
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+
 //        // Check the element contains an attribute with value equals "Foo"
-//        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
+        $this->assertGreaterThan(0, $crawler->filter('td:contains("tesT")')->count(), 'Missing element [value="tesT"]');
 //
 //        // Delete the entity
-//        $client->submit($crawler->selectButton('Delete')->form());
-//        $crawler = $client->followRedirect();
+        $crawler = $client->click($crawler->selectLink('Eliminar')->link());
+        $crawler = $client->followRedirect();
 //
 //        // Check the entity has been delete on the list
-//        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->assertNotRegExp('/tesT/', $client->getResponse()->getContent());
     }
 }

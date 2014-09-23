@@ -8,17 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Gitek\BackendBundle\Entity\Menus;
 use Gitek\BackendBundle\Form\MenusType;
 
-/**
- * Menus controller.
- *
- */
 class MenusController extends Controller
 {
 
-    /**
-     * Lists all Menus entities.
-     *
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -29,10 +21,7 @@ class MenusController extends Controller
             'entities' => $entities,
         ));
     }
-    /**
-     * Creates a new Menus entity.
-     *
-     */
+
     public function createAction(Request $request)
     {
         $entity = new Menus();
@@ -44,7 +33,7 @@ class MenusController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('menus'));
         }
 
         return $this->render('BackendBundle:Menus:new.html.twig', array(
@@ -63,7 +52,7 @@ class MenusController extends Controller
     private function createCreateForm(Menus $entity)
     {
         $form = $this->createForm(new MenusType(), $entity, array(
-            'action' => $this->generateUrl('admin_create'),
+            'action' => $this->generateUrl('menus_create'),
             'method' => 'POST',
         ));
 
@@ -72,10 +61,6 @@ class MenusController extends Controller
         return $form;
     }
 
-    /**
-     * Displays a form to create a new Menus entity.
-     *
-     */
     public function newAction()
     {
         $entity = new Menus();
@@ -87,10 +72,6 @@ class MenusController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a Menus entity.
-     *
-     */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -109,10 +90,6 @@ class MenusController extends Controller
         ));
     }
 
-    /**
-     * Displays a form to edit an existing Menus entity.
-     *
-     */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -151,10 +128,7 @@ class MenusController extends Controller
 
         return $form;
     }
-    /**
-     * Edits an existing Menus entity.
-     *
-     */
+
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -181,10 +155,7 @@ class MenusController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-    /**
-     * Deletes a Menus entity.
-     *
-     */
+
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);

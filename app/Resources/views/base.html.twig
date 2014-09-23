@@ -8,6 +8,7 @@
         '@BackendBundle/Resources/public/css/datatables/dataTables.bootstrap.css'
         '@BackendBundle/Resources/public/css/daterangepicker/daterangepicker-bs3.css'
         '@BackendBundle/Resources/public/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
+        '@BackendBundle/Resources/public/fancybox/jquery.fancybox.css'
         '@BackendBundle/Resources/public/css/AdminLTE.css'
         '@BackendBundle/Resources/public/css/lte_redesign.css'
             output='css/lte_backend.css' filter='cssrewrite' %}
@@ -31,16 +32,14 @@
 
     <div class="wrapper row-offcanvas row-offcanvas-left">
 
-        {% block ezkerrekomenua %}
-
-        {% endblock %}
+        {% block ezkerrekomenua %}{% endblock %}
 
         <!-- Right side column. Contains the navbar and content of the page -->
         <aside class="right-side">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Lineas
+                    {% block headertitulo %}{% endblock %}
                 </h1>
             </section>
 
@@ -90,6 +89,8 @@
             output='js/lte_backend.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/superlinea/fancybox/jquery.browser.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/superlinea/fancybox/jquery.fancybox.pack.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% endblock %}

@@ -1,15 +1,58 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}Mantenimiento de menus{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu.html.twig' with {'option': 'menus'} %}{% endblock %}
+
+{% block headertitulo %}Mantenimiento de menus{% endblock %}
+
 {% block body -%}
-    <h1>Menus creation</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ path('menus_create') }}" method="post" {{ form_enctype(form) }}>
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
 
-    {{ form(form) }}
+                        <div class="form-group">
+                            {{ form_label(form.texto,'Texto: ' | trans) }}
+                            {{ form_errors(form.texto) }}
+                            {{ form_widget(form.texto,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+
+                        <div class="form-group">
+                            {{ form_label(form.orden,'Orden: ' | trans) }}
+                            {{ form_errors(form.orden) }}
+                            {{ form_widget(form.orden,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+
+
+                        <div class="form-group">
+                            {{ form_label(form.menusId,'Padre: ' | trans) }}
+                            {{ form_errors(form.menusId) }}
+                            {{ form_widget(form.menusId,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+
+                        <div style="display: none">
+                            {{ form_rest(form) }}
+                        </div>
+
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
 {% endblock %}

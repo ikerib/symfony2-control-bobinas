@@ -22,9 +22,7 @@ class Menus
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="menus_id", type="integer")
+     * @ORM\OneToOne(targetEntity="Menus", mappedBy="menusId", cascade={"persist"})
      */
     private $menusId;
 
@@ -42,6 +40,30 @@ class Menus
      */
     private $orden;
 
+    /**
+     * @var \DateTime $created_at
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @var \DateTime $updated_at
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updated_at;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->getTexto();
+    }
 
     /**
      * Get id
@@ -120,5 +142,51 @@ class Menus
     public function getOrden()
     {
         return $this->orden;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return Menus
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set updated_at
+     *
+     * @param \DateTime $updatedAt
+     * @return Menus
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
     }
 }

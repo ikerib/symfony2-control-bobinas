@@ -1,8 +1,10 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Lineas{% endblock %}
+{% block title %}Mantenimiento de menus{% endblock %}
 
 {% block ezkerrekomenua %}{% include '_lte_menu.html.twig' with {'option': 'menus'} %}{% endblock %}
+
+{% block headertitulo %}Mantenimiento de menus{% endblock %}
 
 {% block body -%}
 
@@ -20,11 +22,10 @@
                    class="table table-condensed table-hover table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Menusid</th>
+                        <th>-</th>
                         <th>Texto</th>
                         <th>Orden</th>
-                        <th>Actions</th>
+                        <th>Menusid</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,20 +46,15 @@
                                 </li>
                             </ul>
                         </td>
-                        <td>{{ entity.menusId }}</td>
                         <td>{{ entity.texto }}</td>
                         <td>{{ entity.orden }}</td>
+                        <td>{{ entity.menusId }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
         <!-- /.box-body -->
-    </div>
-
-
-    <div style="display:visible">
-
     </div>
 
 {% endblock %}

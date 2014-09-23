@@ -15,9 +15,14 @@ class MenusType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('menusId')
             ->add('texto')
             ->add('orden')
+            ->add('menusId', 'entity', array(
+                'required' => false,
+                'empty_value' => 'Selecciona...',
+                'class' => 'BackendBundle:Menus',
+                'query_builder' => function($repository) { return $repository->createQueryBuilder('p')->orderBy('p.id', 'ASC'); },
+            ))
         ;
     }
     
@@ -36,6 +41,6 @@ class MenusType extends AbstractType
      */
     public function getName()
     {
-        return 'gitek_backendbundle_menus';
+        return 'menus';
     }
 }

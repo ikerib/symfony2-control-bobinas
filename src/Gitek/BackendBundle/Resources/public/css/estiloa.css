@@ -23,7 +23,7 @@
 }
 
 .mitablet {
-    background-image: url('/bundles/superlinea/img/tablet.jpeg');
+    background-image: url('/bundles/backend/img/tablet.jpeg');
     background-position: center bottom;
     background-repeat: no-repeat;
 
@@ -82,7 +82,7 @@
 }
 
 .miinstruccion {
-    background-image: url('/bundles/superlinea/img/instruccion.png');
+    background-image: url('/bundles/backend/img/instruccion.png');
     background-position: center bottom;
     background-repeat: no-repeat;
 }
@@ -97,7 +97,7 @@
 }
 
 .miusuario {
-    background-image: url('/bundles/superlinea/img/usuario.png');
+    background-image: url('/bundles/backend/img/usuario.png');
     background-position: center bottom;
     background-repeat: no-repeat;
 }

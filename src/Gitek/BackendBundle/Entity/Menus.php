@@ -22,9 +22,16 @@ class Menus
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Menus", mappedBy="menusId", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Menus")
+     * @ORM\JoinColumn(name="menus_id", referencedColumnName="id")
      */
     private $menusId;
+
+    //    /**
+//     * @ORM\OneToOne(targetEntity="Menus", mappedBy="menusId", cascade={"persist"})
+//     */
+//    private $menusId;
+
 
     /**
      * @var string

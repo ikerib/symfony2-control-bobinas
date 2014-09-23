@@ -3,13 +3,13 @@
 <html class="bg-black">
 <head>
     <meta charset="UTF-8">
-    <title>Superlinea | Log in</title>
+    <title>Control Bobinas SMD | Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     {% block stylesheets %}
 
-        {% stylesheets  '@SuperlineaBundle/Resources/public/css/bootstrap.css'
-                        '@SuperlineaBundle/Resources/public/css/AdminLTE.css'
+        {% stylesheets  '@BackendBundle/Resources/public/css/bootstrap.css'
+                        '@BackendBundle/Resources/public/css/AdminLTE.css'
                         output='css/lte_login.css' filter='cssrewrite' %}
                         <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
                         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -28,7 +28,7 @@
 <body class="bg-black">
 
 <div class="form-box" id="login-box">
-    <div class="header">Acceso Superlinea</div>
+    <div class="header">Acceso Backend</div>
     {% block form_login %}
     {% endblock %}
 
@@ -36,8 +36,8 @@
 
 {% block javascripts %}
 
-    {% javascripts  '@SuperlineaBundle/Resources/public/js/jquery-2.1.1.min.js'
-                    '@SuperlineaBundle/Resources/public/js/bootstrap.3.0.3.min.js'
+    {% javascripts  '@BackendBundle/Resources/public/js/jquery-2.1.1.min.js'
+                    '@BackendBundle/Resources/public/js/bootstrap.3.0.3.min.js'
                         output='js/lte_login.js' %}
                     <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}

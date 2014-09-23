@@ -55,12 +55,12 @@ table.dataTable thead .sorting_desc_disabled {
 	cursor: pointer;
 }
 
-table.dataTable thead .sorting { background: url('/bundles/superlinea/css/datatables/images/sort_both.png') no-repeat center right; }
-table.dataTable thead .sorting_asc { background: url('/bundles/superlinea/css/datatables/images/sort_asc.png') no-repeat center right; }
-table.dataTable thead .sorting_desc { background: url('/bundles/superlinea/css/datatables/images/sort_desc.png') no-repeat center right; }
+table.dataTable thead .sorting { background: url('/bundles/backend/css/datatables/images/sort_both.png') no-repeat center right; }
+table.dataTable thead .sorting_asc { background: url('/bundles/backend/css/datatables/images/sort_asc.png') no-repeat center right; }
+table.dataTable thead .sorting_desc { background: url('/bundles/backend/css/datatables/images/sort_desc.png') no-repeat center right; }
 
-table.dataTable thead .sorting_asc_disabled { background: url('/bundles/superlinea/css/datatables/images/sort_asc_disabled.png') no-repeat center right; }
-table.dataTable thead .sorting_desc_disabled { background: url('/bundles/superlinea/css/datatables/images/sort_desc_disabled.png') no-repeat center right; }
+table.dataTable thead .sorting_asc_disabled { background: url('/bundles/backend/css/datatables/images/sort_asc_disabled.png') no-repeat center right; }
+table.dataTable thead .sorting_desc_disabled { background: url('/bundles/backend/css/datatables/images/sort_desc_disabled.png') no-repeat center right; }
 
 table.dataTable th:active {
 	outline: none;

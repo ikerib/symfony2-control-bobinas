@@ -1,6 +1,6 @@
 
 .navbar-inverse .navbar-inner {
-  /*background-image: url("../bundles/superlinea/img/bg_header.png") !important;*/
+  /*background-image: url("../bundles/backend/img/bg_header.png") !important;*/
   background-repeat: no-repeat;
   background-size: 183px 40px;
   background-color: #08c;
@@ -69,7 +69,7 @@
 }
 
 .brand {
-  /*background-image: url("/bundles/superlinea/img/bg_header.png") !important;*/
+  /*background-image: url("/bundles/backend/img/bg_header.png") !important;*/
   background-repeat: no-repeat;
   background-size: 348px 40px;
   display: inline-block;
@@ -162,7 +162,7 @@
     width: 80px;
 }
 .mitablet {
-    background-image: url('/bundles/superlinea/img/tablet.jpeg');
+    background-image: url('/bundles/backend/img/tablet.jpeg');
     background-position: center bottom;
     background-repeat: no-repeat;
 }
@@ -172,14 +172,14 @@
     width: 70px;
 }
 .imagenincorrecto {
-    background-image: url('/bundles/superlinea/img/1triste-rojo.jpg');
+    background-image: url('/bundles/backend/img/1triste-rojo.jpg');
     background-position: center bottom;
     background-repeat: no-repeat;
     width: 151px;
     height: 151px;
 }
 .imagencorrecto {
-    background-image: url('/bundles/superlinea/img/1sonrie-verde.jpg');
+    background-image: url('/bundles/backend/img/1sonrie-verde.jpg');
     background-position: center bottom;
     background-repeat: no-repeat;
     width: 150px;

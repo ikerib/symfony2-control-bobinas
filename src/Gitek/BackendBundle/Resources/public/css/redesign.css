@@ -1,5 +1,5 @@
 .brand {
-    background-image: url("/bundles/superlinea/img/bg_header.png") !important;
+    background-image: url("/bundles/backend/img/bg_header.png") !important;
     background-repeat: no-repeat;
     background-size: 348px 40px;
     display: inline-block;
@@ -41,7 +41,7 @@
 }
 
 .navbar-inverse .navbar-inner {
-    /*background-image: url("../bundles/superlinea/img/bg_header.png") !important;*/
+    /*background-image: url("../bundles/backend/img/bg_header.png") !important;*/
     background-repeat: no-repeat;
     background-size: 183px 40px;
     background-color: #08c;

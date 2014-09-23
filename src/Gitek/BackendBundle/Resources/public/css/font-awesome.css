@@ -6,7 +6,7 @@
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('/bundles/superlinea/fonts/fontawesome-webfont.eot?v=4.0.3');
+  src: url('/bundles/backend/fonts/fontawesome-webfont.eot?v=4.0.3');
   src: url('/Resources/public/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('/Resources/public/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('/Resources/public/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('/Resources/public/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;

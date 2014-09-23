@@ -89,8 +89,9 @@
             output='js/lte_backend.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/superlinea/fancybox/jquery.browser.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/superlinea/fancybox/jquery.fancybox.pack.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backend/fancybox/jquery.browser.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backend/fancybox/jquery.fancybox.pack.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backend/fancybox/jquery-2.0.2.min.map') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% endblock %}

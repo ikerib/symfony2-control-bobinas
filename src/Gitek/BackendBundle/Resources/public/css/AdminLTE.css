@@ -1641,7 +1641,7 @@ body > .header .logo .icon {
 }
 .box > .loading-img {
   z-index: 1020;
-  background: transparent url('/bundles/superlinea/img/ajax-loader1.gif') 50% 50% no-repeat;
+  background: transparent url('/bundles/backend/img/ajax-loader1.gif') 50% 50% no-repeat;
 }
 /*
 Component: timeline
@@ -2185,7 +2185,7 @@ Component: timeline
 */
 /* ADD THIS CLASS TO THE <HTML> TAG */
 .lockscreen {
-  background: url(/bundles/superlinea/img/blur-background09.jpg) repeat center center fixed;
+  background: url(/bundles/backend/img/blur-background09.jpg) repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -2742,7 +2742,7 @@ Component: timeline
   padding: 0;
   width: 18px;
   height: 18px;
-  background: rgba(255, 255, 255, 0.7) url(/bundles/superlinea/css/iCheck/minimal/minimal.png) no-repeat;
+  background: rgba(255, 255, 255, 0.7) url(/bundles/backend/css/iCheck/minimal/minimal.png) no-repeat;
   border: none;
   cursor: pointer;
 }
@@ -2782,7 +2782,7 @@ Component: timeline
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
   .icheckbox_minimal,
   .iradio_minimal {
-    background-image: url('/bundles/superlinea/css/iCheck/minimal/minimal@2x.png');
+    background-image: url('/bundles/backend/css/iCheck/minimal/minimal@2x.png');
     -webkit-background-size: 200px 20px;
     background-size: 200px 20px;
   }

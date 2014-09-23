@@ -1,1 +1,0 @@
-$("a#fancyBoxLink").fancybox({href:"#filtrofecha",titleShow:!1,transitionIn:"elastic",transitionOut:"elastic"});

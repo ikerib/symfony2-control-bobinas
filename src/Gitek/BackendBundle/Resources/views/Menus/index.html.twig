@@ -15,7 +15,7 @@
         <!-- /.box-header -->
 
         <div class="box-body table-responsive">
-            <a class="btn btn-primary" href="#">Nuevo Menu</a>
+            <a class="btn btn-primary" href="{{ path('menus_new') }}">Nuevo Menu</a>
             <br/>
             <br/>
             <table id="tablainstrucciones"
@@ -34,12 +34,12 @@
                         <td class="tdacciones2">
                             <ul class="list-unstyled ullinea ulacciones">
                                 <li class="enlinea">
-                                    <a href="#"><img
+                                    <a href="{{ path('menus_edit', { 'id': entity.id }) }}"><img
                                                 src="{{ asset('bundles/backend/img/editar18.png') }}"
                                                 alt="Editar">&nbsp;{{ "Editar" | trans }}</a>
                                 </li>
                                 <li class="enlinea"><a
-                                            href="#"
+                                            href="{{ path('menus_delete', { 'id': entity.id }) }}"
                                             onclick="return confirm('¿Seguro que desea eliminar?');"><img
                                                 src="{{ asset('bundles/backend/img/eliminar18.png') }}"
                                                 alt="Eliminar">&nbsp;{{ "Eliminar" |trans }}</a>

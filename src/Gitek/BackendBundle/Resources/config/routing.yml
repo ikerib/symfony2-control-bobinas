@@ -5,3 +5,11 @@ BackendBundle_admin:
 BackendBundle_admin_auxdiodos:
         resource: "@BackendBundle/Resources/config/routing/auxdiodos.yml"
         prefix:   /admin/auxdiodos
+
+BackendBundle_admin_auxsiplace:
+        resource: "@BackendBundle/Resources/config/routing/auxsiplace.yml"
+        prefix:   /admin/auxsiplace
+
+BackendBundle_admin_auxserigrafia:
+        resource: "@BackendBundle/Resources/config/routing/auxserigrafia.yml"
+        prefix:   /admin/auxserigrafia

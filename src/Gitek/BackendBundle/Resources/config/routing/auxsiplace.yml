@@ -1,0 +1,30 @@
+admin_auxsiplace:
+    path:     /
+    defaults: { _controller: "BackendBundle:AuxSiplace:index" }
+
+admin_auxsiplace_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackendBundle:AuxSiplace:show" }
+
+admin_auxsiplace_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:AuxSiplace:new" }
+
+admin_auxsiplace_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:AuxSiplace:create" }
+    requirements: { _method: post }
+
+admin_auxsiplace_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:AuxSiplace:edit" }
+
+admin_auxsiplace_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:AuxSiplace:update" }
+    requirements: { _method: post|put }
+
+admin_auxsiplace_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:AuxSiplace:delete" }
+    requirements: { _method: post|delete|get }

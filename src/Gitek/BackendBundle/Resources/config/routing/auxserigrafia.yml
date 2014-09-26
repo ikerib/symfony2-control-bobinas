@@ -1,0 +1,30 @@
+admin_auxserigrafia:
+    path:     /
+    defaults: { _controller: "BackendBundle:AuxSerigrafia:index" }
+
+admin_auxserigrafia_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackendBundle:AuxSerigrafia:show" }
+
+admin_auxserigrafia_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:AuxSerigrafia:new" }
+
+admin_auxserigrafia_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:AuxSerigrafia:create" }
+    requirements: { _method: post }
+
+admin_auxserigrafia_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:AuxSerigrafia:edit" }
+
+admin_auxserigrafia_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:AuxSerigrafia:update" }
+    requirements: { _method: post|put }
+
+admin_auxserigrafia_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:AuxSerigrafia:delete" }
+    requirements: { _method: post|delete }

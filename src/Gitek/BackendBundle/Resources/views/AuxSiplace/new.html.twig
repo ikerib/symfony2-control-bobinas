@@ -1,0 +1,65 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Mantenimiento de Auxiliar de Articulos/Posiciones{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu.html.twig' with {'option': 'auxsiplace_new'} %}{% endblock %}
+
+{% block headertitulo %}Mantenimiento de Auxiliar de Articulos/Posiciones{% endblock %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ path('admin_auxsiplace_create') }}" method="post" {{ form_enctype(form) }}>
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            {{ form_label(form.articulo,'Articulo: ' | trans) }}
+                            {{ form_errors(form.articulo) }}
+                            {{ form_widget(form.articulo,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.componente,'Componente: ' | trans) }}
+                            {{ form_errors(form.componente) }}
+                            {{ form_widget(form.componente,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.assambleon,'Assambleon: ' | trans) }}
+                            {{ form_errors(form.assambleon) }}
+                            {{ form_widget(form.assambleon,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.ipulse,'iPulse: ' | trans) }}
+                            {{ form_errors(form.ipulse) }}
+                            {{ form_widget(form.ipulse,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.siplace,'Siplace: ' | trans) }}
+                            {{ form_errors(form.siplace) }}
+                            {{ form_widget(form.siplace,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+
+
+                        <div style="display: none">
+                            {{ form_rest(form) }}
+                        </div>
+
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

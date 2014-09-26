@@ -25,64 +25,17 @@
             <li {% if option is defined and option == 'auxdiodos_new' %}class="active"{% endif %}><a href="{{ path('admin_auxdiodos_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>
         </ul>
     </li>
-    {#<li class="treeview {% if option is defined and (option == 'instruccion' or option == 'instruccion_new' or option == 'instruccion_edit') %}active{% endif %}">#}
-        {#<a href="#">#}
-            {#<i class="fa fa-book"></i>#}
-            {#<span>Instrucción</span>#}
-            {#<i class="fa pull-right fa-angle-right"></i>#}
-        {#</a>#}
-        {#<ul class="treeview-menu" style="display: none;">#}
-            {#<li {% if option is defined and option == 'instruccion' %}class="active"{% endif %}><a href="{{ path('instruccion') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>#}
-            {#<li {% if option is defined and option == 'instruccion_new' %}class="active"{% endif %}><a href="{{ path('instruccion_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>#}
-        {#</ul>#}
-    {#</li>#}
 
-    {#<li class="treeview {% if option is defined and (option == 'material' or option == 'material_new' or option == 'material_edit') %}active{% endif %}">#}
-        {#<a href="#">#}
-            {#<i class="fa fa-cogs"></i>#}
-            {#<span>Material</span>#}
-            {#<i class="fa pull-right fa-angle-right"></i>#}
-        {#</a>#}
-        {#<ul class="treeview-menu" style="display: none;">#}
-            {#<li {% if option is defined and option == 'material' %}class="active"{% endif %}><a href="{{ path('material') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>#}
-            {#<li {% if option is defined and option == 'material_new' %}class="active"{% endif %}><a href="{{ path('material_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>#}
-        {#</ul>#}
-    {#</li>#}
-
-    {#<li class="treeview {% if option is defined and (option == 'tablet' or option == 'tablet_new' or option == 'tablet_edit') %}active{% endif %}">#}
-        {#<a href="#">#}
-            {#<i class="fa fa-tablet"></i>#}
-            {#<span>Tablet</span>#}
-            {#<i class="fa pull-right fa-angle-right"></i>#}
-        {#</a>#}
-        {#<ul class="treeview-menu" style="display: none;">#}
-            {#<li {% if option is defined and option == 'tablet' %}class="active"{% endif %}><a href="{{ path('tablet') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>#}
-            {#<li {% if option is defined and option == 'tablet_new' %}class="active"{% endif %}><a href="{{ path('tablet_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>#}
-        {#</ul>#}
-    {#</li>#}
-
-    {#<li class="treeview {% if option is defined and (option == 'usuario' or option == 'usuario_new' or option == 'usuario_edit') %}active{% endif %}">#}
-        {#<a href="#">#}
-            {#<i class="fa fa-user"></i>#}
-            {#<span>Usuario</span>#}
-            {#<i class="fa pull-right fa-angle-right"></i>#}
-        {#</a>#}
-        {#<ul class="treeview-menu" style="display: none;">#}
-            {#<li {% if option is defined and option == 'usuario' %}class="active"{% endif %}><a href="{{ path('usuario') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>#}
-            {#<li {% if option is defined and option == 'usuario_new' %}class="active"{% endif %}><a href="{{ path('usuario_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>#}
-        {#</ul>#}
-    {#</li>#}
-
-    {#<li class="treeview {% if option is defined and (option == 'linea' or option == 'linea_new' or option == 'linea_edit') %}active{% endif %}">#}
-        {#<a href="#">#}
-            {#<i class="fa fa-road"></i>#}
-            {#<span>Linea</span>#}
-            {#<i class="fa pull-right fa-angle-right"></i>#}
-        {#</a>#}
-        {#<ul class="treeview-menu" style="display: none;">#}
-            {#<li {% if option is defined and option == 'linea' %}class="active"{% endif %}><a href="{{ path('linea') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>#}
-            {#<li {% if option is defined and option == 'linea_new' %}class="active"{% endif %}><a href="{{ path('linea_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>#}
-        {#</ul>#}
-    {#</li>#}
+    <li class="treeview {% if option is defined and (option == 'auxsiplace' or option == 'auxsiplace_new' or option == 'auxsiplace_edit') %}active{% endif %}">
+        <a href="#">
+            <i class="fa fa-gavel"></i>
+            <span>Aux Siplace</span>
+            <i class="fa pull-right fa-angle-right"></i>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+            <li {% if option is defined and option == 'auxsiplace' %}class="active"{% endif %}><a href="{{ path('admin_auxsiplace') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>
+            <li {% if option is defined and option == 'auxsiplace_new' %}class="active"{% endif %}><a href="{{ path('admin_auxsiplace_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>
+        </ul>
+    </li>
 
 {% endblock %}

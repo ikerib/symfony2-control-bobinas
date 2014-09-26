@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Mantenimiento de Auxiliar de Diodos{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu.html.twig' with {'option': 'auxdiodos_new'} %}{% endblock %}
+
+{% block headertitulo %}Mantenimiento de Auxiliar de Diodos{% endblock %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ path('admin_auxdiodos_create') }}" method="post" {{ form_enctype(form) }}>
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            {{ form_label(form.referencia,'Referencia: ' | trans) }}
+                            {{ form_errors(form.referencia) }}
+                            {{ form_widget(form.referencia,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+
+
+                        <div style="display: none">
+                            {{ form_rest(form) }}
+                        </div>
+
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

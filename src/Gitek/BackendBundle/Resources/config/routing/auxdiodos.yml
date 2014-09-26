@@ -1,0 +1,26 @@
+admin_auxdiodos:
+    path:     /
+    defaults: { _controller: "BackendBundle:AuxDiodos:index" }
+
+admin_auxdiodos_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:AuxDiodos:new" }
+
+admin_auxdiodos_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:AuxDiodos:create" }
+    requirements: { _method: post }
+
+admin_auxdiodos_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:AuxDiodos:edit" }
+
+admin_auxdiodos_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:AuxDiodos:update" }
+    requirements: { _method: post|put }
+
+admin_auxdiodos_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:AuxDiodos:delete" }
+    requirements: { _method: post|delete|get }

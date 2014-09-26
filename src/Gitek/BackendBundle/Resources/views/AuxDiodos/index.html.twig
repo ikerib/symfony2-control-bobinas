@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Mantenimiento de Auxiliar de Diodos{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu.html.twig' with {'option': 'auxdiodos'} %}{% endblock %}
+
+{% block headertitulo %}Mantenimiento de Auxiliar de Diodos{% endblock %}
+
+{% block body -%}
+
+<div class="box">
+    <div class="box-header">
+
+    </div>
+    <!-- /.box-header -->
+
+    <div class="box-body table-responsive">
+        <a class="btn btn-primary" href="{{ path('admin_auxdiodos_new') }}">Nueva Referencia</a>
+        <br/>
+        <br/>
+        <table id="tablainstrucciones"
+               class="table table-condensed table-hover table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Referencia</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td class="tdacciones2">
+                        <ul class="list-unstyled ullinea ulacciones">
+                            <li class="enlinea">
+                                <a href="{{ path('admin_auxdiodos_edit', { 'id': entity.id }) }}"><img
+                                            src="{{ asset('bundles/backend/img/editar18.png') }}"
+                                            alt="Editar">&nbsp;{{ "Editar" | trans }}</a>
+                            </li>
+                            <li class="enlinea"><a
+                                        href="{{ path('admin_auxdiodos_delete', { 'id': entity.id }) }}"
+                                        onclick="return confirm('¿Seguro que desea eliminar?');"><img
+                                            src="{{ asset('bundles/backend/img/eliminar18.png') }}"
+                                            alt="Eliminar">&nbsp;{{ "Eliminar" |trans }}</a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>{{ entity.referencia }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>
+
+{% endblock %}

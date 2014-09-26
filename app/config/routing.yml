@@ -1,6 +1,7 @@
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 backend:
     resource: "@BackendBundle/Resources/config/routing.yml"
     prefix:   /
 
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

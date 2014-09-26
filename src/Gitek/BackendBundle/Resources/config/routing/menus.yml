@@ -2,10 +2,6 @@ menus:
     path:     /
     defaults: { _controller: "BackendBundle:Menus:index" }
 
-menus_show:
-    path:     /{id}/show
-    defaults: { _controller: "BackendBundle:Menus:show" }
-
 menus_new:
     path:     /new
     defaults: { _controller: "BackendBundle:Menus:new" }

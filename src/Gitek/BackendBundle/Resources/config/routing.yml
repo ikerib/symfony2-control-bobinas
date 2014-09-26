@@ -1,3 +1,7 @@
 BackendBundle_admin:
         resource: "@BackendBundle/Resources/config/routing/menus.yml"
         prefix:   /admin/menus
+
+BackendBundle_admin_auxdiodos:
+        resource: "@BackendBundle/Resources/config/routing/auxdiodos.yml"
+        prefix:   /admin/auxdiodos

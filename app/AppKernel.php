@@ -18,8 +18,15 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Gitek\BackendBundle\BackendBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
+
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+
             new Gitek\UserBundle\UserBundle(),
             new Gitek\FrontendBundle\FrontendBundle(),
         );

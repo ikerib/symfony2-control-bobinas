@@ -19,10 +19,13 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle":"~2.0@dev",
+        "friendsofsymfony/jsrouting-bundle": "@stable",
+
+        "sonata-project/doctrine-orm-admin-bundle": "2.3.*@dev",
+        "sonata-project/admin-bundle": "~2.3",
 
         "phpunit/phpunit": "4.2.*",
-        "raulfraile/ladybug-bundle": "~1.0",
-        "friendsofsymfony/jsrouting-bundle": "@stable"
+        "raulfraile/ladybug-bundle": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

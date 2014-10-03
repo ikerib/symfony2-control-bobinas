@@ -1,7 +1,18 @@
 {% extends '_lte_ag_menu.html.twig' %}
 
 {% block menu %}
-
+    fos_user_register
+    <li class="treeview {% if option is defined and (option == 'users' or option == 'users_new' or option == 'fos_user_register') %}active{% endif %}">
+        <a href="#">
+            <i class="fa fa-gavel"></i>
+            <span>Usuarios</span>
+            <i class="fa pull-right fa-angle-right"></i>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+            <li {% if option is defined and option == 'users' %}class="active"{% endif %}><a href="" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>
+            <li {% if option is defined and option == 'fos_user_registration_register' %}class="active"{% endif %}><a href="{{ path('fos_user_registration_register') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>
+        </ul>
+    </li>
     <li class="treeview {% if option is defined and (option == 'menus' or option == 'menus_new' or option == 'menus_edit') %}active{% endif %}">
         <a href="#">
             <i class="fa fa-gavel"></i>

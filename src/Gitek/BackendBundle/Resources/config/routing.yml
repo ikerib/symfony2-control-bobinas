@@ -1,19 +1,19 @@
 backend_admin_usuarios:
     resource: "@BackendBundle/Resources/config/routing/usuario.yml"
-    prefix:   /admin/usuarios
+    prefix:   /usuarios
 
 BackendBundle_admin:
         resource: "@BackendBundle/Resources/config/routing/menus.yml"
-        prefix:   /admin/menus
+        prefix:   /menus
 
 BackendBundle_admin_auxdiodos:
         resource: "@BackendBundle/Resources/config/routing/auxdiodos.yml"
-        prefix:   /admin/auxdiodos
+        prefix:   /auxdiodos
 
 BackendBundle_admin_auxsiplace:
         resource: "@BackendBundle/Resources/config/routing/auxsiplace.yml"
-        prefix:   /admin/auxsiplace
+        prefix:   /auxsiplace
 
 BackendBundle_admin_auxserigrafia:
         resource: "@BackendBundle/Resources/config/routing/auxserigrafia.yml"
-        prefix:   /admin/auxserigrafia
+        prefix:   /auxserigrafia

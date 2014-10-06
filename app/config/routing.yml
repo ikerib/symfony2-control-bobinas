@@ -2,16 +2,9 @@ frontend:
     resource: "@FrontendBundle/Resources/config/routing.yml"
     prefix:   /
 
-user:
-    resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /
-
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 backend:
     resource: "@BackendBundle/Resources/config/routing.yml"
-    prefix:   /
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /admin

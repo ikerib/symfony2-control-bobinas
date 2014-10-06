@@ -20,10 +20,12 @@
         "incenteev/composer-parameter-handler": "~2.0",
 
         "stof/doctrine-extensions-bundle": "~1.1@dev",
+        "liip/imagine-bundle": "dev-master",
 
         "phpunit/phpunit": "4.2.*",
         "raulfraile/ladybug-bundle": "~1.0",
-        "friendsofsymfony/jsrouting-bundle": "@stable"
+        "friendsofsymfony/jsrouting-bundle": "@stable",
+        "vich/uploader-bundle": "~0.10.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -37,7 +37,14 @@
                             {{ form_widget(form.admin,{ 'attr': {'class': 'form-control' }}) }}
                         </div>
 
-                        <div style="display: none">
+
+                        <div class="form-group">
+                            {{ form_label(form.avatarImg,'Avatar: ' | trans) }}
+                            {{ form_errors(form.avatarImg) }}
+                            {{ form_widget(form.avatarImg,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+
+                        <div style="display: vissible">
                             {{ form_rest(form) }}
                         </div>
 

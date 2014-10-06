@@ -51,7 +51,7 @@
                     <td>{{ entity.apellidos }}</td>
                     <td>{{ entity.admin }}</td>
                     <td>{{ entity.email }}</td>
-                    <td>{{ entity.imagen }}</td>
+                    <td><img src="{{ vich_uploader_asset(entity, 'avatar') | imagine_filter('my_thumb') }}"/></td>
                 </tr>
             {% endfor %}
             </tbody>

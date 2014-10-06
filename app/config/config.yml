@@ -82,3 +82,31 @@ stof_doctrine_extensions:
     orm:
         default:
             timestampable: true # not needed: listeners are not enabled by default
+
+#avalanche_imagine:
+#    filters:
+#        my_thumb:
+#            type:    thumbnail
+#            options: { size: [120, 90], mode: outbound, quality: 100, format: png }
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        my_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound , quality: 100, format: png }
+
+vich_uploader:
+    db_driver: orm # or mongodb or propel or phpcr
+    mappings:
+        avatar:
+            uri_prefix:         /img/avatar
+            upload_destination: %kernel.root_dir%/../web/img/avatar
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true

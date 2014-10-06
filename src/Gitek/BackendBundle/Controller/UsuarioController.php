@@ -148,6 +148,7 @@ class UsuarioController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setUpdated(new \DateTime());
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_usuarios'));

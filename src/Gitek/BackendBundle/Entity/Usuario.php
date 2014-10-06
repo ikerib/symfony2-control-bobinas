@@ -4,12 +4,15 @@ namespace Gitek\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Usuario
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Gitek\BackendBundle\Entity\UsuarioRepository")
+ * @Vich\Uploadable
  */
 class Usuario
 {
@@ -51,11 +54,19 @@ class Usuario
     private $email;
 
     /**
-     * @var string
+     * @Vich\UploadableField(mapping="avatar", fileNameProperty="avatar", nullable=true)
      *
-     * @ORM\Column(name="imagen", type="string", length=255, nullable=true)
+     * @var File $avatarImg
      */
-    private $imagen;
+    protected $avatarImg;
+
+    /**
+     * @ORM\Column(type="string", length=255, name="avatar", nullable=true)
+     *
+     * @var string $avatar
+     */
+    protected $avatar;
+
 
     /**
      * @var datetime $created
@@ -72,6 +83,55 @@ class Usuario
      * @ORM\Column(type="datetime")
      */
     private $updated;
+
+    /**
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setAvatarImg(File $image)
+    {
+        $this->avatarImg = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getAvatarImg()
+    {
+        return $this->avatarImg;
+    }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
+
+
+
+ 
 
     /**
      * Get id
@@ -175,28 +235,6 @@ class Usuario
         return $this->email;
     }
 
-    /**
-     * Set imagen
-     *
-     * @param string $imagen
-     * @return Usuario
-     */
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
-
-        return $this;
-    }
-
-    /**
-     * Get imagen
-     *
-     * @return string 
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
 
     /**
      * Set created
@@ -242,28 +280,5 @@ class Usuario
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set rol
-     *
-     * @param integer $rol
-     * @return Usuario
-     */
-    public function setRol($rol)
-    {
-        $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get rol
-     *
-     * @return integer 
-     */
-    public function getRol()
-    {
-        return $this->rol;
     }
 }

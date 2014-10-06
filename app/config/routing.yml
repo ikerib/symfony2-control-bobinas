@@ -8,3 +8,6 @@ fos_js_routing:
 backend:
     resource: "@BackendBundle/Resources/config/routing.yml"
     prefix:   /admin
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

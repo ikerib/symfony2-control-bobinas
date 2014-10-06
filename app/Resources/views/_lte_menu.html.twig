@@ -2,6 +2,18 @@
 
 {% block menu %}
 
+    <li class="treeview {% if option is defined and (option == 'admin_usuarios' or option == 'admin_usuarios_new' or option == 'admin_usuarios_edit') %}active{% endif %}">
+        <a href="#">
+            <i class="fa fa-gavel"></i>
+            <span>Usuarios</span>
+            <i class="fa pull-right fa-angle-right"></i>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+            <li {% if option is defined and option == 'admin_usuarios' %}class="active"{% endif %}><a href="{{ path('admin_usuarios') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>
+            <li {% if option is defined and option == 'admin_usuarios_new' %}class="active"{% endif %}><a href="{{ path('admin_usuarios_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>
+        </ul>
+    </li>
+
     <li class="treeview {% if option is defined and (option == 'menus' or option == 'menus_new' or option == 'menus_edit') %}active{% endif %}">
         <a href="#">
             <i class="fa fa-gavel"></i>

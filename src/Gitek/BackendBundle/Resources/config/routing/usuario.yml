@@ -1,0 +1,30 @@
+admin_usuarios:
+    path:     /
+    defaults: { _controller: "BackendBundle:Usuario:index" }
+
+admin_usuarios_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackendBundle:Usuario:show" }
+
+admin_usuarios_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:Usuario:new" }
+
+admin_usuarios_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:Usuario:create" }
+    requirements: { _method: post }
+
+admin_usuarios_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:Usuario:edit" }
+
+admin_usuarios_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:Usuario:update" }
+    requirements: { _method: post|put }
+
+admin_usuarios_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:Usuario:delete" }
+    requirements: { _method: post|delete|get }

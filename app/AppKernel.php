@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Gitek\BackendBundle\BackendBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

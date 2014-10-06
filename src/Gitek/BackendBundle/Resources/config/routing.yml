@@ -1,3 +1,7 @@
+backend_admin_usuarios:
+    resource: "@BackendBundle/Resources/config/routing/usuario.yml"
+    prefix:   /admin/usuarios
+
 BackendBundle_admin:
         resource: "@BackendBundle/Resources/config/routing/menus.yml"
         prefix:   /admin/menus

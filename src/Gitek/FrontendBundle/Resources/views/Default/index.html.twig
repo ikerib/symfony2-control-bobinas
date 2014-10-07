@@ -1,1 +1,36 @@
 {% extends '::base.html.twig' %}
+
+{% block title %}Selección de Usuario{% endblock %}
+
+{% block headertitulo %}Selección de Usuario{% endblock %}
+
+{% block body -%}
+    {% if error %}<div>{{ error }}</div>{% endif %}
+    <div class="row">
+        {% for usuario in usuarios %}
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>&nbsp;</h3>
+                        <p>
+                            {{ usuario.nombre }}
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <img src="{{ vich_uploader_asset(usuario, 'avatar') | imagine_filter('my_thumb') }}"/>
+                    </div>
+                    <a href="#" class="small-box-footer login" data-userid="{{ usuario.id }}">
+                        Seleccionar <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style="display: none;">
+        <form id="frmlogin" action="{{ path('login_check') }}" method="post">
+            <input id="userid" type="text" name="userid"/>
+        </form>
+    </div>
+
+{% endblock %}

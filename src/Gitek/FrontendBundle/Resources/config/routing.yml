@@ -1,3 +1,20 @@
 frontend_homepage:
     path:     /
-    defaults: { _controller: FrontendBundle:Default:index }
+    defaults: { _controller: FrontendBundle:Default:login }
+
+login:
+    path: /login
+    defaults: { _controller: FrontendBundle:Default:login}
+
+login_check:
+    path: /logincheck
+    defaults: { _controller: FrontendBundle:Default:logincheck}
+    requirements: { _method: post }
+
+logout:
+    path: /logout
+    defaults: { _controller: FrontendBundle:Default:logout}
+
+dashboard:
+    path: /dashboard
+    defaults: { _controller: FrontendBundle:Default:dashboard}

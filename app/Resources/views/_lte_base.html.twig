@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
     <head>
+        <meta lang="eu"/>
         <meta charset="UTF-8" />
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <title>{% block title %}Admin Generator{% endblock %}</title>
@@ -8,7 +9,7 @@
         {% block head_javascripts %}{% endblock %}
 
     </head>
-    <body class="skin-blue">
+    <body class="skin-blue" ng-controller="appController">
         {% block gorputza %}
             {% block header %}{% endblock %}
             {% block container %}{% endblock %}

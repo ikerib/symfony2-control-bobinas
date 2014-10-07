@@ -1,13 +1,13 @@
 /**
  * Created by ikerib on 07/10/14.
  */
-$(function() {
+var app = angular.module('app', ['ngRoute']);
 
-    $('.login').on('click', function(){
-        $miid = $(this).data('userid');
-        $('#userid').val($miid);
-        $('#userid').text($miid);
-        $('#frmlogin').submit();
-    });
+app.config(function ($routeProvider) {
+    $routeProvider
+
+        .when('/', {
+            controller: 'frontendController'
+        })
 
 });

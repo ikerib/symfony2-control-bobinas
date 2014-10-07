@@ -24,8 +24,7 @@
                     <th></th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
-                    <th>Admin</th>
-                    <th>Email</th>
+                    <th>Encargado</th>
                     <th>Imagen</th>
                 </tr>
             </thead>
@@ -49,8 +48,7 @@
                     </td>
                     <td>{{ entity.nombre }}</td>
                     <td>{{ entity.apellidos }}</td>
-                    <td>{{ entity.admin }}</td>
-                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.encargado }}</td>
                     <td><img src="{{ vich_uploader_asset(entity, 'avatar') | imagine_filter('my_thumb') }}"/></td>
                 </tr>
             {% endfor %}

@@ -40,11 +40,11 @@ class Usuario
     private $apellidos;
 
     /**
-     * @var string
+     * @var smallint
      *
-     * @ORM\Column(name="admin", type="smallint")
+     * @ORM\Column(name="encargado", type="smallint")
      */
-    private $admin;
+    private $encargado;
 
     /**
      * @var string
@@ -280,5 +280,28 @@ class Usuario
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set encargado
+     *
+     * @param integer $encargado
+     * @return Usuario
+     */
+    public function setEncargado($encargado)
+    {
+        $this->encargado = $encargado;
+
+        return $this;
+    }
+
+    /**
+     * Get encargado
+     *
+     * @return integer 
+     */
+    public function getEncargado()
+    {
+        return $this->encargado;
     }
 }

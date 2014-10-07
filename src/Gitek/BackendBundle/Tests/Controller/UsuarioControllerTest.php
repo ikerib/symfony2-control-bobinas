@@ -26,7 +26,7 @@ class UsuarioControllerTest extends WebTestCase
         $form = $crawler->selectButton('Crear')->form();
         $form['gitek_backendbundle_usuario[nombre]']  = 'Test';
         $form['gitek_backendbundle_usuario[apellidos]']  = 'Test';
-        $form['gitek_backendbundle_usuario[admin]']  = '0';
+        $form['gitek_backendbundle_usuario[encargado]']  = '0';
         $form['gitek_backendbundle_usuario[avatarImg]']->upload($photo);
 
         $crawler = $client->submit($form);
@@ -44,7 +44,7 @@ class UsuarioControllerTest extends WebTestCase
         $form = $crawler->selectButton('Grabar')->form();
         $form['gitek_backendbundle_usuario[nombre]']  = 'tesT';
         $form['gitek_backendbundle_usuario[apellidos]'] = '999';
-        $form['gitek_backendbundle_usuario[admin]']  = '0';
+        $form['gitek_backendbundle_usuario[encargado]']  = '0';
         $form['gitek_backendbundle_usuario[avatarImg]']->upload($photo);
 
         $crawler = $client->submit($form);

@@ -25,4 +25,15 @@ class ApiController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * @Rest\View
+     */
+    public function getOperacionAction($id)
+    {
+        $statusCode = 200;
+        $entity = array('operacion' => 'SMD CARA TOP');
+        $view = $this->view($entity, $statusCode);
+        return $this->handleView($view);
+    }
+
 }

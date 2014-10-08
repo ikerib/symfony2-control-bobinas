@@ -9,20 +9,35 @@
 {% block body -%}
 
   <div class="row">
-    <div class="col-md-6">
-      <!-- general form elements -->
-      <div class="box box-primary">
-        <div class="box-header">
-          <h3 class="box-title">Escanea Orden de Fabricación:</h3>
-        </div><!-- /.box-header -->
-        <!-- form start -->
-        <div class="box-body">
-          <input type="text" name="of" id="of"/>
-        </div><!-- /.box-body -->
 
-      </div><!-- /.box -->
-
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>
+            OF:{% verbatim %}{{ of.id }}{% endverbatim %}
+          </h3>
+          <p>
+            Leer Código de barras:&nbsp;&nbsp;<input type="text" name="of" id="of" ng-model="of.codbaroferta" ng-enter="leeof()" autoFocus>
+          </p>
+        </div>
+      </div>
     </div>
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>
+            Operación:{% verbatim %}{{ of.operacion }}{% endverbatim %}
+          </h3>
+          <p>
+            Leer Código de barras:&nbsp;&nbsp;<input type="text" name="operacion" id="operacion" ng-model="of.codbaroperacion" ng-enter="leoperacion()">
+          </p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 {% endblock %}

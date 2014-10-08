@@ -3,14 +3,22 @@
  */
 var myApp = angular.module('myApp',['ngRoute','ngResource']);
 
+var origin = document.location.origin;
+var folder = document.location.pathname.split('/')[1];
+var path = origin + "/" + folder + "/bundles/frontend/js/pages/";
+
 myApp.config(
     ['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode(true).hashPrefix('!');
+        //$locationProvider.html5Mode(true).hashPrefix('!');
+        $locationProvider.hashPrefix('!');
         $routeProvider
             .when("/", {
-                templateUrl: 'pages/material', // dummy example
                 controller: 'frontendController'
+            })
+            .when("/tabla",{
+                templateUrl: '/bundles/frontend/partials/tabla.html',
+                controller: 'tablaController'
             })
             .otherwise({redirectTo: '/home'});
     }
@@ -49,8 +57,7 @@ myApp.directive('autoFocus', function ($timeout) {
     };
 });
 
-
-myApp.controller('frontendController', ['$scope', '$http', function($scope, $http) {
+myApp.controller('frontendController', ['$scope', '$http','$location', function($scope, $http, $location) {
     $scope.of = {};
 
     $scope.leeof = function () {
@@ -70,7 +77,8 @@ myApp.controller('frontendController', ['$scope', '$http', function($scope, $htt
 
         $http.get('/api/v1/operacions/' + codbar).success(function(data) {
             $scope.of.operacion = data.operacion;
-            $('#operacion').focus();
+            $location.url('/tabla')
+
         });
 
     }
@@ -78,4 +86,8 @@ myApp.controller('frontendController', ['$scope', '$http', function($scope, $htt
 
 
 
+}]);
+
+myApp.controller('tablaController', ['$scope', '$http', function($scope, $http) {
+    $('#codbarcomponente').focus();
 }]);

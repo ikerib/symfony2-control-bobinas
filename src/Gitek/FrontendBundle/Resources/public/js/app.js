@@ -1,13 +1,30 @@
 /**
  * Created by ikerib on 07/10/14.
  */
-var app = angular.module('app', ['ngRoute']);
+var myApp = angular.module('myApp',['ngRoute','ngResource']);
 
-app.config(function ($routeProvider) {
-    $routeProvider
+myApp.config(
+    ['$routeProvider', '$locationProvider',
+    function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(true).hashPrefix('!');
+        $routeProvider
+            .when("/", {
+                templateUrl: 'pages/material', // dummy example
+                controller: 'frontendController'
+            })
+            .otherwise({redirectTo: '/home'});
+    }
+]);
 
-        .when('/', {
-            controller: 'frontendController'
-        })
+myApp.controller('frontendController', ['$scope', '$http', function($scope, $http) {
+    $scope.of = {};
 
-});
+    $scope.leeof = function (codbar) {
+
+        $http.get('of/' + codbar).success(function(data) {
+            $scope.of.id = data;
+        });
+
+    }
+
+}]);

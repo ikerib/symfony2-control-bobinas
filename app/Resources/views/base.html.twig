@@ -71,7 +71,6 @@
 
 {% block javascripts %}
     {% javascripts  '@BackendBundle/Resources/public/js/jquery-2.0.2.min.js'
-
         '@BackendBundle/Resources/public/js/jquery-ui-1.10.3.min.js'
         '@BackendBundle/Resources/public/js/bootstrap.3.0.3.min.js'
         '@BackendBundle/Resources/public/js/raphael.2.1.0.min.js'
@@ -85,12 +84,12 @@
         '@BackendBundle/Resources/public/js/plugins/datatables/jquery.dataTables.js'
         '@BackendBundle/Resources/public/js/plugins/datatables/dataTables.bootstrap.js'
         '@BackendBundle/Resources/public/js/plugins/daterangepicker/daterangepicker.js'
+        '@BackendBundle/Resources/public/js/AdminLTE/app.js'
         '@FrontendBundle/Resources/public/js/vendor/angular.min.js'
         '@FrontendBundle/Resources/public/js/vendor/angular-route.min.js'
-        '@FrontendBundle/Resources/public/js/frontend.js'
+        '@FrontendBundle/Resources/public/js/vendor/angular-resource.min.js'
         '@FrontendBundle/Resources/public/js/app.js'
-        '@FrontendBundle/Resources/public/js/controller/frontend.js'
-        '@BackendBundle/Resources/public/js/AdminLTE/app.js'
+        '@FrontendBundle/Resources/public/js/script.js'
             output='js/lte_backend.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}

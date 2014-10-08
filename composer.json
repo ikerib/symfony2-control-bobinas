@@ -25,7 +25,9 @@
         "phpunit/phpunit": "4.2.*",
         "raulfraile/ladybug-bundle": "~1.0",
         "friendsofsymfony/jsrouting-bundle": "@stable",
-        "vich/uploader-bundle": "~0.10.0"
+        "vich/uploader-bundle": "~0.10.0",
+        "friendsofsymfony/rest-bundle": "~1.4",
+        "jms/serializer-bundle": "~0.13"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

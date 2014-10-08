@@ -1,3 +1,5 @@
-api_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: ApiBundle:Default:index }
+api_getorden:
+    type: rest
+    prefix: /v1
+    resource: "Gitek\ApiBundle\Controller\ApiController"
+    name_prefix:  api_1_ # naming collision

@@ -3,8 +3,7 @@
  */
 var myApp = angular.module('myApp',['ngRoute','ngResource', 'datatables']);
 
-myApp.config(
-    ['$routeProvider', '$locationProvider',
+myApp.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
         //$locationProvider.html5Mode(false).hashPrefix('!');
 
@@ -52,8 +51,66 @@ myApp.directive('autoFocus', function ($timeout) {
     };
 });
 
-myApp.controller('frontendController', ['$scope', '$http','$location', function($scope, $http, $location) {
-    $scope.of = {};
+myApp.factory('ofertas', function () {
+    return {
+        of: "OF212042",
+        fetxa_fabricacion_inicio: "19/06/2014",
+        fetxa_fabricacion_fin: "17/07/2014",
+        cantidad_a_fabricar: 250,
+        articulo: "3CI0473010 blablabla",
+        operaciones: [
+            { operacion : [
+                {
+                    componente: "11RE050049 R 1206",
+                    posicion_feeder: "f38",
+                    posicion_msql: "R27 R49 R58",
+                    cantidad: 3.00,
+                    total: 750.50
+                },
+                {
+                    componente: "11BO090004 BO 1812",
+                    posicion_feeder: "f24",
+                    posicion_msql: "L3",
+                    cantidad: 1.00,
+                    total: 252.50
+                },
+                {
+                    componente: "11CC030025",
+                    posicion_feeder: "f46",
+                    posicion_msql: "C27 C33",
+                    cantidad: 2.00,
+                    total: 500.50
+                }
+            ]},
+            { operacion : [
+                {
+                    componente: "11RE050049 R 1206",
+                    posicion_feeder: "f38",
+                    posicion_msql: "R27 R49 R58",
+                    cantidad: 3.00,
+                    total: 750.50
+                },
+                {
+                    componente: "11BO090004 BO 1812",
+                    posicion_feeder: "f24",
+                    posicion_msql: "L3",
+                    cantidad: 1.00,
+                    total: 252.50
+                },
+                {
+                    componente: "11CC030025",
+                    posicion_feeder: "f46",
+                    posicion_msql: "C27 C33",
+                    cantidad: 2.00,
+                    total: 500.50
+                }
+            ]},
+        ],
+        finalizado: false
+    };
+});
+
+myApp.controller('frontendController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
     $scope.leeof = function () {
 
@@ -78,24 +135,27 @@ myApp.controller('frontendController', ['$scope', '$http','$location', function(
 
     }
 
+}]);
+
+myApp.controller('tablaController', ['$scope', '$http', '$location','DTOptionsBuilder', 'DTColumnBuilder', function($scope, Data, $http, $location, DTOptionsBuilder, DTColumnBuilder, $resource) {
+
+    $('#codbarcomponente').focus();
+console.log(Data.operaciones);
+    $scope.ofs = Data.operaciones[0];
+
+    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withBootstrap();
+
     $scope.leeComponente = function() {
 
-        //var t = $('#example2').DataTable();
+        var newof = {};
+        newof.componente="0000000";
+        newof.posicion_feeder="0000000";
+        newof.posicion_msl="0000000";
+        newof.cantidad="0000000";
+        newof.total="0000000";
 
-        //t.row.add( [
-        //    '11RE050049',
-        //    'f45',
-        //    'R27',
-        //    '3',
-        //    '122'
-        //] ).draw();
-
+        $scope.ofs.push(newof);
 
     }
 
-
-}]);
-
-myApp.controller('tablaController', ['$scope', '$http', function($scope, $http) {
-    $('#codbarcomponente').focus();
 }]);

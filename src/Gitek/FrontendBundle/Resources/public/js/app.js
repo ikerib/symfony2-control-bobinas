@@ -1,17 +1,13 @@
 /**
  * Created by ikerib on 07/10/14.
  */
-var myApp = angular.module('myApp',['ngRoute','ngResource']);
-
-var origin = document.location.origin;
-var folder = document.location.pathname.split('/')[1];
-var path = origin + "/" + folder + "/bundles/frontend/js/pages/";
+var myApp = angular.module('myApp',['ngRoute','ngResource', 'datatables']);
 
 myApp.config(
     ['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
-        //$locationProvider.html5Mode(true).hashPrefix('!');
-        $locationProvider.hashPrefix('!');
+        //$locationProvider.html5Mode(false).hashPrefix('!');
+
         $routeProvider
             .when("/", {
                 controller: 'frontendController'
@@ -19,8 +15,7 @@ myApp.config(
             .when("/tabla",{
                 templateUrl: '/bundles/frontend/partials/tabla.html',
                 controller: 'tablaController'
-            })
-            .otherwise({redirectTo: '/home'});
+            });
     }
 ]);
 
@@ -83,7 +78,20 @@ myApp.controller('frontendController', ['$scope', '$http','$location', function(
 
     }
 
+    $scope.leeComponente = function() {
 
+        //var t = $('#example2').DataTable();
+
+        //t.row.add( [
+        //    '11RE050049',
+        //    'f45',
+        //    'R27',
+        //    '3',
+        //    '122'
+        //] ).draw();
+
+
+    }
 
 
 }]);

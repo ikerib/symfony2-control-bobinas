@@ -51,8 +51,8 @@ myApp.directive('autoFocus', function ($timeout) {
     };
 });
 
-myApp.factory('ofertas', function () {
-    return {
+myApp.factory('OfertasService', function () {
+    var ordenes =[{
         of: "OF212042",
         fetxa_fabricacion_inicio: "19/06/2014",
         fetxa_fabricacion_fin: "17/07/2014",
@@ -107,7 +107,20 @@ myApp.factory('ofertas', function () {
             ]},
         ],
         finalizado: false
+    }];
+
+
+
+    return {
+        all: function() {
+            return ordenes;
+        },
+        first: function() {
+            return ordenes[0];
+        }
     };
+
+
 });
 
 myApp.controller('frontendController', ['$scope', '$http', '$location', function($scope, $http, $location) {
@@ -137,13 +150,17 @@ myApp.controller('frontendController', ['$scope', '$http', '$location', function
 
 }]);
 
-myApp.controller('tablaController', ['$scope', '$http', '$location','DTOptionsBuilder', 'DTColumnBuilder', function($scope, Data, $http, $location, DTOptionsBuilder, DTColumnBuilder, $resource) {
+myApp.controller('tablaController', ['$scope', 'OfertasService','$http', '$location','DTOptionsBuilder', 'DTColumnBuilder', function($scope, OfertasService, $http, $location, DTOptionsBuilder, DTColumnBuilder, $resource) {
 
     $('#codbarcomponente').focus();
-console.log(Data.operaciones);
-    $scope.ofs = Data.operaciones[0];
 
-    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withBootstrap();
+    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+        return OfertasService.first().operaciones[0].operacion;
+    }).withPaginationType('full_numbers');
+
+    //$scope.ofs = OfertasService.first().operaciones[0].operacion;
+
+    //$scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withBootstrap().withOption('responsive', true);
 
     $scope.leeComponente = function() {
 
@@ -155,6 +172,8 @@ console.log(Data.operaciones);
         newof.total="0000000";
 
         $scope.ofs.push(newof);
+        //$scope.dtOptions.reloadData();
+
 
     }
 

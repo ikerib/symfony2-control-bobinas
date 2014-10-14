@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-lg-12 col-xs-12">
-            Progreso
+            Progreso {{ ofs.length }} / 10
             <div class="progress xs progress-striped">
                 <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                     <span class="sr-only">40% Complete (success)</span>
@@ -28,24 +28,24 @@
                     <div id="example2_wrapper">
                         <table id="example2" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-bordered table-hover dataTable">
                         <!--<table id="example2" class="table table-bordered table-hover dataTable" aria-describedby="example2_info">-->
-                            <thead>
-                            <tr role="row">
-                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" >Componente</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion Feeder</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion MSL</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Cantidad</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Total</th></tr>
-                            </thead>
+                            <!--<thead>-->
+                            <!--<tr role="row">-->
+                                <!--<th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" >Componente</th>-->
+                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion Feeder</th>-->
+                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion MSL</th>-->
+                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Cantidad</th>-->
+                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Total</th></tr>-->
+                            <!--</thead>-->
 
-                            <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            <tr ng-repeat="of in ofs">
-                                <td>{{ of.componente }}</td>
-                                <td>{{ of.posicion_feeder }}</td>
-                                <td>{{ of.posicion_msl }}</td>
-                                <td>{{ of.cantidad }}</td>
-                                <td>{{ of.total }}</td>
-                            </tr>
-                            </tbody>
+                            <!--<tbody role="alert" aria-live="polite" aria-relevant="all">-->
+                            <!--<tr ng-repeat="of in ofs">-->
+                                <!--<td>{{ of.componente }}</td>-->
+                                <!--<td>{{ of.posicion_feeder }}</td>-->
+                                <!--<td>{{ of.posicion_msl }}</td>-->
+                                <!--<td>{{ of.cantidad }}</td>-->
+                                <!--<td>{{ of.total }}</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
                         </table>
                     </div>
                 </div>

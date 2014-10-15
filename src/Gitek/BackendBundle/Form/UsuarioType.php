@@ -25,6 +25,14 @@ class UsuarioType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             ))
+            ->add('admin', 'choice', array(
+                'choices' => array(
+                    0 => 'No',
+                    1 => 'Si'
+                ),
+                'expanded' => true,
+                'multiple' => false,
+            ))
             ->add('avatarImg', 'file', array(
                 'label' => 'Avatar:',
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',

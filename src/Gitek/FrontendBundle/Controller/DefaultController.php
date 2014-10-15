@@ -37,6 +37,7 @@ class DefaultController extends Controller
 
         $usuarios = $em->getRepository('BackendBundle:Usuario')->findAll();
 
+
         return $this->render('FrontendBundle:Default:index.html.twig', array(
             'usuarios' => $usuarios,
             'error' => $error
@@ -53,7 +54,13 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find $usuario entity.');
         }
 
-        $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_USER'));
+        if ( $usuario->getAdmin() == 1 ) {
+            $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_ADMIN'));
+        } else {
+            $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_USER'));
+        }
+
+
         $this->get('security.context')->setToken($token);
         $this->get('session')->set('_security_main',serialize($token));
         return $this->redirect($this->generateUrl('dashboard'));

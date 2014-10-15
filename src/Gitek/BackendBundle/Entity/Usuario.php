@@ -47,6 +47,13 @@ class Usuario
     private $encargado;
 
     /**
+     * @var smallint
+     *
+     * @ORM\Column(name="admin", type="smallint")
+     */
+    private $admin;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)

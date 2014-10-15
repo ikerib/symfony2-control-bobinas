@@ -11,6 +11,13 @@ use Gitek\BackendBundle\Form\MenusType;
 class MenusController extends Controller
 {
 
+    public function dahsboardAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('BackendBundle:Menus:dashboard.html.twig');
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();

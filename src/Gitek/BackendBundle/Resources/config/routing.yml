@@ -1,3 +1,7 @@
+backend_dashboard:
+    path:     /
+    defaults: { _controller: "BackendBundle:Menus:dashboard" }
+
 backend_admin_usuarios:
     resource: "@BackendBundle/Resources/config/routing/usuario.yml"
     prefix:   /usuarios

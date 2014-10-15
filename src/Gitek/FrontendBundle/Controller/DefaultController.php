@@ -68,6 +68,15 @@ class DefaultController extends Controller
         ));
     }
 
+    public function fase2Action() {
+
+        $usuario = $this->getUser();
+
+        return $this->render('FrontendBundle:Default:fase2.html.twig', array(
+            'usuario' => $usuario
+        ));
+    }
+
     public function logoutAction(){
         $this->get("request")->getSession()->invalidate();
         $this->get("security.context")->setToken(null);

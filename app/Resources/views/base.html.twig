@@ -5,12 +5,13 @@
     {% stylesheets  '@BackendBundle/Resources/public/css/bootstrap.css'
         '@BackendBundle/Resources/public/css/morris/morris.css'
         '@BackendBundle/Resources/public/css/jvectormap/jquery-jvectormap-1.2.2.css'
-        '@BackendBundle/Resources/public/css/datatables/dataTables.bootstrap.css'
         '@BackendBundle/Resources/public/css/daterangepicker/daterangepicker-bs3.css'
         '@BackendBundle/Resources/public/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
         '@BackendBundle/Resources/public/fancybox/jquery.fancybox.css'
         '@BackendBundle/Resources/public/css/AdminLTE.css'
         '@BackendBundle/Resources/public/css/estiloa.css'
+        '@FrontendBundle/Resources/public/css/vendor/ng-table.min.css'
+        '@FrontendBundle/Resources/public/css/vendor/dialogs.min.css'
             output='css/lte_backend.css' filter='cssrewrite' %}
         <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
     {% endstylesheets %}
@@ -83,12 +84,21 @@
         '@BackendBundle/Resources/public/js/plugins/iCheck/icheck.min.js'
         '@BackendBundle/Resources/public/js/plugins/daterangepicker/daterangepicker.js'
         '@BackendBundle/Resources/public/js/AdminLTE/app.js'
-        '@FrontendBundle/Resources/public/js/vendor/jquery.dataTables.min.js'
+
         '@FrontendBundle/Resources/public/js/vendor/angular.min.js'
         '@FrontendBundle/Resources/public/js/vendor/angular-route.min.js'
-        '@FrontendBundle/Resources/public/js/vendor/angular-datatables.min.js'
         '@FrontendBundle/Resources/public/js/vendor/angular-resource.min.js'
+        '@FrontendBundle/Resources/public/js/vendor/angular-sanitize.min.js'
+        '@FrontendBundle/Resources/public/js/vendor/angular-translate.min.js'
+        '@FrontendBundle/Resources/public/js/vendor/ui-bootstrap-tpls-0.11.2.min.js'
+        '@FrontendBundle/Resources/public/js/vendor/dialogs-default-translations.min.js'
+        '@FrontendBundle/Resources/public/js/vendor/dialogs.min.js'
+        '@FrontendBundle/Resources/public/js/vendor/ng-table.min.js'
         '@FrontendBundle/Resources/public/js/app.js'
+        '@FrontendBundle/Resources/public/js/controller/frontend.js'
+        '@FrontendBundle/Resources/public/js/controller/tabla.js'
+        '@FrontendBundle/Resources/public/js/controller/serigrafia.js'
+
         '@FrontendBundle/Resources/public/js/script.js'
             output='js/lte_backend.js' filter='?yui_js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>

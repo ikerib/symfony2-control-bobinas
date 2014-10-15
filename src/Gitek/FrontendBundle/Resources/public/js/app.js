@@ -1,7 +1,7 @@
 /**
  * Created by ikerib on 07/10/14.
  */
-var myApp = angular.module('myApp',['ngRoute','ngResource', 'datatables']);
+var myApp = angular.module('myApp',['ngRoute','ngResource', 'ngTable','ui.bootstrap', 'dialogs.main','pascalprecht.translate','dialogs.default-translations'])
 
 myApp.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
@@ -14,6 +14,10 @@ myApp.config(['$routeProvider', '$locationProvider',
             .when("/tabla",{
                 templateUrl: '/bundles/frontend/partials/tabla.html',
                 controller: 'tablaController'
+            })
+            .when("/serigrafia",{
+                templateUrl: '/bundles/frontend/partials/serigrafia.html',
+                controller: 'serigrafiaController'
             });
     }
 ]);
@@ -59,7 +63,8 @@ myApp.factory('OfertasService', function () {
         cantidad_a_fabricar: 250,
         articulo: "3CI0473010 blablabla",
         operaciones: [
-            { operacion : [
+            { operacion : 'blablabla',
+                materiales:[
                 {
                     componente: "11RE050049 R 1206",
                     posicion_feeder: "f38",
@@ -82,7 +87,8 @@ myApp.factory('OfertasService', function () {
                     total: 500.50
                 }
             ]},
-            { operacion : [
+            { operacion : 'blebleble',
+                materiales:[
                 {
                     componente: "11RE050049 R 1206",
                     posicion_feeder: "f38",
@@ -109,8 +115,6 @@ myApp.factory('OfertasService', function () {
         finalizado: false
     }];
 
-
-
     return {
         all: function() {
             return ordenes;
@@ -119,62 +123,31 @@ myApp.factory('OfertasService', function () {
             return ordenes[0];
         }
     };
-
-
 });
 
-myApp.controller('frontendController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+myApp.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$translateProvider){
+    dialogsProvider.useBackdrop('static');
+    dialogsProvider.useEscClose(false);
+    dialogsProvider.useCopy(false);
+    dialogsProvider.setSize('sm');
 
-    $scope.leeof = function () {
+    $translateProvider.translations('es',{
+        DIALOGS_ERROR: "Error",
+        DIALOGS_ERROR_MSG: "Se ha producido un error desconocido.",
+        DIALOGS_CLOSE: "Cerca",
+        DIALOGS_PLEASE_WAIT: "Espere por favor",
+        DIALOGS_PLEASE_WAIT_ELIPS: "Espere por favor...",
+        DIALOGS_PLEASE_WAIT_MSG: "Esperando en la operacion para completar.",
+        DIALOGS_PERCENT_COMPLETE: "% Completado",
+        DIALOGS_NOTIFICATION: "Notificacion",
+        DIALOGS_NOTIFICATION_MSG: "Notificacion de aplicacion Desconocido.",
+        DIALOGS_CONFIRMATION: "Confirmacion",
+        DIALOGS_CONFIRMATION_MSG: "Se requiere confirmacion.",
+        DIALOGS_OK: "Bueno",
+        DIALOGS_YES: "Si",
+        DIALOGS_NO: "No"
+    });
 
-        var codbar = $scope.of.codbaroferta;
+    $translateProvider.preferredLanguage('us-US');
+}])
 
-        $http.get('/api/v1/ordens/' + codbar).success(function(data) {
-            $scope.of.id = data.id;
-            $('#operacion').focus();
-        });
-
-    }
-
-    $scope.leoperacion = function () {
-
-        var codbar = $scope.of.codbaroperacion;
-
-        $http.get('/api/v1/operacions/' + codbar).success(function(data) {
-            $scope.of.operacion = data.operacion;
-            $location.url('/tabla')
-
-        });
-
-    }
-
-}]);
-
-myApp.controller('tablaController', ['$scope', 'OfertasService','$http', '$location','DTOptionsBuilder', 'DTColumnBuilder', function($scope, OfertasService, $http, $location, DTOptionsBuilder, DTColumnBuilder, $resource) {
-
-    $('#codbarcomponente').focus();
-
-    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-        return OfertasService.first().operaciones[0].operacion;
-    }).withPaginationType('full_numbers');
-
-    //$scope.ofs = OfertasService.first().operaciones[0].operacion;
-
-    //$scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withBootstrap().withOption('responsive', true);
-
-    $scope.leeComponente = function() {
-
-        var newof = {};
-        newof.componente="0000000";
-        newof.posicion_feeder="0000000";
-        newof.posicion_msl="0000000";
-        newof.cantidad="0000000";
-        newof.total="0000000";
-
-        $scope.ofs.push(newof);
-        //$scope.dtOptions.reloadData();
-
-
-    }
-
-}]);

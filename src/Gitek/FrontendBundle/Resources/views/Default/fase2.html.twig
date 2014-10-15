@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu_user.html.twig' with {'option': 'dashboard'} %}{% endblock %}
+
+{% block headertitulo %}Inicio{% endblock %}
+
+{% block body -%}
+
+  <div class="row">
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>
+            OF:{% verbatim %}{{ of.id }}{% endverbatim %}
+          </h3>
+          <p>
+            {#Leer Código de barras:&nbsp;&nbsp;<input type="text" name="of" id="of" ng-model="of.codbaroferta" ng-enter="leeof()" autoFocus>#}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>
+            Operación:{% verbatim %}{{ of.operacion }}{% endverbatim %}
+          </h3>
+          <p>
+            {#Leer Código de barras:&nbsp;&nbsp;<input type="text" name="operacion" id="operacion" ng-model="of.codbaroperacion" ng-enter="leoperacion()">#}
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div ng-view></div>
+
+
+{% endblock %}

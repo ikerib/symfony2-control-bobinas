@@ -26,26 +26,28 @@
                 </div>
                 <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
                     <div id="example2_wrapper">
-                        <table id="example2" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-bordered table-hover dataTable">
-                        <!--<table id="example2" class="table table-bordered table-hover dataTable" aria-describedby="example2_info">-->
-                            <!--<thead>-->
-                            <!--<tr role="row">-->
-                                <!--<th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" >Componente</th>-->
-                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion Feeder</th>-->
-                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion MSL</th>-->
-                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Cantidad</th>-->
-                                <!--<th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Total</th></tr>-->
-                            <!--</thead>-->
+                        <table id="example2" class="table table-bordered table-hover dataTable" aria-describedby="example2_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" >Componente</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion Feeder</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Posicion MSL</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Cantidad</th>
+                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >Total</th>
+                                <th> &nbsp; </th>
+                            </tr>
+                            </thead>
 
-                            <!--<tbody role="alert" aria-live="polite" aria-relevant="all">-->
-                            <!--<tr ng-repeat="of in ofs">-->
-                                <!--<td>{{ of.componente }}</td>-->
-                                <!--<td>{{ of.posicion_feeder }}</td>-->
-                                <!--<td>{{ of.posicion_msl }}</td>-->
-                                <!--<td>{{ of.cantidad }}</td>-->
-                                <!--<td>{{ of.total }}</td>-->
-                            <!--</tr>-->
-                            <!--</tbody>-->
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            <tr ng-repeat="of in ofs" ng-class="{'active': of.$selected}">>
+                                <td>{{ of.componente }}</td>
+                                <td>{{ of.posicion_feeder }}</td>
+                                <td>{{ of.posicion_msl }}</td>
+                                <td>{{ of.cantidad }}</td>
+                                <td>{{ of.total }}</td>
+                                <td><button class="btn btn-sm btn-danger" ng-click="removeMaterial($index)"><i class="fa fa-trash-o"></i></button></td>
+                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -53,15 +55,4 @@
 
         </div>
     </div>
-</div><script type="text/javascript">
-    $(function() {
-
-//        $('#example2').dataTable({
-//            "bLengthChange": false,
-//            "bFilter": false,
-//            "bSort": true,
-//            "bInfo": true,
-//            "bAutoWidth": false
-//        });
-    });
-</script>
+</div>

@@ -1,7 +1,8 @@
 /**
  * Created by ikerib on 07/10/14.
  */
-var myApp = angular.module('myApp',['ngRoute','ngResource', 'ngTable','ui.bootstrap', 'dialogs.main','pascalprecht.translate','dialogs.default-translations'])
+var myApp = angular.module('myApp',['ngRoute','ngResource', 'ngTable','ngAnimate', 'toasty',
+    'ui.bootstrap', 'dialogs.main','pascalprecht.translate','dialogs.default-translations'])
 
 myApp.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {

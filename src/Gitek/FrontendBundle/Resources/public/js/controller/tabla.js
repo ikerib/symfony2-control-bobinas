@@ -1,7 +1,7 @@
 /**
  * Created by ikerib on 15/10/14.
  */
-myApp.controller('tablaController', function($scope, OfertasService, $http, $location, $window, $resource, $timeout, dialogs){
+myApp.controller('tablaController', function($scope, OfertasService,toasty, $http, $location, $window, $resource, $timeout, dialogs){
 
     $('#codbarcomponente').focus();
 
@@ -21,6 +21,30 @@ myApp.controller('tablaController', function($scope, OfertasService, $http, $loc
         // API.PostOf({ newof }, function (success) {
         $scope.ofs.push(newof);
         $scope.codbarcomponente="";
+
+
+        toasty.pop.success({
+            title: "Correcto!",
+            msg: 'Añadido correctamente.',
+            timeout: 5000,
+            showClose: true,
+            myData: 'Testing 1 2 3', // Strings, integers, objects etc.
+            onClick: function (toasty) {
+                //toasty.title = 'Well done!';
+                //toasty.msg = 'Closing in 5 seconds.';
+                //toasty.timeout = 5000;
+                //console.log(toasty.myData);
+                toasty.remove();
+                //toasty.removeAll();
+            },
+            onAdd: function (toasty) {
+                console.log(toasty.id + ' has been added!');
+            },
+            onRemove: function (toasty) {
+                console.log(toasty.id + ' has been removed!');
+            }
+        });
+
         if ( $scope.ofs.length > 9 ) {
 
             var dlg = dialogs.confirm("Confirmacioón","Has completado la fase 1. ¿Pasamos a la fase2?");

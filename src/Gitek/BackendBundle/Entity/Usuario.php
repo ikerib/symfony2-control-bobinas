@@ -35,6 +35,13 @@ class Usuario
     /**
      * @var string
      *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="apellidos", type="string", length=255)
      */
     private $apellidos;
@@ -310,5 +317,28 @@ class Usuario
     public function getEncargado()
     {
         return $this->encargado;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Usuario
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

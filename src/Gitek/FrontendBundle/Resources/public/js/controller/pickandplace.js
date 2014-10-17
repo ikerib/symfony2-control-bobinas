@@ -1,14 +1,15 @@
 /**
- * Created by ikerib on 15/10/14.
+ * Created by ikerib on 16/10/14.
  */
-myApp.controller('serigrafiaController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs){
+
+myApp.controller('pickandplaceController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs){
 
     $scope.mostrarpregunta = true;
     $scope.mostrarencargado = false;
     $scope.mostrarencargadopasswd = false;
     $scope.serigrafiaValidado = false;
 
-    $scope.validarserigrafia = function() {
+    $scope.validarpickandplace = function() {
         $scope.mostrarpregunta = false;
         $scope.mostrarencargado = true;
         $scope.mostrarencargadopasswd = false;
@@ -43,7 +44,7 @@ myApp.controller('serigrafiaController', function($scope, OfertasService, toasty
 
     $scope.verificarSerigrafia = function() {
         console.log("hemen!");
-        $location.path('pickandplace');
+        $location.path('horno');
 
     }
 

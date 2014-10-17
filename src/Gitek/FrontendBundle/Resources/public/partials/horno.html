@@ -1,5 +1,5 @@
 
-<div ng-controller="serigrafiaController">
+<div ng-controller="hornoController">
 
     <div class="row">
         <div class="col-md-2">
@@ -8,13 +8,13 @@
             <div class="box box-info">
                 <div class="box-header">
                     <i class="fa fa-bullhorn"></i>
-                    <h3 class="box-title">Control serigrafía</h3>
+                    <h3 class="box-title">Verificación Pick & Place</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="callout callout-info" ng-show="mostrarpregunta">
-                        <h4>¿Esta la serigrafía correcta?</h4>
-                        <button ng-click="validarserigrafia()" class="btn btn-success btn-lg">Si</button>
+                        <h4>¿Esta la pick&place correcto?</h4>
+                        <button ng-click="validarpickandplace()" class="btn btn-success btn-lg">Si</button>
                         <button class="btn btn-danger btn-lg">No</button>
                     </div>
 
@@ -26,7 +26,8 @@
                     </div>
 
                     <div class="callout callout-warning" ng-show="mostrarencargadopasswd">
-                        <input type="text" id="passwd" ng-enter="verificarSerigrafia()" ng-model="passwd" class="form-control input-sm pull-left" style="width: 150px;" />
+                        <p>Introduce el codigo:</p>
+                        <input type="text" id="passwd" ng-enter="verificarSerigrafia()" ng-model="passwd" style="width: 150px;" />
                     </div>
 
 

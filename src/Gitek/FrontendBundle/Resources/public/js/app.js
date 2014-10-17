@@ -19,6 +19,14 @@ myApp.config(['$routeProvider', '$locationProvider',
             .when("/serigrafia",{
                 templateUrl: '/bundles/frontend/partials/serigrafia.html',
                 controller: 'serigrafiaController'
+            })
+            .when("/pickandplace",{
+                templateUrl: '/bundles/frontend/partials/pickandplace.html',
+                controller: 'pickandplaceController'
+            })
+            .when("/horno",{
+                templateUrl: '/bundles/frontend/partials/horno.html',
+                controller: 'hornoController'
             });
     }
 ]);

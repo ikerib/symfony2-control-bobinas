@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Checksiplace</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Pregunta</th>
+                <td>{{ entity.pregunta }}</td>
+            </tr>
+            <tr>
+                <th>Mostrar</th>
+                <td>{{ entity.mostrar }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('checksiplace') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('checksiplace_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

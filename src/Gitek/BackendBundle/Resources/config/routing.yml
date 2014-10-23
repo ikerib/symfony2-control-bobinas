@@ -1,6 +1,14 @@
+backend_admin_validacion_pickplace:
+    resource: "@BackendBundle/Resources/config/routing/validacionpickplace.yml"
+    prefix:   /admin/validacion/pickplace
+
 backend_dashboard:
     path:     /
     defaults: { _controller: "BackendBundle:Menus:dashboard" }
+
+backend_admin_validacion_serigrafia:
+    resource: "@BackendBundle/Resources/config/routing/validacionserigrafia.yml"
+    prefix:   /validacion/serigrafia
 
 backend_admin_usuarios:
     resource: "@BackendBundle/Resources/config/routing/usuario.yml"

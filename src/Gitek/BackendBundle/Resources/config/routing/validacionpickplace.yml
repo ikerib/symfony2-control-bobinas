@@ -1,0 +1,26 @@
+admin_validacion_pickplace:
+    path:     /
+    defaults: { _controller: "BackendBundle:ValidacionPickPlace:index" }
+
+admin_validacion_pickplace_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:ValidacionPickPlace:new" }
+
+admin_validacion_pickplace_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:ValidacionPickPlace:create" }
+    requirements: { _method: post }
+
+admin_validacion_pickplace_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:ValidacionPickPlace:edit" }
+
+admin_validacion_pickplace_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:ValidacionPickPlace:update" }
+    requirements: { _method: post|put }
+
+admin_validacion_pickplace_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:ValidacionPickPlace:delete" }
+    requirements: { _method: post|delete }

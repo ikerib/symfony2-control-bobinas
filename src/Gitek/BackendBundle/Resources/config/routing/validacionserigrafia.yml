@@ -1,0 +1,30 @@
+admin_validacion_serigrafia:
+    path:     /
+    defaults: { _controller: "BackendBundle:ValidacionSerigrafia:index" }
+
+admin_validacion_serigrafia_show:
+    path:     /{id}/show
+    defaults: { _controller: "BackendBundle:ValidacionSerigrafia:show" }
+
+admin_validacion_serigrafia_new:
+    path:     /new
+    defaults: { _controller: "BackendBundle:ValidacionSerigrafia:new" }
+
+admin_validacion_serigrafia_create:
+    path:     /create
+    defaults: { _controller: "BackendBundle:ValidacionSerigrafia:create" }
+    requirements: { _method: post }
+
+admin_validacion_serigrafia_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BackendBundle:ValidacionSerigrafia:edit" }
+
+admin_validacion_serigrafia_update:
+    path:     /{id}/update
+    defaults: { _controller: "BackendBundle:ValidacionSerigrafia:update" }
+    requirements: { _method: post|put }
+
+admin_validacion_serigrafia_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BackendBundle:ValidacionSerigrafia:delete" }
+    requirements: { _method: post|delete }

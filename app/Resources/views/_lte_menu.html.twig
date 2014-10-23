@@ -50,4 +50,28 @@
         </ul>
     </li>
 
+    <li class="treeview {% if option is defined and (option == 'ValidacionSerigrafia' or option == 'ValidacionSerigrafia_new' or option == 'ValidacionSerigrafia_edit') %}active{% endif %}">
+        <a href="#">
+            <i class="fa fa-gavel"></i>
+            <span>Validación Serigrafia</span>
+            <i class="fa pull-right fa-angle-right"></i>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+            <li {% if option is defined and option == 'ValidacionSerigrafia' %}class="active"{% endif %}><a href="{{ path('admin_validacion_serigrafia') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>
+            <li {% if option is defined and option == 'ValidacionSerigrafia_new' %}class="active"{% endif %}><a href="{{ path('admin_validacion_serigrafia_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>
+        </ul>
+    </li>
+
+    <li class="treeview {% if option is defined and (option == 'ValidacionPickPlace' or option == 'ValidacionPickPlace_new' or option == 'ValidacionPickPlace_edit') %}active{% endif %}">
+        <a href="#">
+            <i class="fa fa-gavel"></i>
+            <span>Validación Pick & Place</span>
+            <i class="fa pull-right fa-angle-right"></i>
+        </a>
+        <ul class="treeview-menu" style="display: none;">
+            <li {% if option is defined and option == 'ValidacionPickPlace' %}class="active"{% endif %}><a href="{{ path('admin_validacion_pickplace') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>
+            <li {% if option is defined and option == 'ValidacionPickPlace_new' %}class="active"{% endif %}><a href="{{ path('admin_validacion_pickplace_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>
+        </ul>
+    </li>
+
 {% endblock %}

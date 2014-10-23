@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Checksiplace list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pregunta</th>
+                <th>Mostrar</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('checksiplace_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.pregunta }}</td>
+                <td>{{ entity.mostrar }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('checksiplace_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('checksiplace_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('checksiplace_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

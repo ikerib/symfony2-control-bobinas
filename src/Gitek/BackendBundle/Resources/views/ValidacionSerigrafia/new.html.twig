@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Mantenimiento de Validación de Serigrafia{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu.html.twig' with {'option': 'ValidacionSerigrafia_new'} %}{% endblock %}
+
+{% block headertitulo %}Mantenimiento de Validación de Serigrafia{% endblock %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ path('admin_validacion_serigrafia_create') }}" method="post" {{ form_enctype(form) }}>
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            {{ form_label(form.pregunta,'Pregunta: ' | trans) }}
+                            {{ form_errors(form.pregunta) }}
+                            {{ form_widget(form.pregunta,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.mostrar,'Mostrar: ' | trans) }}
+                            {{ form_errors(form.mostrar) }}
+                            {{ form_widget(form.mostrar,{ 'attr': {'class': 'form-control' }}) }}
+                        </div>
+
+                        <div style="display: none">
+                            {{ form_rest(form) }}
+                        </div>
+
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

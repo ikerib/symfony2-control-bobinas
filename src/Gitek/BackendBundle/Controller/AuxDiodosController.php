@@ -24,9 +24,11 @@ class AuxDiodosController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BackendBundle:AuxDiodos')->findAll();
+        $usuario = $this->getUser();
 
         return $this->render('BackendBundle:AuxDiodos:index.html.twig', array(
             'entities' => $entities,
+            'usuario'       => $usuario,
         ));
     }
     /**
@@ -36,6 +38,7 @@ class AuxDiodosController extends Controller
     public function createAction(Request $request)
     {
         $entity = new AuxDiodos();
+        $usuario = $this->getUser();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -49,6 +52,7 @@ class AuxDiodosController extends Controller
 
         return $this->render('BackendBundle:AuxDiodos:new.html.twig', array(
             'entity' => $entity,
+            'usuario'       => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -79,10 +83,12 @@ class AuxDiodosController extends Controller
     public function newAction()
     {
         $entity = new AuxDiodos();
+        $usuario = $this->getUser();
         $form   = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:AuxDiodos:new.html.twig', array(
             'entity' => $entity,
+            'usuario'       => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -96,6 +102,7 @@ class AuxDiodosController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:AuxDiodos')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find AuxDiodos entity.');
@@ -106,6 +113,7 @@ class AuxDiodosController extends Controller
 
         return $this->render('BackendBundle:AuxDiodos:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario'       => $usuario,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -138,6 +146,7 @@ class AuxDiodosController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:AuxDiodos')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find AuxDiodos entity.');
@@ -155,6 +164,7 @@ class AuxDiodosController extends Controller
 
         return $this->render('BackendBundle:AuxDiodos:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario'       => $usuario,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

@@ -22,11 +22,12 @@ class AuxSiplaceController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $usuario = $this->getUser();
         $entities = $em->getRepository('BackendBundle:AuxSiplace')->findAll();
 
         return $this->render('BackendBundle:AuxSiplace:index.html.twig', array(
             'entities' => $entities,
+            'usuario' => $usuario
         ));
     }
     /**
@@ -36,6 +37,8 @@ class AuxSiplaceController extends Controller
     public function createAction(Request $request)
     {
         $entity = new AuxSiplace();
+
+        $usuario = $this->getUser();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -49,6 +52,7 @@ class AuxSiplaceController extends Controller
 
         return $this->render('BackendBundle:AuxSiplace:new.html.twig', array(
             'entity' => $entity,
+            'usuario' => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -79,10 +83,12 @@ class AuxSiplaceController extends Controller
     public function newAction()
     {
         $entity = new AuxSiplace();
+        $usuario = $this->getUser();
         $form   = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:AuxSiplace:new.html.twig', array(
             'entity' => $entity,
+            'usuario' => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -96,7 +102,7 @@ class AuxSiplaceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:AuxSiplace')->find($id);
-
+        $usuario = $this->getUser();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find AuxSiplace entity.');
         }
@@ -106,6 +112,7 @@ class AuxSiplaceController extends Controller
 
         return $this->render('BackendBundle:AuxSiplace:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario'       => $usuario,
             'form'        => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -138,6 +145,7 @@ class AuxSiplaceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:AuxSiplace')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find AuxSiplace entity.');
@@ -155,6 +163,7 @@ class AuxSiplaceController extends Controller
 
         return $this->render('BackendBundle:AuxSiplace:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario'       => $usuario,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

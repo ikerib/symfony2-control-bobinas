@@ -16,7 +16,7 @@ logout:
     defaults: { _controller: FrontendBundle:Default:logout}
 
 dashboard:
-    path: /dashboard
+    path: /dashboard/
     defaults: { _controller: FrontendBundle:Default:dashboard}
 
 fase2:

@@ -3,7 +3,7 @@ backend_admin_validacion_pickplace:
     prefix:   /admin/validacion/pickplace
 
 backend_dashboard:
-    path:     /dashboard
+    path:     /dashboard/
     defaults: { _controller: "BackendBundle:Menus:dashboard" }
 
 backend_admin_validacion_serigrafia:

@@ -44,6 +44,7 @@ myApp.controller('pickandplaceController', function($scope, OfertasService, toas
 
     $scope.verificarSerigrafia = function() {
         console.log("hemen!");
+        menufactory.setNumber(4);
         $location.path('horno');
 
     }

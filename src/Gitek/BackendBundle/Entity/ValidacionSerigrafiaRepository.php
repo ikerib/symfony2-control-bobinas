@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class ValidacionSerigrafiaRepository extends EntityRepository
 {
+    public function findSerigrafiaVisible()
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT v
+                    FROM BackendBundle:ValidacionSerigrafia v
+                    WHERE v.mostrar = :mostrar";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('mostrar', 1);
+//        print_r($consulta->getSQL());
+        return $consulta->getResult();
+    }
 }

@@ -25,15 +25,18 @@ class MenusController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BackendBundle:Menus')->findAll();
+        $usuario = $this->getUser();
 
         return $this->render('BackendBundle:Menus:index.html.twig', array(
             'entities' => $entities,
+            'usuario' => $usuario
         ));
     }
 
     public function createAction(Request $request)
     {
         $entity = new Menus();
+        $usuario = $this->getUser();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -47,6 +50,7 @@ class MenusController extends Controller
 
         return $this->render('BackendBundle:Menus:new.html.twig', array(
             'entity' => $entity,
+            'usuario' => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -73,10 +77,12 @@ class MenusController extends Controller
     public function newAction()
     {
         $entity = new Menus();
+        $usuario = $this->getUser();
         $form   = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:Menus:new.html.twig', array(
             'entity' => $entity,
+            'usuario' => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -86,6 +92,7 @@ class MenusController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Menus')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Menus entity.');
@@ -95,6 +102,7 @@ class MenusController extends Controller
 
         return $this->render('BackendBundle:Menus:show.html.twig', array(
             'entity'      => $entity,
+            'usuario' => $usuario,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -104,6 +112,7 @@ class MenusController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Menus')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Menus entity.');
@@ -114,6 +123,7 @@ class MenusController extends Controller
 
         return $this->render('BackendBundle:Menus:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario' => $usuario,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -143,6 +153,7 @@ class MenusController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Menus')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Menus entity.');
@@ -160,6 +171,7 @@ class MenusController extends Controller
 
         return $this->render('BackendBundle:Menus:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario' => $usuario,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

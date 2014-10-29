@@ -8,6 +8,13 @@ myApp.controller('serigrafiaController', function($scope, OfertasService, toasty
     $scope.mostrarencargadopasswd = false;
     $scope.serigrafiaValidado = false;
 
+    
+    $http.get('/api/v1/serigrafia').success(function(data) {
+        $scope.galderak = data;
+    }).error(function () { 
+        $scope.galderak="";
+    });
+
     $scope.validarserigrafia = function() {
         $scope.mostrarpregunta = false;
         $scope.mostrarencargado = true;
@@ -43,6 +50,7 @@ myApp.controller('serigrafiaController', function($scope, OfertasService, toasty
 
     $scope.verificarSerigrafia = function() {
         console.log("hemen!");
+        menufactory.setNumber(3);
         $location.path('pickandplace');
 
     }

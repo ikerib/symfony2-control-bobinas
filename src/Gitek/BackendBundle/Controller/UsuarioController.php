@@ -24,9 +24,11 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BackendBundle:Usuario')->findAll();
+        $usuario = $this->getUser();
 
         return $this->render('BackendBundle:Usuario:index.html.twig', array(
             'entities' => $entities,
+            'usuario' => $usuario,
         ));
     }
     /**
@@ -36,6 +38,7 @@ class UsuarioController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Usuario();
+        $usuario = $this->getUser();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -49,6 +52,7 @@ class UsuarioController extends Controller
 
         return $this->render('BackendBundle:Usuario:new.html.twig', array(
             'entity' => $entity,
+            'usuario' => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -79,10 +83,12 @@ class UsuarioController extends Controller
     public function newAction()
     {
         $entity = new Usuario();
+        $usuario = $this->getUser();
         $form   = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:Usuario:new.html.twig', array(
             'entity' => $entity,
+            'usuario' => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -96,6 +102,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Usuario')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Usuario entity.');
@@ -106,6 +113,7 @@ class UsuarioController extends Controller
 
         return $this->render('BackendBundle:Usuario:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario' => $usuario,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -138,6 +146,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:Usuario')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Usuario entity.');
@@ -156,6 +165,7 @@ class UsuarioController extends Controller
 
         return $this->render('BackendBundle:Usuario:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario' => $usuario,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

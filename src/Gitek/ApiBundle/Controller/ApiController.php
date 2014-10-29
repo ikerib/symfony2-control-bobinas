@@ -11,6 +11,7 @@ use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use Gitek\BackendBundle\Entity\ValidacionSerigrafia;
 
 class ApiController extends FOSRestController
 {
@@ -33,6 +34,19 @@ class ApiController extends FOSRestController
         $statusCode = 200;
         $entity = array('operacion' => 'SMD CARA TOP');
         $view = $this->view($entity, $statusCode);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function  getSerigrafiaAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('BackendBundle:ValidacionSerigrafia')->findSerigrafiaVisible();
+        $statusCode = 200;
+        $view = $this->view($entities, $statusCode);
         return $this->handleView($view);
     }
 

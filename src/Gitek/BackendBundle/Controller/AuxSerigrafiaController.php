@@ -23,10 +23,12 @@ class AuxSerigrafiaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $usuario = $this->getUser();
         $entities = $em->getRepository('BackendBundle:AuxSerigrafia')->findAll();
 
         return $this->render('BackendBundle:AuxSerigrafia:index.html.twig', array(
             'entities' => $entities,
+            'usuario'       => $usuario,
         ));
     }
     /**
@@ -36,6 +38,8 @@ class AuxSerigrafiaController extends Controller
     public function createAction(Request $request)
     {
         $entity = new AuxSerigrafia();
+        $usuario = $this->getUser();
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -49,6 +53,7 @@ class AuxSerigrafiaController extends Controller
 
         return $this->render('BackendBundle:AuxSerigrafia:new.html.twig', array(
             'entity' => $entity,
+            'usuario'       => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -79,10 +84,12 @@ class AuxSerigrafiaController extends Controller
     public function newAction()
     {
         $entity = new AuxSerigrafia();
+        $usuario = $this->getUser();
         $form   = $this->createCreateForm($entity);
 
         return $this->render('BackendBundle:AuxSerigrafia:new.html.twig', array(
             'entity' => $entity,
+            'usuario'       => $usuario,
             'form'   => $form->createView(),
         ));
     }
@@ -96,6 +103,7 @@ class AuxSerigrafiaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:AuxSerigrafia')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find AuxSerigrafia entity.');
@@ -105,6 +113,7 @@ class AuxSerigrafiaController extends Controller
 
         return $this->render('BackendBundle:AuxSerigrafia:show.html.twig', array(
             'entity'      => $entity,
+            'usuario'       => $usuario,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -118,6 +127,7 @@ class AuxSerigrafiaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:AuxSerigrafia')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find AuxSerigrafia entity.');
@@ -128,6 +138,7 @@ class AuxSerigrafiaController extends Controller
 
         return $this->render('BackendBundle:AuxSerigrafia:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario'       => $usuario,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -160,6 +171,7 @@ class AuxSerigrafiaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('BackendBundle:AuxSerigrafia')->find($id);
+        $usuario = $this->getUser();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find AuxSerigrafia entity.');
@@ -177,6 +189,7 @@ class AuxSerigrafiaController extends Controller
 
         return $this->render('BackendBundle:AuxSerigrafia:edit.html.twig', array(
             'entity'      => $entity,
+            'usuario'       => $usuario,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

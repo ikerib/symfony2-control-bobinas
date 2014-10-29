@@ -56,14 +56,19 @@ class DefaultController extends Controller
 
         if ( $usuario->getAdmin() == 1 ) {
             $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_ADMIN'));
+            $this->get('security.context')->setToken($token);
+            $this->get('session')->set('_security_main',serialize($token));
+            return $this->redirect($this->generateUrl('backend_dashboard'));
+
         } else {
             $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_USER'));
+            $this->get('security.context')->setToken($token);
+            $this->get('session')->set('_security_main',serialize($token));
+            return $this->redirect($this->generateUrl('dashboard'));
         }
 
 
-        $this->get('security.context')->setToken($token);
-        $this->get('session')->set('_security_main',serialize($token));
-        return $this->redirect($this->generateUrl('dashboard'));
+
     }
 
     public function dashboardAction() {

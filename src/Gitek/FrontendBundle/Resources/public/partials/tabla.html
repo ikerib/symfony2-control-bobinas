@@ -5,7 +5,7 @@
         <div class="col-lg-12 col-xs-12">
             Progreso {{ ofs.length }} / 10
             <div class="progress xs progress-striped">
-                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{valuenow}}%">
                     <span class="sr-only">40% Complete (success)</span>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                             </thead>
 
                             <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            <tr ng-repeat="of in ofs" ng-class="{'active': of.$selected}">>
+                            <tr ng-repeat="of in ofs" ng-class="{'active': of.$selected}">
                                 <td>{{ of.componente }}</td>
                                 <td>{{ of.posicion_feeder }}</td>
                                 <td>{{ of.posicion_msl }}</td>

@@ -8,6 +8,7 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
     var ofertas = OfertasService.first();
 
     $scope.ofs = ofertas.operaciones[0].materiales;
+    $scope.valuenow=30;
 
     $scope.leeComponente = function() {
 
@@ -21,7 +22,7 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
         // API.PostOf({ newof }, function (success) {
         $scope.ofs.push(newof);
         $scope.codbarcomponente="";
-
+        $scope.valuenow = parseInt($scope.valuenow) + 10;
 
         toasty.pop.success({
             title: "Correcto!",

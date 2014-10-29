@@ -1,4 +1,20 @@
+{#{% extends '_lte_ag_menu.html.twig' %}#}
+
 {% extends '_lte_ag_menu.html.twig' %}
+
+    {% block user_avatar %}
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="{{ vich_uploader_asset(usuario, 'avatar') | imagine_filter('my_thumb') }}" class="img-circle" alt="Imagen del usuario">
+            </div>
+            <div class="pull-left info">
+                <p>Namasté, {{usuario.nombre}}</p>
+
+                <a href="{{ path('logout') }}"><i class="fa fa-circle text-success "></i> Desconectar</a>
+
+            </div>
+        </div>
+    {% endblock %}
 
 {% block menu %}
 

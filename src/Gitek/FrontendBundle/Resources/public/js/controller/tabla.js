@@ -8,7 +8,7 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
     var ofertas = OfertasService.first();
 
     $scope.ofs = ofertas.operaciones[0].materiales;
-    $scope.valuenow=30;
+    $scope.valuenow = 30;
 
     $scope.leeComponente = function() {
 
@@ -22,7 +22,7 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
         // API.PostOf({ newof }, function (success) {
         $scope.ofs.push(newof);
         $scope.codbarcomponente="";
-        $scope.valuenow = parseInt($scope.valuenow) + 10;
+        $scope.valuenow = parseInt($scope.valuenow) +10;
 
         toasty.pop.success({
             title: "Correcto!",
@@ -48,9 +48,9 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
 
         if ( $scope.ofs.length > 9 ) {
 
-            var dlg = dialogs.confirm("Confirmacioón","Has completado la fase 1. ¿Pasamos a la fase2?");
+            var dlg = dialogs.confirm("Confirmación","Has completado la fase 1. ¿Pasamos a la fase2?");
             dlg.result.then(function(btn){
-                //$window.location.href = "/app_dev.php/fase2";
+                menufactory.setNumber(2);
                 $location.path('serigrafia');
             },function(btn){
                 console.log(btn);

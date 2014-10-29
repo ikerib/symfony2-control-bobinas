@@ -1,7 +1,7 @@
 /**
  * Created by ikerib on 15/10/14.
  */
-myApp.controller('tablaController', function($scope, OfertasService,toasty, $http, $location, $window, $resource, $timeout, dialogs){
+myApp.controller('tablaController', function($scope, OfertasService,toasty, $http, $location, $window, $resource, $timeout, dialogs, menufactory){
 
     $('#codbarcomponente').focus();
 

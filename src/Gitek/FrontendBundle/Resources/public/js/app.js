@@ -64,6 +64,20 @@ myApp.directive('autoFocus', function ($timeout) {
     };
 });
 
+myApp.factory("menufactory", function () {
+  var number = 0;
+  function getNumber() {
+    return number;
+  }
+  function setNumber(newNumber) {
+    number = newNumber;
+  }
+  return {
+    getNumber: getNumber,
+    setNumber: setNumber,
+  }
+});
+
 myApp.factory('OfertasService', function () {
     var ordenes =[{
         of: "OF212042",

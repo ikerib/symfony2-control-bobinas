@@ -1,7 +1,7 @@
 /**
  * Created by ikerib on 15/10/14.
  */
-myApp.controller('serigrafiaController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs){
+myApp.controller('serigrafiaController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs, menufactory){
 
     $scope.mostrarpregunta = true;
     $scope.mostrarencargado = false;

@@ -2,7 +2,7 @@
  * Created by ikerib on 16/10/14.
  */
 
-myApp.controller('pickandplaceController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs){
+myApp.controller('pickandplaceController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs, menufactory){
 
     $scope.mostrarpregunta = true;
     $scope.mostrarencargado = false;

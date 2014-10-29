@@ -16,47 +16,49 @@
 
 {% block menu %}
 
-    <li {% if option is defined and option == 'dashboard' %}class="active"{% endif %}>
-        <a href="{{ path('dashboard') }}">
-            <i class="fa fa-dashboard"></i> <span>Inicio</span>
-        </a>
-    </li>
+        {#<h1>{% verbatim %}{{ menua }}{% endverbatim %} </h1>#}
 
-    <li {% if option is defined and option == 'material' %}class="active"{% endif %}>
-        <a href="#">
-            <i class="fa fa-gavel"></i> <span>1-. Material</span>
-        </a>
-    </li>
+        <li ng-class="{true: 'active'}[menua == 0]" ng-show="menua >= 0">
+            <a href="{{ path('dashboard') }}">
+                <i class="fa fa-dashboard"></i> <span>Inicio</span>
+            </a>
+        </li>
 
-    <li {% if option is defined and option == 'material' %}class="active"{% endif %}>
-        <a href="#">
-            <i class="fa fa-gavel"></i> <span>2-. Validación serigrafía</span>
-        </a>
-    </li>
+        <li ng-class="{true: 'active'}[menua == 1]" ng-show="menua >= 1">
+            <a href="#">
+                <i class="fa fa-gavel"></i> <span>1-. Material</span>
+            </a>
+        </li>
 
-    <li {% if option is defined and option == 'material' %}class="active"{% endif %}>
-        <a href="#">
-            <i class="fa fa-gavel"></i> <span>3-. Validación Pick&Place</span>
-        </a>
-    </li>
+        <li ng-class="{true: 'active'}[menua == 2]" ng-show="menua >= 2">
+            <a href="#">
+                <i class="fa fa-gavel"></i> <span>2-. Validación serigrafía</span>
+            </a>
+        </li>
 
-    <li {% if option is defined and option == 'material' %}class="active"{% endif %}>
-        <a href="#">
-            <i class="fa fa-gavel"></i> <span>4-. Validación Horno</span>
-        </a>
-    </li>
+        <li ng-class="{true: 'active'}[menua == 3]" ng-show="menua >= 3">
+            <a href="#">
+                <i class="fa fa-gavel"></i> <span>3-. Validación Pick&Place</span>
+            </a>
+        </li>
 
-    <li {% if option is defined and option == 'material' %}class="active"{% endif %}>
-        <a href="#">
-            <i class="fa fa-gavel"></i> <span>5-. Validación AOI</span>
-        </a>
-    </li>
+        <li ng-class="{true: 'active'}[menua == 4]" ng-show="menua >= 4">
+            <a href="#">
+                <i class="fa fa-gavel"></i> <span>4-. Validación Horno</span>
+            </a>
+        </li>
 
-    <li {% if option is defined and option == 'material' %}class="active"{% endif %}>
-        <a href="#">
-            <i class="fa fa-gavel"></i> <span>6-. Otros</span>
-        </a>
-    </li>
+        <li ng-class="{true: 'active'}[menua == 5]" ng-show="menua >= 5">
+            <a href="#">
+                <i class="fa fa-gavel"></i> <span>5-. Validación AOI</span>
+            </a>
+        </li>
+
+        <li ng-class="{true: 'active'}[menua == 6]" ng-show="menua >= 6">
+            <a href="#">
+                <i class="fa fa-gavel"></i> <span>6-. Otros</span>
+            </a>
+        </li>
 
 
 

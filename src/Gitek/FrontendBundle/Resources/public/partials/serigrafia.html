@@ -1,6 +1,5 @@
 
 <div ng-controller="serigrafiaController">
-{{galderak}}
     <div class="row">
         <div class="col-md-2">
         </div>
@@ -13,6 +12,7 @@
                 <div class="box-body">
 
                     <div class="callout callout-info" ng-show="mostrarpregunta">
+                        <h3 ng-repeat="galdera in galderak">{{ galdera.pregunta }}</h3>
                         <h4>¿Esta la serigrafía correcta?</h4>
                         <button ng-click="validarserigrafia()" class="btn btn-success btn-lg">Si</button>
                         <button class="btn btn-danger btn-lg">No</button>

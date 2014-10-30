@@ -1,21 +1,15 @@
 /**
- * Created by ikerib on 15/10/14.
+ * Created by ikerib on 16/10/14.
  */
-myApp.controller('serigrafiaController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs, menufactory){
+
+myApp.controller('pickandplaceController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs, menufactory){
 
     $scope.mostrarpregunta = true;
     $scope.mostrarencargado = false;
     $scope.mostrarencargadopasswd = false;
     $scope.serigrafiaValidado = false;
 
-
-    $http.get('/api/v1/serigrafia').success(function(data) {
-        $scope.galderak = data;
-    }).error(function () {
-        $scope.galderak="";
-    });
-
-    $scope.validarserigrafia = function() {
+    $scope.validarpickandplace = function() {
         $scope.mostrarpregunta = false;
         $scope.mostrarencargado = true;
         $scope.mostrarencargadopasswd = false;
@@ -50,8 +44,8 @@ myApp.controller('serigrafiaController', function($scope, OfertasService, toasty
 
     $scope.verificarSerigrafia = function() {
         console.log("hemen!");
-        menufactory.setNumber(3);
-        $location.path('pickandplace');
+        menufactory.setNumber(4);
+        $location.path('horno');
 
     }
 

@@ -10,32 +10,11 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
     $scope.ofs = ofertas.operaciones[0].materiales;
     $scope.valuenow = 30;
 
-
-    $scope.containsObject = function(obj, list) {
-        var i;
-        for (i = 0; i < list.length; i++) {
-            if (list[i].codbarcomponente === obj) {
-                return true;
-            }
-        }
-    }
-
     $scope.leeComponente = function() {
 
-        if ( $scope.containsObject($scope.codbarcomponente,$scope.ofs) == true) {
-            toasty.pop.error({
-                title: 'Error!',
-                msg: 'Ese componente ya ha sido incluido.',
-                timeout: 0,
-                showClose: true,
-                clickToClose: true,
-            });
-            $scope.codbarcomponente="";
-            return
-        }
+        console.log(codbarcomponente);
 
         var newof = {};
-        newof.codbarcomponente = $scope.codbarcomponente;
         newof.componente="0000000";
         newof.posicion_feeder="0000000";
         newof.posicion_msl="0000000";
@@ -87,7 +66,6 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
 
         // API.DeleteOf({ id: of_to_delete.id }, function (success) {
         $scope.ofs.splice(idx, 1);
-        $scope.valuenow = parseInt($scope.valuenow) -10;
         // });
     };
 

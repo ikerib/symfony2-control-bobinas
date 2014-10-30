@@ -12,6 +12,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Gitek\BackendBundle\Entity\ValidacionSerigrafia;
+use RMS\PushNotificationsBundle\Message\AndroidMessage;
 
 class ApiController extends FOSRestController
 {
@@ -48,6 +49,19 @@ class ApiController extends FOSRestController
         $statusCode = 200;
         $view = $this->view($entities, $statusCode);
         return $this->handleView($view);
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function  getPushnotifyAction()
+    {
+        $message = new AndroidMessage();
+        $message->setGCM(true);
+        $message->setMessage('Oh my! A push notification!');
+        $this->container->get('rms_push_notifications')->send($message);
+
+        return new Response('Push notification send!');
     }
 
 }

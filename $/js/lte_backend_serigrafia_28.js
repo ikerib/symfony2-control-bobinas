@@ -8,10 +8,10 @@ myApp.controller('serigrafiaController', function($scope, OfertasService, toasty
     $scope.mostrarencargadopasswd = false;
     $scope.serigrafiaValidado = false;
 
-
+    
     $http.get('/api/v1/serigrafia').success(function(data) {
         $scope.galderak = data;
-    }).error(function () {
+    }).error(function () { 
         $scope.galderak="";
     });
 

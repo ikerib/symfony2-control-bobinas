@@ -120,3 +120,13 @@ fos_rest:
 sensio_framework_extra:
     view:
         annotations: false
+
+rms_push_notifications:
+  android:
+      c2dm:
+          username: <string_android_c2dm_username>
+          password: <string_android_c2dm_password>
+          source: <string_android_c2dm_source>
+      gcm:
+          api_key: AIzaSyDODAwhOPWdyW_ekUBWfFNEOa429RN-teU
+          use_multi_curl: false # default is true

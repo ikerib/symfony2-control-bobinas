@@ -35,6 +35,13 @@ class Usuario
     /**
      * @var string
      *
+     * @ORM\Column(name="androidreg", type="string", length=255)
+     */
+    private $androidreg;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
@@ -145,12 +152,12 @@ class Usuario
 
 
 
- 
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -173,7 +180,7 @@ class Usuario
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -196,7 +203,7 @@ class Usuario
     /**
      * Get apellidos
      *
-     * @return string 
+     * @return string
      */
     public function getApellidos()
     {
@@ -219,7 +226,7 @@ class Usuario
     /**
      * Get admin
      *
-     * @return integer 
+     * @return integer
      */
     public function getAdmin()
     {
@@ -242,7 +249,7 @@ class Usuario
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -266,7 +273,7 @@ class Usuario
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -289,7 +296,7 @@ class Usuario
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -312,7 +319,7 @@ class Usuario
     /**
      * Get encargado
      *
-     * @return integer 
+     * @return integer
      */
     public function getEncargado()
     {
@@ -335,10 +342,56 @@ class Usuario
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set androidid
+     *
+     * @param string $androidid
+     * @return Usuario
+     */
+    public function setAndroidid($androidid)
+    {
+        $this->androidid = $androidid;
+
+        return $this;
+    }
+
+    /**
+     * Get androidid
+     *
+     * @return string 
+     */
+    public function getAndroidid()
+    {
+        return $this->androidid;
+    }
+
+    /**
+     * Set androidreg
+     *
+     * @param string $androidreg
+     * @return Usuario
+     */
+    public function setAndroidreg($androidreg)
+    {
+        $this->androidreg = $androidreg;
+
+        return $this;
+    }
+
+    /**
+     * Get androidreg
+     *
+     * @return string 
+     */
+    public function getAndroidreg()
+    {
+        return $this->androidreg;
     }
 }

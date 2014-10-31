@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class UsuarioRepository extends EntityRepository
 {
+    public function findUsuariopornombre($nombre)
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT u
+                    FROM BackendBundle:Usuario u
+                    WHERE u.nombre LIKE :usuario";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('usuario', $nombre);
+//        print_r($consulta->getSQL());
+        return $consulta->getResult();
+    }
 }

@@ -21,11 +21,23 @@ myApp.controller('serigrafiaController', function($scope, OfertasService, toasty
         $scope.mostrarencargadopasswd = false;
     }
 
+    $scope.llamaEncargado = function() {
+        toasty.pop.error({
+            title: "Error!",
+            msg: 'LLAMA AL ENCARGADO.',
+            timeout: 0,
+            showClose: true,
+            clickToClose: false,
+        });
+    }
+
     $scope.askpasswd = function() {
 
         $scope.mostrarpregunta = false;
         $scope.mostrarencargado = false;
         $scope.mostrarencargadopasswd = true;
+
+        $http.get('/api/v1/emails/send').success(function(data) {});
 
         toasty.pop.wait({
             title: 'Esperar por favor',
@@ -49,7 +61,7 @@ myApp.controller('serigrafiaController', function($scope, OfertasService, toasty
     }
 
     $scope.verificarSerigrafia = function() {
-        console.log("hemen!");
+
         menufactory.setNumber(3);
         $location.path('pickandplace');
 

@@ -2,15 +2,15 @@
  * Created by ikerib on 16/10/14.
  */
 
-myApp.controller('hornoController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs,menufactory){
+myApp.controller('aoiController', function($scope, OfertasService, toasty, $http, $location, $window, $resource, $timeout, dialogs,menufactory){
 
     $scope.mostrarpregunta = true;
     $scope.mostrarencargado = false;
     $scope.mostrarencargadopasswd = false;
-    $scope.serigrafiaValidado = false;
+    $scope.aoiValidado = false;
 
-    $scope.validarpickandplace = function() {
-        if (angular.isUndefined( $scope.hornoprograma )) {
+    $scope.validaraoi = function() {
+        if (angular.isUndefined( $scope.aoiprograma )) {
             toasty.pop.error({
                 title: "Error!",
                 msg: 'Introduce el nombre del programa.',
@@ -54,9 +54,9 @@ myApp.controller('hornoController', function($scope, OfertasService, toasty, $ht
 
     }
 
-    $scope.verificarSerigrafia = function() {
-        menufactory.setNumber(5);
-        $location.path('aoi');
+    $scope.verificarAoi = function() {
+        menufactory.setNumber(6);
+        $location.path('completado');
 
     }
 

@@ -2,7 +2,7 @@
  * Created by ikerib on 15/10/14.
  */
 myApp.controller('frontendController', function($scope, $http, $location, menufactory) {
-    
+
     $scope.leeof = function () {
 
         var codbar = $scope.of.codbaroferta;
@@ -23,4 +23,5 @@ myApp.controller('frontendController', function($scope, $http, $location, menufa
             $location.url('/tabla')
         });
     }
+
 });

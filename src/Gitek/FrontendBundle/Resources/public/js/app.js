@@ -27,6 +27,14 @@ myApp.config(['$routeProvider', '$locationProvider',
             .when("/horno",{
                 templateUrl: '/bundles/frontend/partials/horno.html',
                 controller: 'hornoController'
+            })
+            .when("/aoi",{
+                templateUrl: '/bundles/frontend/partials/aoi.html',
+                controller: 'aoiController'
+            })
+            .when("/completado",{
+                templateUrl: '/bundles/frontend/partials/completado.html',
+                controller: 'completadoController'
             });
     }
 ]);

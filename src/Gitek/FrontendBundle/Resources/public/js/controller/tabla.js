@@ -36,11 +36,11 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
 
         var newof = {};
         newof.codbarcomponente = $scope.codbarcomponente;
-        newof.componente="0000000";
-        newof.posicion_feeder="0000000";
-        newof.posicion_msl="0000000";
-        newof.cantidad="0000000";
-        newof.total="0000000";
+        newof.componente=$scope.codbarcomponente;
+        newof.posicion_feeder=Math.floor((Math.random() * 10) + 1);
+        newof.posicion_msl=Math.floor((Math.random() * 10) + 1);;
+        newof.cantidad=Math.floor((Math.random() * 10) + 1);;
+        newof.total=Math.floor((Math.random() * 10) + 1);;
 
         // API.PostOf({ newof }, function (success) {
         $scope.ofs.push(newof);

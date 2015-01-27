@@ -7,14 +7,14 @@
             <div class="box box-info">
                 <div class="box-header">
                     <i class="fa fa-bullhorn"></i>
-                    <h3 class="box-title">Control serigrafía</h3>
+                    <h3 class="box-title">Control serigrafía.</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="callout callout-info" ng-show="mostrarpregunta">
 
                         <h3 ng-repeat="galdera in galderak">{{ galdera.pregunta }}</h3>
-                        <h4>¿Esta la serigrafía correcta?</h4>
+                        <br />
                         <button ng-click="validarserigrafia()" class="btn btn-success btn-lg">Si</button>
                         <button ng-click="llamaEncargado()" class="btn btn-danger btn-lg">No</button>
                     </div>

@@ -28,14 +28,14 @@
 }
 #toasty-container > .toasty.ng-enter,
 #toasty-container > .toasty.ng-leave
-{ 
+{
     -webkit-transition: 550ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     -moz-transition: 550ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     -ms-transition: 550ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     -o-transition: 550ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     transition: 550ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
-#toasty-container > .toasty.ng-enter.ng-enter-active, 
+#toasty-container > .toasty.ng-enter.ng-enter-active,
 #toasty-container > .toasty.ng-leave {
     opacity: 0.8;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); filter: alpha(opacity=80);
@@ -95,8 +95,8 @@ button.toasty-close-button:focus {
 .toasty-text {
   padding: 5px 20px 5px 60px;
   color: #ffffff;
-  display: table-cell; 
-  vertical-align: middle; 
+  display: table-cell;
+  vertical-align: middle;
 }
 .toasty-title {
   font-size: 15px;
@@ -135,7 +135,7 @@ button.toasty-close-button:focus {
 }
 .toasty-error {
   background-color: #d9534f;
-}	
+}
 .toasty-info {
   background-color: #5bc0de;
 }
@@ -159,7 +159,7 @@ button.toasty-close-button:focus {
   }
 @media all and (min-width: 241px) and (max-width: 480px) {
   #toasty-container  > div {
-   
+
     width: 18em;
   }
   #toasty-container .toasty-close-button {
@@ -169,7 +169,7 @@ button.toasty-close-button:focus {
 }
 @media all and (min-width: 481px) and (max-width: 768px) {
   #toasty-container > div {
-   
+
     width: 25em;
   }
 }

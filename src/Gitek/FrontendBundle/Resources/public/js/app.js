@@ -1,6 +1,7 @@
 /**
- * Created by ikerib on 07/10/14.
+ * Author: Iker Ibarguren @ikerib ( ikerib@gmail.com )
  */
+
 var myApp = angular.module('myApp',['ngRoute','ngResource', 'ngTable','ngAnimate', 'toasty',
     'ui.bootstrap', 'dialogs.main','pascalprecht.translate','dialogs.default-translations'])
 

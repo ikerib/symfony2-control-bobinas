@@ -6,10 +6,17 @@ myApp.controller('frontendController', function($scope, $http, $location, menufa
     $scope.leeof = function () {
 
         var codbar = $scope.of.codbaroferta;
-        $http.get('/api/v1/ordens/' + codbar).success(function(data) {
-            $scope.of.id = data.id;
+        // $http.get('/api/v1/ordens/' + codbar).success(function(data) {
+        //     $scope.of.id = data.id;
+        //     $('#operacion').focus();
+        // });
+        var url = "http://gitek2.grupogureak.com/proxy/expertis/" + codbar;
+        $http.get( url ).success( function(data) {
+            console.log(data);
+            $scope.of.id = data.IDArticulo;
             $('#operacion').focus();
-        });
+
+        })
 
     }
 

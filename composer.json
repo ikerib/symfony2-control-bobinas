@@ -11,7 +11,7 @@
   },
   "require": {
     "php": ">=5.3.3",
-    "symfony/symfony": "2.5.*",
+    "symfony/symfony": "2.6.*",
     "doctrine/orm": "~2.2,>=2.2.3",
     "doctrine/doctrine-bundle": "~1.2",
     "twig/extensions": "~1.0",
@@ -22,50 +22,60 @@
     "sensio/framework-extra-bundle": "~3.0",
     "incenteev/composer-parameter-handler": "~2.0",
     "stof/doctrine-extensions-bundle": "~1.1@dev",
-    "liip/imagine-bundle": "dev-master",
+
+    "friendsofsymfony/user-bundle": "~2.0@dev",
+    "bmatzner/fontawesome-bundle": "~4.2",
+    "doctrine/doctrine-fixtures-bundle": "2.2.*",
+    "vich/uploader-bundle": "0.14.*",
+    "liip/imagine-bundle": "~1.2",
+    "braincrafted/bootstrap-bundle": "~2.0",
+    "twbs/bootstrap": "3.0.*",
     "phpunit/phpunit": "4.2.*",
     "raulfraile/ladybug-bundle": "~1.0",
     "friendsofsymfony/jsrouting-bundle": "@stable",
-    "vich/uploader-bundle": "~0.10.0",
     "friendsofsymfony/rest-bundle": "~1.4",
     "jms/serializer-bundle": "~0.13",
-    "richsage/rms-push-notifications-bundle": "dev-master"
+    "richsage/rms-push-notifications-bundle": "dev-master",
+    "sensio/buzz-bundle": "dev-master"
   },
   "require-dev": {
     "sensio/generator-bundle": "~2.3"
   },
-  "scripts": {
-    "post-root-package-install": [
-      "SymfonyStandard\\Composer::hookRootPackageInstall"
-    ],
-    "post-install-cmd": [
-      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-    ],
-    "post-update-cmd": [
-      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
-    ]
-  },
-  "config": {
-    "bin-dir": "bin"
-  },
-  "extra": {
-    "symfony-app-dir": "app",
-    "symfony-web-dir": "web",
-    "incenteev-parameters": {
-      "file": "app/config/parameters.yml"
+    "scripts": {
+        "post-root-package-install": [
+            "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+        ]
     },
-    "branch-alias": {
-      "dev-master": "2.5-dev"
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.6-dev"
+        }
     }
-  }
 }

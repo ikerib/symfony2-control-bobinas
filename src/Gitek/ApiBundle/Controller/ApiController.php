@@ -23,11 +23,18 @@ class ApiController extends FOSRestController
     public function getOrdenAction($id)
     {
 
+        $buzz = $this->container->get('buzz');
+        // http://gitek2.grupogureak.com/proxy/expertis/OF244092
+        $url = "http://gitek2.grupogureak.com/proxy/expertis/" . $id;
+        $response = $buzz->get($url);
+        $json = $response->getContent();
+        $data = json_decode($json, true);
 
+        $respo = array( "id" => $data["IDArticulo"]);
 
         $statusCode = 200;
-        $entity = array('id' => 'OF212042');
-        $view = $this->view($entity, $statusCode);
+
+        $view = $this->view($respo, $statusCode);
         return $this->handleView($view);
     }
 

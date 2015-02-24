@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
 
 framework:
+    ide: "phpstorm://open?file=%%f&line=%%1"
     #esi:             ~
     translator:      { fallback: "%locale%" }
     secret:          "%secret%"
@@ -28,6 +29,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources: ['bootstrap_3_layout.html.twig']
 
 # Assetic Configuration
 assetic:
@@ -39,10 +42,33 @@ assetic:
         cssrewrite: ~
         yui_css:
             jar: %kernel.root_dir%/java/yuicompressor-2.4.8.jar
-#            apply_to: \.css$
+            apply_to: \.css$
         yui_js:
             jar: %kernel.root_dir%/java/yuicompressor-2.4.8.jar
-#            apply_to: \.js$
+            apply_to: \.js$
+        jpegoptim:
+            bin: /usr/local/Cellar/jpegoptim
+        less:
+            node: /usr/local/bin/node
+            node_paths: [/usr/local/lib/node_modules]
+            apply_to: "\.less$"
+
+braincrafted_bootstrap:
+    output_dir:
+    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
+    # jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+    jquery_path: @IkasiBundle/Resources/public/js/jquery/jquery-1.10.2.js
+    less_filter: less # "less", "lessphp", "sass" or "none"
+    fonts_dir: %kernel.root_dir%/../web/fonts
+    auto_configure:
+        assetic: true
+        twig: true
+        knp_menu: true
+        knp_paginator: true
+    customize:
+        variables_file: ~
+        bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
+        bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig
 
 # Doctrine Configuration
 doctrine:

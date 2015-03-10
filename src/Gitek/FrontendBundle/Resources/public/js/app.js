@@ -86,7 +86,7 @@ myApp.factory("menufactory", function () {
   }
 });
 
-myApp.factory('OfertasService', function () {
+myApp.factory('OfertasService', function ($http) {
     var ordenes =[{
         of: "OF212042",
         fetxa_fabricacion_inicio: "19/06/2014",
@@ -147,38 +147,15 @@ myApp.factory('OfertasService', function () {
     }];
 
     return {
-        all: function() {
-            return ordenes;
+        all: function(of,operacion) {
+            var datuak = $http.get('http://10.0.0.12:5080/expertis/poropertaoperacion?of=' + of + '&operacion=' + operacion).success(function(data) {
+                return data;
+            });
+            console.log("HEMEN");
+            console.log(datuak);
         },
         first: function() {
             return ordenes[0];
         }
     };
 });
-
-// myApp.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$translateProvider){
-//     dialogsProvider.useBackdrop('static');
-//     dialogsProvider.useEscClose(false);
-//     dialogsProvider.useCopy(false);
-//     dialogsProvider.setSize('sm');
-
-//     $translateProvider.translations('us',{
-//         DIALOGS_ERROR: "Error",
-//         DIALOGS_ERROR_MSG: "Se ha producido un error desconocido.",
-//         DIALOGS_CLOSE: "Cerca",
-//         DIALOGS_PLEASE_WAIT: "Espere por favor",
-//         DIALOGS_PLEASE_WAIT_ELIPS: "Espere por favor...",
-//         DIALOGS_PLEASE_WAIT_MSG: "Esperando en la operacion para completar.",
-//         DIALOGS_PERCENT_COMPLETE: "% Completado",
-//         DIALOGS_NOTIFICATION: "Notificacion",
-//         DIALOGS_NOTIFICATION_MSG: "Notificacion de aplicacion Desconocido.",
-//         DIALOGS_CONFIRMATION: "Confirm",
-//         DIALOGS_CONFIRMATION_MSG: "Se requiere confirmacion.",
-//         DIALOGS_OK: "Bueno",
-//         DIALOGS_YES: "Si",
-//         DIALOGS_NO: "No"
-//     });
-
-
-//     $translateProvider.preferredLanguage('us-US');
-// }])

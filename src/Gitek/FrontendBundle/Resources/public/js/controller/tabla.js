@@ -5,7 +5,9 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
 
     $('#codbarcomponente').focus();
 
-    var ofertas = OfertasService.first();
+    var danak = OfertasService.all();
+
+    //var ofertas = OfertasService.first();
 
     $scope.ofs = ofertas.operaciones[0].materiales;
     $scope.valuenow = 30;

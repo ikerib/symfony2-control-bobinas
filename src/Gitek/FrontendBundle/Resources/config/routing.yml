@@ -22,3 +22,21 @@ dashboard:
 fase2:
     path: /fase2
     defaults: { _controller: FrontendBundle:Default:fase2}
+
+find_of_post:
+    path: /OrdenFabricacion
+    defaults: { _controller: FrontendBundle:Default:findof}
+    requirements: { _method: post }
+
+find_of:
+    path: /OrdenFabricacion/{of}
+    defaults: { _controller: FrontendBundle:Default:findof , of: '' }
+
+find_of_operacion:
+    path: /OrdenFabricacionOperacion/{operacion}
+    defaults: { _controller: FrontendBundle:Default:findoperacion , operacion: '' }
+
+find_of_operacion_post:
+    path: /OrdenFabricacionOperacion
+    defaults: { _controller: FrontendBundle:Default:findoperacion }
+    requirements: { _method: post }

@@ -15,10 +15,15 @@
       <div class="small-box bg-aqua">
         <div class="inner">
           <h3>
-            OF:{% verbatim %}{{ of.id }}{% endverbatim %}
+            OF:{{ of }}
           </h3>
           <p>
-            Leer Código de barras:&nbsp;&nbsp;<input type="text" name="of" id="of" ng-model="of.codbaroferta" ng-enter="leeof()" autoFocus>
+
+            <form action="{{ path('find_of_post') }}" method="post">
+                <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                <input type="text" name="of" id="of" autoFocus>
+            </form>
+
           </p>
         </div>
       </div>
@@ -29,18 +34,25 @@
       <div class="small-box bg-green">
         <div class="inner">
           <h3>
-            Operación:{% verbatim %}{{ of.operacion }}{% endverbatim %}
+            Operación: {{ operacion }}
           </h3>
           <p>
-            Leer Código de barras:&nbsp;&nbsp;<input type="text" name="operacion" id="operacion" ng-model="of.codbaroperacion" ng-enter="leoperacion()">
-          </p>
+            <form action="{{ path('find_of_operacion_post' ) }}" method="post">
+                <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                <input type="text" name="operacion" id="operacion" autoFocus>
+                <input type="hidden" name="of" value="{{ of }}">
+            </form>
+            </p>
         </div>
       </div>
     </div>
 
   </div>
 
-  <div ng-view></div>
+    <div class="row">
 
+        
+
+    </div>
 
 {% endblock %}

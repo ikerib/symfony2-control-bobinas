@@ -8,10 +8,10 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Gitek\BackendBundle\Entity\Usuario;
 
+
 class DefaultController extends Controller
 {
-    public function loginAction (Request $request)
-    {
+    public function loginAction (Request $request) {
         $session = $request->getSession();
 
         // get the login error if there is one
@@ -74,9 +74,13 @@ class DefaultController extends Controller
     public function dashboardAction() {
 
         $usuario = $this->getUser();
+        $of='';
+        $operacion = '';
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
-            'usuario' => $usuario
+            'usuario' => $usuario,
+            'of' => $of,
+            'operacion' => $operacion
         ));
     }
 
@@ -95,4 +99,69 @@ class DefaultController extends Controller
         $this->get("session")->setFlash('message.success', true);
         return new RedirectResponse($this->generateUrl('login'));
     }
+
+    public function findofAction(Request $request,$of=null) {
+        if ( $request->getMethod() == "POST" ) {
+            $of = $request->request->get('of'); //gets POST var.
+            return $this->redirect($this->generateUrl("find_of", array( 'of' => $of) ));
+        }
+
+        $client = $this->get('guzzle.client');
+        $request = $client->get('http://10.0.0.12:5080/expertis/delaoferta?of=' . $of);
+        $response = $request->send();
+        $data = $response->json();
+
+        if ( !count($data) > 0 ) {
+            $of = "no encontrado";
+        }
+
+        $usuario = $this->getUser();
+        $operacion = "";
+
+
+        return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
+            'usuario' => $usuario,
+            'of' => $of,
+            'operacion' => $operacion
+        ));
+
+    }
+
+    public function findoperacionAction(Request $request, $operacion=null) {
+        if ( $request->getMethod() == "POST" ) {
+            $operacion = $request->request->get('operacion'); //gets POST var.
+
+            return $this->redirect($this->generateUrl("find_of_operacion", array( 'operacion' => $operacion) ));
+        }
+        $client = $this->get('guzzle.client');
+        $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
+        $response = $request->send();
+        $data = $response->json();
+
+        if ( count($data) > 0 ) {
+            $of = $data[0]['NOrden'];
+
+        } else {
+            $operacion = "no encontrado";
+            $of = "";
+        }
+
+        $usuario = $this->getUser();
+
+        // Info de los componentes
+        $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
+        $response = $request->send();
+        $componentes = $response->json();
+
+
+        return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
+            'usuario' => $usuario,
+            'of' => $of,
+            'operacion' => $operacion,
+            'componentes' => $componentes
+
+        ));
+
+    }
+
 }

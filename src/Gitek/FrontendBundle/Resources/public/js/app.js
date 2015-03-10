@@ -145,17 +145,24 @@ myApp.factory('OfertasService', function ($http) {
         ],
         finalizado: false
     }];
-
     return {
-        all: function(of,operacion) {
-            var datuak = $http.get('http://10.0.0.12:5080/expertis/poropertaoperacion?of=' + of + '&operacion=' + operacion).success(function(data) {
-                return data;
-            });
-            console.log("HEMEN");
-            console.log(datuak);
+        all: function() {
+            return ordenes;
         },
         first: function() {
             return ordenes[0];
         }
     };
+    // return {
+    //     all: function(of,operacion) {
+    //         var datuak = $http.get('http://10.0.0.12:5080/expertis/poropertaoperacion?of=' + of + '&operacion=' + operacion).success(function(data) {
+    //             return data;
+    //         });
+    //         console.log("HEMEN");
+    //         console.log(datuak);
+    //     },
+    //     first: function() {
+    //         return ordenes[0];
+    //     }
+    // };
 });

@@ -7,7 +7,7 @@ myApp.controller('tablaController', function($scope, OfertasService,toasty, $htt
 
     var danak = OfertasService.all();
 
-    //var ofertas = OfertasService.first();
+    var ofertas = OfertasService.first();
 
     $scope.ofs = ofertas.operaciones[0].materiales;
     $scope.valuenow = 30;

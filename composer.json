@@ -27,8 +27,7 @@
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "vich/uploader-bundle": "~0.10.0",
         "friendsofsymfony/rest-bundle": "~1.4",
-        "jms/serializer-bundle": "~0.13",
-        "richsage/rms-push-notifications-bundle": "dev-master"
+        "jms/serializer-bundle": "~0.13"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

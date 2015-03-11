@@ -3,3 +3,5 @@ api_getorden:
     prefix: /v1
     resource: "Gitek\ApiBundle\Controller\ApiController"
     name_prefix:  api_1_ # naming collision
+    options:
+        expose: true

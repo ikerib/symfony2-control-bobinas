@@ -17,6 +17,23 @@ use RMS\PushNotificationsBundle\Message\AndroidMessage;
 
 class ApiController extends FOSRestController
 {
+
+    /**
+     * @Rest\View
+     */
+    public function getComponentesAction($operacion)
+    {
+        $statusCode = 200;
+
+        $client = $this->get('guzzle.client');
+        $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
+        $response = $request->send();
+        $componentes = $response->json();
+
+        $view = $this->view($componentes, $statusCode);
+        return $this->handleView($view);
+    }
+
     /**
      * @Rest\View
      */

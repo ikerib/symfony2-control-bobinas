@@ -44,8 +44,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function logincheckAction(Request $request)
-    {
+    public function logincheckAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $id = $request->request->get('userid');
         $usuario = $em->getRepository('BackendBundle:Usuario')->find($id);
@@ -66,9 +65,6 @@ class DefaultController extends Controller
             $this->get('session')->set('_security_main',serialize($token));
             return $this->redirect($this->generateUrl('dashboard'));
         }
-
-
-
     }
 
     public function dashboardAction() {
@@ -76,11 +72,13 @@ class DefaultController extends Controller
         $usuario = $this->getUser();
         $of='';
         $operacion = '';
+        $componentes = '';
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario' => $usuario,
             'of' => $of,
-            'operacion' => $operacion
+            'operacion' => $operacion,
+            'componentes' => $componentes
         ));
     }
 
@@ -117,12 +115,13 @@ class DefaultController extends Controller
 
         $usuario = $this->getUser();
         $operacion = "";
-
+        $componentes = "";
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario' => $usuario,
             'of' => $of,
-            'operacion' => $operacion
+            'operacion' => $operacion,
+            'componentes' => $componentes
         ));
 
     }

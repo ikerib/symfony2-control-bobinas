@@ -63,6 +63,7 @@
               </div>
           </div>
           <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+
               <div id="divAlert" class="">
 
               </div>
@@ -72,20 +73,20 @@
                 <th>Posicion Feeder</th>
                 <th>Posicion MSL</th>
                 <th>Cantidad</th>
-                <th>Total</th>
                 <th></th>
               </thead>
               <tbody>
-                {% for componente in componentes %}
-                  <tr class="tr{{ loop.index0 }}">
-                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
-                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
-                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
-                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
-                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
-                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
-                  </tr>
-                {% endfor %}
+                {% if log.detalles is defined %}
+                    {% for componente in log.detalles  %}
+                      <tr class="tr{{ loop.index0 }}">
+                        <td class="td{{ loop.index0 }}">{{ componente.descripcion }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.cantidad }}</td>
+                        <td><button class="btn btn-sm btn-danger btn-delete" data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i></button></td>
+                      </tr>
+                    {% endfor %}
+                {% endif %}
               </tbody>
             </table>
           </div>
@@ -102,6 +103,22 @@
   <script type="text/javascript">
 
     $(function() {
+        $('.btn-delete').on('click', function(){
+            var idlogdetail = $(this).data('idlogdetail');
+            var url = Routing.generate('removeComponente');
+            $.ajax({
+                methos:'POST',
+                url:url,
+                data: { idlogdetail:idlogdetail}
+            }).done(function( data, textStatus, jqXHR ) {
+                if ( jqXHR.status === 200 ) {
+                    $(this).closest('tr').remove();
+                }
+            }).fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+            });
+        });
+
         $('#example2_wrapper').DataTable( {} );
 
         $('#codbarcomponente').keypress(function(event){

@@ -55,3 +55,10 @@ addComponente:
     requirements: { _method: post }
     options:
             expose: true
+
+removeComponente:
+    path: /removeComponente
+    defaults: { _controller: FrontendBundle:Default:removeComponent }
+    requirements: { _method: post }
+    options:
+            expose: true

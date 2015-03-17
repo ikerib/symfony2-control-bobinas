@@ -3,6 +3,7 @@
 namespace Gitek\FrontendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Log
@@ -92,7 +93,7 @@ class Log
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="Logdetail", mappedBy="log", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Logdetail", mappedBy="log")
      */
     private $detalles;
 
@@ -101,6 +102,7 @@ class Log
     {
         $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
+        $this->detalles = new ArrayCollection();
     }
 
     public function __toString()
@@ -108,10 +110,12 @@ class Log
         return $this->getOf();
     }
 
+
+
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -134,7 +138,7 @@ class Log
     /**
      * Get of
      *
-     * @return string
+     * @return string 
      */
     public function getOf()
     {
@@ -157,7 +161,7 @@ class Log
     /**
      * Get operacion
      *
-     * @return string
+     * @return string 
      */
     public function getOperacion()
     {
@@ -180,7 +184,7 @@ class Log
     /**
      * Get validacion1
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getValidacion1()
     {
@@ -203,7 +207,7 @@ class Log
     /**
      * Get validacion2
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getValidacion2()
     {
@@ -226,7 +230,7 @@ class Log
     /**
      * Get validacion3
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getValidacion3()
     {
@@ -249,7 +253,7 @@ class Log
     /**
      * Get validacion4
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getValidacion4()
     {
@@ -272,7 +276,7 @@ class Log
     /**
      * Get validacion5
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getValidacion5()
     {
@@ -295,7 +299,7 @@ class Log
     /**
      * Get validacion6
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getValidacion6()
     {
@@ -318,7 +322,7 @@ class Log
     /**
      * Get created_at
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreatedAt()
     {
@@ -341,7 +345,7 @@ class Log
     /**
      * Get updated_at
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdatedAt()
     {

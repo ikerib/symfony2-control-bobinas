@@ -88,12 +88,14 @@ class DefaultController extends Controller
         $of='';
         $operacion = '';
         $componentes = '';
+        $log = '';
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario' => $usuario,
             'of' => $of,
             'operacion' => $operacion,
-            'componentes' => $componentes
+            'componentes' => $componentes,
+            'log' => $log
         ));
     }
 
@@ -157,18 +159,14 @@ class DefaultController extends Controller
 
         $usuario = $this->getUser();
 
-        // Info de los componentes
-        $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
-        $response = $request->send();
-        $componentes = $response->json();
-
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario' => $usuario,
             'of' => $of,
             'operacion' => $operacion,
-            'componentes' => $componentes
-
+            'log' => $log,
         ));
     }
 
@@ -200,7 +198,7 @@ class DefaultController extends Controller
 
         if ( count($log) > 0 ) {
             $serializador = $this->container->get('serializer');
-            $respuesta = new Response($serializador->serialize($datos, 'json'));
+            $respuesta = new Response($serializador->serialize($log, 'json'));
             $respuesta->headers->set('Content-Type', 'application/json');
             return $respuesta;
 
@@ -213,6 +211,7 @@ class DefaultController extends Controller
             $det = new Logdetail();
             $det->setLog($log);
             $det->setComponente($componente);
+            $det->setDescripcion($bilaketa[0]["DescArticulo"]);
             $det->setPosicion1($bilaketa[0]["PosicionFeeder"]);
             $det->setPosicion2($bilaketa[0]["Observaciones"]);
             $det->setCantidad($bilaketa[0]["QNecesaria"]);
@@ -235,6 +234,26 @@ class DefaultController extends Controller
             }
         }
         return $return;
+    }
+
+    public function removeComponent(Request $request) {
+        $id = $request->request->get("idlogdetail");
+
+        $em = $this->getDoctrine()->getManager();
+        $logdetail = $em->getRepository('FrontendBundle:Logdetail')->find($id);
+
+
+        if (!$logdetail) {
+            $response = new Response();
+            $response->setStatusCode(204);
+            return $response;
+        }
+
+        $em->remove($logdetail);
+        $em->flush();
+        $response = new Response();
+        $response->setStatusCode(200);
+        return $response;
     }
 
 }

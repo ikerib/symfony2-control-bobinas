@@ -31,6 +31,13 @@ class Logdetail
     /**
      * @var string
      *
+     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     */
+    private $descripcion;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="posicion1", type="string", length=255, nullable=true)
      */
     private $posicion1;
@@ -78,7 +85,7 @@ class Logdetail
 
     public function __toString()
     {
-        return $this->getOf();
+        return $this->getDescripcion();
     }
 
     /**
@@ -250,5 +257,28 @@ class Logdetail
     public function getLog()
     {
         return $this->log;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Logdetail
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
 }

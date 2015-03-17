@@ -44,4 +44,19 @@ class LogRepository extends EntityRepository
 //        print_r($consulta->getSQL());
         return $consulta->getResult();
     }
+
+    public function findPorOperacion( $operacion  )
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT l
+                    FROM FrontendBundle:Log l
+
+                    WHERE l.operacion = :operacion";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('operacion', $operacion);
+        return $consulta->getResult();
+//        return $consulta->getResult(\Doctrine\ORM\Query::HYDRATE_OBJECT);
+    }
 }

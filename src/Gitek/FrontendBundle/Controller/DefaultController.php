@@ -4,9 +4,17 @@ namespace Gitek\FrontendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Gitek\BackendBundle\Entity\Usuario;
+use Gitek\FrontendBundle\Entity\Log;
+use Gitek\FrontendBundle\Entity\Logdetail;
 
 
 class DefaultController extends Controller
@@ -67,6 +75,13 @@ class DefaultController extends Controller
         }
     }
 
+    public function logoutAction(){
+        $this->get("request")->getSession()->invalidate();
+        $this->get("security.context")->setToken(null);
+        $this->get("session")->setFlash('message.success', true);
+        return new RedirectResponse($this->generateUrl('login'));
+    }
+
     public function dashboardAction() {
 
         $usuario = $this->getUser();
@@ -82,26 +97,17 @@ class DefaultController extends Controller
         ));
     }
 
-    public function fase2Action() {
-
-        $usuario = $this->getUser();
-
-        return $this->render('FrontendBundle:Default:fase2.html.twig', array(
-            'usuario' => $usuario
-        ));
-    }
-
-    public function logoutAction(){
-        $this->get("request")->getSession()->invalidate();
-        $this->get("security.context")->setToken(null);
-        $this->get("session")->setFlash('message.success', true);
-        return new RedirectResponse($this->generateUrl('login'));
-    }
-
     public function findofAction(Request $request,$of=null) {
         if ( $request->getMethod() == "POST" ) {
             $of = $request->request->get('of'); //gets POST var.
             return $this->redirect($this->generateUrl("find_of", array( 'of' => $of) ));
+        }
+
+        // miramos si la ya han comenzado con la OF
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findByOf($of);
+        if  ( count($log) > 0 ) {
+
         }
 
         $client = $this->get('guzzle.client');
@@ -113,6 +119,11 @@ class DefaultController extends Controller
             $of = "no encontrado";
         }
 
+        $log = new Log();
+        $log->setOf($of);
+        $em->persist($log);
+        $em->flush();
+
         $usuario = $this->getUser();
         $operacion = "";
         $componentes = "";
@@ -123,7 +134,6 @@ class DefaultController extends Controller
             'operacion' => $operacion,
             'componentes' => $componentes
         ));
-
     }
 
     public function findoperacionAction(Request $request, $operacion=null) {
@@ -160,7 +170,68 @@ class DefaultController extends Controller
             'componentes' => $componentes
 
         ));
+    }
 
+    public function addComponenteAction(Request $request) {
+
+        $of = $request->request->get("of");
+        $operacion = $request->request->get("operacion");
+        $componente = $request->request->get("codbarcomponente");
+
+        // 1-. comprobar que pertenece a la OF correcta y Operación correcta
+        $client = $this->get('guzzle.client');
+        $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
+        $response = $request->send();
+        $datos = $response->json();
+
+        $bilaketa = $this->search_objects($datos, 'IDComponente', $componente);
+
+        if ( count($bilaketa) == 0 )
+        {
+            $response = new Response();
+            $response->setStatusCode(204);
+            return $response;
+        }
+
+        // 2-. comprobar si esta dentro de la tabla log
+
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findByOfOperacionComponente($of, $operacion,$componente);
+
+        if ( count($log) > 0 ) {
+            $serializador = $this->container->get('serializer');
+            $respuesta = new Response($serializador->serialize($datos, 'json'));
+            $respuesta->headers->set('Content-Type', 'application/json');
+            return $respuesta;
+
+        } else {
+            $log = new Log();
+            $log->setOf($of);
+            $log->setOperacion($operacion);
+            $em->persist($log);
+
+            $det = new Logdetail();
+            $det->setLog($log);
+            $det->setComponente($componente);
+            $em->persist($det);
+
+            $em->flush();
+
+            $serializador = $this->container->get('serializer');
+            $respuesta = new Response($serializador->serialize($log, 'json'));
+            $respuesta->headers->set('Content-Type', 'application/json');
+            return $respuesta;
+        }
+    }
+
+    protected function search_objects($objects, $key, $value) { // might contain bugs as I typed in in SO on the go
+        $return = array();
+        foreach ($objects as $object) {
+            if (isset($object[$key]) && $object[$key] == $value) {
+               $return[] = $object;
+            }
+        }
+        return $return;
     }
 
 }

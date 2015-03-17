@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Log list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Of</th>
+                <th>Operacion</th>
+                <th>Validacion1</th>
+                <th>Validacion2</th>
+                <th>Validacion3</th>
+                <th>Validacion4</th>
+                <th>Validacion5</th>
+                <th>Validacion6</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('admin_log_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.of }}</td>
+                <td>{{ entity.operacion }}</td>
+                <td>{{ entity.validacion1 }}</td>
+                <td>{{ entity.validacion2 }}</td>
+                <td>{{ entity.validacion3 }}</td>
+                <td>{{ entity.validacion4 }}</td>
+                <td>{{ entity.validacion5 }}</td>
+                <td>{{ entity.validacion6 }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('admin_log_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('admin_log_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('admin_log_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

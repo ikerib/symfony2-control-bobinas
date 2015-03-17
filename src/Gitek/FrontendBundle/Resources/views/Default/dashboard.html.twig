@@ -55,8 +55,12 @@
           <div class="box-header">
               <h3 class="box-title">Leer código de barras del Material</h3>
               <div class="box-tools pull-left">
-                  <input type="text" id="codbarcomponente" ng-enter="leeComponente()" ng-model="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" />
-                  <button class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
+                  <form action="{{ path('addComponente') }}" method="post">
+                      <input type="text" id="codbarcomponente" name="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" />
+                      <button class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
+                      <input type="hidden" name="of" value="{{ of }}" />
+                      <input type="hidden" name="operacion" value="{{ operacion }}" />
+                  </form>
               </div>
           </div>
           <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
@@ -71,13 +75,13 @@
               </thead>
               <tbody>
                 {% for componente in componentes %}
-                  <tr>
-                    <td>{{ componente.IDComponente }}</td>
-                    <td>{{ componente.IDComponente }}</td>
-                    <td>{{ componente.IDComponente }}</td>
-                    <td>{{ componente.IDComponente }}</td>
-                    <td>{{ componente.IDComponente }}</td>
-                    <td>{{ componente.IDComponente }}</td>
+                  <tr class="tr{{ loop.index0 }}">
+                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
+                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
+                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
+                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
+                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
+                    <td class="td{{ loop.index0 }}">{{ componente.IDComponente }}</td>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -95,15 +99,7 @@
 
   <script type="text/javascript">
     $(function() {
-      // var url = Routing.generate('api_1_get_componentes', { 'operacion' : {{operacion}} });
-
-      // console.log($.getJSON(url, function(json, textStatus) {
-      //     return json;
-      // }));
-
-      $('#example2_wrapper').DataTable( {
-
-        } );
+      $('#example2_wrapper').DataTable( {} );
     });
   </script>
 

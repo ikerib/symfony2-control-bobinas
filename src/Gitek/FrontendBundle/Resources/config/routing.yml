@@ -1,3 +1,11 @@
+frontend_admin_logdetail:
+    resource: "@FrontendBundle/Resources/config/routing/logdetail.yml"
+    prefix:   /admin/logdetail
+
+frontend_admin_log:
+    resource: "@FrontendBundle/Resources/config/routing/log.yml"
+    prefix:   /admin/log
+
 frontend_homepage:
     path:     /
     defaults: { _controller: FrontendBundle:Default:login }
@@ -39,4 +47,9 @@ find_of_operacion:
 find_of_operacion_post:
     path: /OrdenFabricacionOperacion
     defaults: { _controller: FrontendBundle:Default:findoperacion }
+    requirements: { _method: post }
+
+addComponente:
+    path: /addComponente
+    defaults: { _controller: FrontendBundle:Default:addComponente }
     requirements: { _method: post }

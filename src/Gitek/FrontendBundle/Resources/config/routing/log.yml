@@ -1,0 +1,30 @@
+admin_log:
+    path:     /
+    defaults: { _controller: "FrontendBundle:Log:index" }
+
+admin_log_show:
+    path:     /{id}/show
+    defaults: { _controller: "FrontendBundle:Log:show" }
+
+admin_log_new:
+    path:     /new
+    defaults: { _controller: "FrontendBundle:Log:new" }
+
+admin_log_create:
+    path:     /create
+    defaults: { _controller: "FrontendBundle:Log:create" }
+    requirements: { _method: post }
+
+admin_log_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FrontendBundle:Log:edit" }
+
+admin_log_update:
+    path:     /{id}/update
+    defaults: { _controller: "FrontendBundle:Log:update" }
+    requirements: { _method: post|put }
+
+admin_log_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FrontendBundle:Log:delete" }
+    requirements: { _method: post|delete }

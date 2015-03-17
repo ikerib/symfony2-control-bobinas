@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Log</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Of</th>
+                <td>{{ entity.of }}</td>
+            </tr>
+            <tr>
+                <th>Operacion</th>
+                <td>{{ entity.operacion }}</td>
+            </tr>
+            <tr>
+                <th>Validacion1</th>
+                <td>{{ entity.validacion1 }}</td>
+            </tr>
+            <tr>
+                <th>Validacion2</th>
+                <td>{{ entity.validacion2 }}</td>
+            </tr>
+            <tr>
+                <th>Validacion3</th>
+                <td>{{ entity.validacion3 }}</td>
+            </tr>
+            <tr>
+                <th>Validacion4</th>
+                <td>{{ entity.validacion4 }}</td>
+            </tr>
+            <tr>
+                <th>Validacion5</th>
+                <td>{{ entity.validacion5 }}</td>
+            </tr>
+            <tr>
+                <th>Validacion6</th>
+                <td>{{ entity.validacion6 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_log') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_log_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

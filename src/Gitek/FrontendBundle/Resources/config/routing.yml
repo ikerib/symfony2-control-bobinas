@@ -53,3 +53,5 @@ addComponente:
     path: /addComponente
     defaults: { _controller: FrontendBundle:Default:addComponente }
     requirements: { _method: post }
+    options:
+            expose: true

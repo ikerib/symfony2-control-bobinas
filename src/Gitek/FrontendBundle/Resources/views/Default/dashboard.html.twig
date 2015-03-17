@@ -51,19 +51,21 @@
 
   <div class="row">
     <div class="col-xs-12">
+
       <div class="box">
           <div class="box-header">
               <h3 class="box-title">Leer código de barras del Material</h3>
               <div class="box-tools pull-left">
-                  <form action="{{ path('addComponente') }}" method="post">
-                      <input type="text" id="codbarcomponente" name="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" />
-                      <button class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
-                      <input type="hidden" name="of" value="{{ of }}" />
-                      <input type="hidden" name="operacion" value="{{ operacion }}" />
-                  </form>
+                  <input type="text" id="codbarcomponente" name="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" />
+                  <button id="cmdAddComponent" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
+                  <input type="hidden" id="miof" name="of" value="{{ of }}" />
+                  <input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />
               </div>
           </div>
           <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+              <div id="divAlert" class="">
+
+              </div>
             <table id="example2_wrapper">
               <thead>
                 <th>Componente</th>
@@ -98,9 +100,55 @@
   {{ parent() }}
 
   <script type="text/javascript">
+
     $(function() {
-      $('#example2_wrapper').DataTable( {} );
+        $('#example2_wrapper').DataTable( {} );
+
+        $('#codbarcomponente').keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                formAddComponentSubmit();
+            }
+        });
+
+        $('#cmdAddComponent').on('click', function(){
+            formAddComponentSubmit();
+        });
+
+        function formAddComponentSubmit() {
+            var micom = $('#codbarcomponente').val();
+            var miof  = $('#miof').val();
+            var miope  = $('#miope').val();
+            var miurl = Routing.generate('addComponente');
+
+            $.ajax({
+                method: 'POST',
+                url: miurl,
+                data: { of: miof, operacion: miope, componente: micom}
+            }).done(function( data, textStatus, jqXHR ) {
+                console.log("ondo");
+                console.log(data);
+                console.log(textStatus);
+                console.log(jqXHR);
+                if ( jqXHR.status === 204 ) {
+                    var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                    "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                    "<h4><i class='icon fa fa-ban'></i> Alert!</h4>"+
+                    "Este componente es incorrecto. No correspone a esta Operación u OF."+
+                    "</div>";
+                    $('#divAlert').append(miTexto);
+
+                } else {
+
+                }
+            }).fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+            });
+        }
+
     });
+
+
   </script>
 
 {% endblock javascripts %}

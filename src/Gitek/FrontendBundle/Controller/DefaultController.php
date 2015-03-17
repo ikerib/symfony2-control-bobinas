@@ -176,7 +176,7 @@ class DefaultController extends Controller
 
         $of = $request->request->get("of");
         $operacion = $request->request->get("operacion");
-        $componente = $request->request->get("codbarcomponente");
+        $componente = $request->request->get("componente");
 
         // 1-. comprobar que pertenece a la OF correcta y Operación correcta
         $client = $this->get('guzzle.client');
@@ -213,12 +213,15 @@ class DefaultController extends Controller
             $det = new Logdetail();
             $det->setLog($log);
             $det->setComponente($componente);
+            $det->setPosicion1($bilaketa[0]["PosicionFeeder"]);
+            $det->setPosicion2($bilaketa[0]["Observaciones"]);
+            $det->setCantidad($bilaketa[0]["QNecesaria"]);
             $em->persist($det);
 
             $em->flush();
 
             $serializador = $this->container->get('serializer');
-            $respuesta = new Response($serializador->serialize($log, 'json'));
+            $respuesta = new Response($serializador->serialize($bilaketa, 'json'));
             $respuesta->headers->set('Content-Type', 'application/json');
             return $respuesta;
         }

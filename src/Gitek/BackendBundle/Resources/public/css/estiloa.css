@@ -1,4 +1,6 @@
-
+.invisible {
+    display: none;
+}
 .small-box .icon {
     position: absolute;
     top: auto;

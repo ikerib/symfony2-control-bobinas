@@ -163,10 +163,11 @@ class DefaultController extends Controller
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
-            'usuario' => $usuario,
-            'of' => $of,
+            'usuario'   => $usuario,
+            'of'        => $of,
             'operacion' => $operacion,
-            'log' => $log,
+            'log'       => $log,
+            'mijson'    => $data
         ));
     }
 
@@ -175,6 +176,7 @@ class DefaultController extends Controller
         $of = $request->request->get("of");
         $operacion = $request->request->get("operacion");
         $componente = $request->request->get("componente");
+        $logid = $request->request->get('logid');
 
         // 1-. comprobar que pertenece a la OF correcta y Operación correcta
         $client = $this->get('guzzle.client');
@@ -194,20 +196,32 @@ class DefaultController extends Controller
         // 2-. comprobar si esta dentro de la tabla log
 
         $em = $this->getDoctrine()->getManager();
-        $log = $em->getRepository('FrontendBundle:Log')->findByOfOperacionComponente($of, $operacion,$componente);
 
-        if ( count($log) > 0 ) {
-            $serializador = $this->container->get('serializer');
-            $respuesta = new Response($serializador->serialize($log, 'json'));
-            $respuesta->headers->set('Content-Type', 'application/json');
-            return $respuesta;
-
+        if (!$logid) {
+            $log = $em->getRepository('FrontendBundle:Log')->findByOfOperacionComponente($of, $operacion,$componente);
         } else {
+            $log = $em->getRepository('FrontendBundle:Log')->find($logid);
+        }
+
+
+
+        if ( count($log) === 0 ) {
             $log = new Log();
             $log->setOf($of);
             $log->setOperacion($operacion);
             $em->persist($log);
 
+        }
+
+        $midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponente($componente);
+
+        if ( count($midet) > 0 ) {
+            $resp = array('existe'=>1);
+            $serializador = $this->container->get('serializer');
+            $respuesta = new Response($serializador->serialize($resp, 'json'));
+            $respuesta->headers->set('Content-Type', 'application/json');
+            return $respuesta;
+        } else {
             $det = new Logdetail();
             $det->setLog($log);
             $det->setComponente($componente);
@@ -220,7 +234,7 @@ class DefaultController extends Controller
             $em->flush();
 
             $serializador = $this->container->get('serializer');
-            $respuesta = new Response($serializador->serialize($bilaketa, 'json'));
+            $respuesta = new Response($serializador->serialize($det, 'json'));
             $respuesta->headers->set('Content-Type', 'application/json');
             return $respuesta;
         }
@@ -236,7 +250,7 @@ class DefaultController extends Controller
         return $return;
     }
 
-    public function removeComponent(Request $request) {
+    public function removeComponentAction(Request $request) {
         $id = $request->request->get("idlogdetail");
 
         $em = $this->getDoctrine()->getManager();

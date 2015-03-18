@@ -48,7 +48,24 @@
     </div>
 
   </div>
+    <div class="row">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Progreso</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <p><code>Total componentes: {{ mijson | length }}</code></p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                        <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                </div>
 
+            </div><!-- /.box-body -->
+        </div>
+    </div>
+
+    <div id="progressbar"></div>
   <div class="row">
     <div class="col-xs-12">
 
@@ -60,13 +77,14 @@
                   <button id="cmdAddComponent" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
                   <input type="hidden" id="miof" name="of" value="{{ of }}" />
                   <input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />
+                  <input type="hidden" id="logid" name="logid" value="{% if log.id is defined %}{{ log.id }}{% endif %}" />
               </div>
           </div>
           <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
 
-              <div id="divAlert" class="">
+              <div id="divAlert" class=""></div>
+              <div id="divAlertInfo" class=""></div>
 
-              </div>
             <table id="example2_wrapper">
               <thead>
                 <th>Componente</th>
@@ -103,17 +121,19 @@
   <script type="text/javascript">
 
     $(function() {
-        $('.btn-delete').on('click', function(){
+        $('body').on('click','.btn-delete', function(){
             var idlogdetail = $(this).data('idlogdetail');
             var url = Routing.generate('removeComponente');
-            console.log(url);
             $.ajax({
-                methos:'POST',
+                method:'POST',
                 url:url,
                 data: { idlogdetail:idlogdetail}
             }).done(function( data, textStatus, jqXHR ) {
                 if ( jqXHR.status === 200 ) {
-                    $(this).closest('tr').remove();
+                    var t = $('#example2_wrapper').DataTable();
+                    t.row( $(this).parents('tr') )
+                            .remove()
+                            .draw();
                 }
             }).fail(function( jqXHR, textStatus ) {
                 console.log( "Request failed: " + textStatus );
@@ -137,12 +157,13 @@
             var micom = $('#codbarcomponente').val();
             var miof  = $('#miof').val();
             var miope  = $('#miope').val();
+            var logid = $('#logid').val();
             var miurl = Routing.generate('addComponente');
 
             $.ajax({
                 method: 'POST',
                 url: miurl,
-                data: { of: miof, operacion: miope, componente: micom}
+                data: { of: miof, operacion: miope, componente: micom, logid:logid}
             }).done(function( data, textStatus, jqXHR ) {
                 console.log("ondo");
                 console.log(data);
@@ -155,8 +176,43 @@
                     "Este componente es incorrecto. No correspone a esta Operación u OF."+
                     "</div>";
                     $('#divAlert').append(miTexto);
+                    oTable = $('#example2_wrapper').dataTable();
+                    var oSettings = oTable.fnSettings();
+                    alert( oSettings.fnRecordsTotal() );
+                    alert( oSettings.fnRecordsDisplay() );
+                    alert( oSettings.fnDisplayEnd() );
 
+                } else if (data.existe === 1) {
+                    var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
+                        "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                        "<h4><i class='icon fa fa-warning'></i> Alerta!</h4>" +
+                        "El componente ya está en la lista" +
+                        "</div>";
+                    $('#divAlertInfo').append(miTexto);
+//                    console.log($('#example2_wrapper tbody tr:visible').length);
+                    oTable = $('#example2_wrapper').dataTable();
+                    var oSettings = oTable.fnSettings();
+//                    alert( oSettings.fnRecordsTotal() );
+//                    alert( oSettings.fnRecordsDisplay() );
+//                    alert( oSettings.fnDisplayEnd() );
                 } else {
+//                    var mitr ="<tr>" +
+//                             "<td>" + data.componente  +"</td>" +
+//                             "<td>" + data.posicion1  +"</td>" +
+//                             "<td>" + data.posicion2  +"</td>" +
+//                             "<td>" + data.cantidad  +"</td>" +
+//                             "<td><button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button></td>" +
+//                            "</tr>";
+//                    console.log(mitr);
+//                    $('#example2_wrapper').append(mitr);
+                      var t = $('#example2_wrapper').DataTable();
+                      t.row.add( [
+                          data.componente,
+                          data.posicion1,
+                          data.posicion2,
+                          data.cantidad,
+                          "<button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button>"
+                      ] ).draw();
 
                 }
             }).fail(function( jqXHR, textStatus ) {

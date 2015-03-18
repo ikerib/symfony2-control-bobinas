@@ -76,6 +76,12 @@ class Logdetail
      */
     protected $log;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Gitek\BackendBundle\Entity\Usuario", inversedBy="detalles")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     */
+    protected $usuario;
+
 
     public function __construct()
     {
@@ -88,10 +94,12 @@ class Logdetail
         return $this->getDescripcion();
     }
 
+
+
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -114,11 +122,34 @@ class Logdetail
     /**
      * Get componente
      *
-     * @return string
+     * @return string 
      */
     public function getComponente()
     {
         return $this->componente;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Logdetail
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
 
     /**
@@ -137,7 +168,7 @@ class Logdetail
     /**
      * Get posicion1
      *
-     * @return string
+     * @return string 
      */
     public function getPosicion1()
     {
@@ -160,7 +191,7 @@ class Logdetail
     /**
      * Get posicion2
      *
-     * @return string
+     * @return string 
      */
     public function getPosicion2()
     {
@@ -183,7 +214,7 @@ class Logdetail
     /**
      * Get cantidad
      *
-     * @return string
+     * @return string 
      */
     public function getCantidad()
     {
@@ -206,7 +237,7 @@ class Logdetail
     /**
      * Get created_at
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreatedAt()
     {
@@ -229,7 +260,7 @@ class Logdetail
     /**
      * Get updated_at
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdatedAt()
     {
@@ -260,25 +291,25 @@ class Logdetail
     }
 
     /**
-     * Set descripcion
+     * Set usuario
      *
-     * @param string $descripcion
+     * @param \Gitek\BackendBundle\Entity\Usuario $usuario
      * @return Logdetail
      */
-    public function setDescripcion($descripcion)
+    public function setUsuario(\Gitek\BackendBundle\Entity\Usuario $usuario = null)
     {
-        $this->descripcion = $descripcion;
+        $this->usuario = $usuario;
 
         return $this;
     }
 
     /**
-     * Get descripcion
+     * Get usuario
      *
-     * @return string 
+     * @return \Gitek\BackendBundle\Entity\Usuario 
      */
-    public function getDescripcion()
+    public function getUsuario()
     {
-        return $this->descripcion;
+        return $this->usuario;
     }
 }

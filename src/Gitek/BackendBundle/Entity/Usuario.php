@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Usuario
@@ -150,6 +151,17 @@ class Usuario
     }
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Gitek\FrontendBundle\Entity\Logdetail", mappedBy="usuario")
+     */
+    private $detalles;
+
+
+    public function __construct()
+    {
+        $this->detalles = new ArrayCollection();
+    }
+
 
 
 
@@ -157,7 +169,7 @@ class Usuario
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -180,196 +192,11 @@ class Usuario
     /**
      * Get nombre
      *
-     * @return string
+     * @return string 
      */
     public function getNombre()
     {
         return $this->nombre;
-    }
-
-    /**
-     * Set apellidos
-     *
-     * @param string $apellidos
-     * @return Usuario
-     */
-    public function setApellidos($apellidos)
-    {
-        $this->apellidos = $apellidos;
-
-        return $this;
-    }
-
-    /**
-     * Get apellidos
-     *
-     * @return string
-     */
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
-
-    /**
-     * Set admin
-     *
-     * @param integer $admin
-     * @return Usuario
-     */
-    public function setAdmin($admin)
-    {
-        $this->admin = $admin;
-
-        return $this;
-    }
-
-    /**
-     * Get admin
-     *
-     * @return integer
-     */
-    public function getAdmin()
-    {
-        return $this->admin;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Usuario
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Usuario
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Usuario
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * Set encargado
-     *
-     * @param integer $encargado
-     * @return Usuario
-     */
-    public function setEncargado($encargado)
-    {
-        $this->encargado = $encargado;
-
-        return $this;
-    }
-
-    /**
-     * Get encargado
-     *
-     * @return integer
-     */
-    public function getEncargado()
-    {
-        return $this->encargado;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Usuario
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set androidid
-     *
-     * @param string $androidid
-     * @return Usuario
-     */
-    public function setAndroidid($androidid)
-    {
-        $this->androidid = $androidid;
-
-        return $this;
-    }
-
-    /**
-     * Get androidid
-     *
-     * @return string 
-     */
-    public function getAndroidid()
-    {
-        return $this->androidid;
     }
 
     /**
@@ -393,5 +220,199 @@ class Usuario
     public function getAndroidreg()
     {
         return $this->androidreg;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Usuario
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set apellidos
+     *
+     * @param string $apellidos
+     * @return Usuario
+     */
+    public function setApellidos($apellidos)
+    {
+        $this->apellidos = $apellidos;
+
+        return $this;
+    }
+
+    /**
+     * Get apellidos
+     *
+     * @return string 
+     */
+    public function getApellidos()
+    {
+        return $this->apellidos;
+    }
+
+    /**
+     * Set encargado
+     *
+     * @param integer $encargado
+     * @return Usuario
+     */
+    public function setEncargado($encargado)
+    {
+        $this->encargado = $encargado;
+
+        return $this;
+    }
+
+    /**
+     * Get encargado
+     *
+     * @return integer 
+     */
+    public function getEncargado()
+    {
+        return $this->encargado;
+    }
+
+    /**
+     * Set admin
+     *
+     * @param integer $admin
+     * @return Usuario
+     */
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return integer 
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Usuario
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Usuario
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Usuario
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Add detalles
+     *
+     * @param \Gitek\FrontendBundle\Entity\Logdetail $detalles
+     * @return Usuario
+     */
+    public function addDetalle(\Gitek\FrontendBundle\Entity\Logdetail $detalles)
+    {
+        $this->detalles[] = $detalles;
+
+        return $this;
+    }
+
+    /**
+     * Remove detalles
+     *
+     * @param \Gitek\FrontendBundle\Entity\Logdetail $detalles
+     */
+    public function removeDetalle(\Gitek\FrontendBundle\Entity\Logdetail $detalles)
+    {
+        $this->detalles->removeElement($detalles);
+    }
+
+    /**
+     * Get detalles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDetalles()
+    {
+        return $this->detalles;
     }
 }

@@ -172,7 +172,7 @@ class DefaultController extends Controller
     }
 
     public function addComponenteAction(Request $request) {
-
+        $usuario = $this->getUser();
         $of = $request->request->get("of");
         $operacion = $request->request->get("operacion");
         $componente = $request->request->get("componente");
@@ -224,6 +224,9 @@ class DefaultController extends Controller
         } else {
             $det = new Logdetail();
             $det->setLog($log);
+            $user = $em->getRepository('BackendBundle:Usuario')->find($usuario->getId());
+            $det->setUsuario($user);
+
             $det->setComponente($componente);
             $det->setDescripcion($bilaketa[0]["DescArticulo"]);
             $det->setPosicion1($bilaketa[0]["PosicionFeeder"]);

@@ -54,9 +54,13 @@
                 <h3 class="box-title">Progreso</h3>
             </div><!-- /.box-header -->
             <div class="box-body">
-                <p><code>Total componentes: {{ mijson | length }}</code></p>
+                <p>
+                  <code>
+                    Total componentes: <span id="ComponentesTotales">  {{ mijson | length }}</span>
+                    Componentes leídos:<span id="ComponentesLeidos"></span>
+                </code></p>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <div id="mibarraprogresso" class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                         <span class="sr-only">40% Complete (success)</span>
                     </div>
                 </div>
@@ -64,8 +68,6 @@
             </div><!-- /.box-body -->
         </div>
     </div>
-
-    <div id="progressbar"></div>
   <div class="row">
     <div class="col-xs-12">
 
@@ -111,7 +113,7 @@
         </div> {# box #}
     </div> {# col-xs-12 #}
   </div> {# row #}
-
+  <input type="hidden" id="leidos" value="" />
 {% endblock %}
 
 {% block javascripts %}
@@ -121,9 +123,61 @@
   <script type="text/javascript">
 
     $(function() {
+
+        function barraProgreso() {
+          var totales =$('#ComponentesTotales').text();
+          var leidos = $('#leidos').val();
+          var porcen = ( parseFloat(leidos) * 100 ) / parseFloat(totales);
+          var sPorcentaje = porcen + '%';
+          var pro = $('#mibarraprogresso');
+          $(pro).width(sPorcentaje);
+          $('#ComponentesLeidos').html(leidos);
+        };
+
+        function cleanAlerts() {
+          $('#divAlertInfo').empty();
+          $('#divAlert').empty();
+        }
+
+        $('#example2_wrapper').DataTable( {
+            language: {
+              "sProcessing":     "Procesando...",
+              "sLengthMenu":     "Mostrar _MENU_ registros",
+              "sZeroRecords":    "No se encontraron resultados",
+              "sEmptyTable":     "Ningún dato disponible en esta tabla",
+              "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+              "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+              "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+              "sInfoPostFix":    "",
+              "sSearch":         "Buscar:",
+              "sUrl":            "",
+              "sInfoThousands":  ",",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst":    "Primero",
+                  "sLast":     "Último",
+                  "sNext":     "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+              "oAria": {
+                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+              }
+            },
+            bFilter: false,
+            paging: false,
+            "fnDrawCallback": function( oSettings ) {
+              // var leidos = oSettings.fnRecordsTotal() );
+              $('#leidos').val(oSettings.fnRecordsTotal());
+              barraProgreso();
+            }
+        });
+
         $('body').on('click','.btn-delete', function(){
+            cleanAlerts();
             var idlogdetail = $(this).data('idlogdetail');
             var url = Routing.generate('removeComponente');
+            var that = $(this);
             $.ajax({
                 method:'POST',
                 url:url,
@@ -131,18 +185,19 @@
             }).done(function( data, textStatus, jqXHR ) {
                 if ( jqXHR.status === 200 ) {
                     var t = $('#example2_wrapper').DataTable();
-                    t.row( $(this).parents('tr') )
+                    t.row( $(that).parents('tr') )
                             .remove()
                             .draw();
+                    barraProgreso();
                 }
             }).fail(function( jqXHR, textStatus ) {
                 console.log( "Request failed: " + textStatus );
             });
         });
 
-        $('#example2_wrapper').DataTable( {} );
 
         $('#codbarcomponente').keypress(function(event){
+            cleanAlerts();
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if(keycode == '13'){
                 formAddComponentSubmit();
@@ -150,6 +205,7 @@
         });
 
         $('#cmdAddComponent').on('click', function(){
+            cleanAlerts();
             formAddComponentSubmit();
         });
 
@@ -165,10 +221,6 @@
                 url: miurl,
                 data: { of: miof, operacion: miope, componente: micom, logid:logid}
             }).done(function( data, textStatus, jqXHR ) {
-                console.log("ondo");
-                console.log(data);
-                console.log(textStatus);
-                console.log(jqXHR);
                 if ( jqXHR.status === 204 ) {
                     var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
                     "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
@@ -176,12 +228,6 @@
                     "Este componente es incorrecto. No correspone a esta Operación u OF."+
                     "</div>";
                     $('#divAlert').append(miTexto);
-                    oTable = $('#example2_wrapper').dataTable();
-                    var oSettings = oTable.fnSettings();
-                    alert( oSettings.fnRecordsTotal() );
-                    alert( oSettings.fnRecordsDisplay() );
-                    alert( oSettings.fnDisplayEnd() );
-
                 } else if (data.existe === 1) {
                     var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
                         "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
@@ -189,31 +235,16 @@
                         "El componente ya está en la lista" +
                         "</div>";
                     $('#divAlertInfo').append(miTexto);
-//                    console.log($('#example2_wrapper tbody tr:visible').length);
-                    oTable = $('#example2_wrapper').dataTable();
-                    var oSettings = oTable.fnSettings();
-//                    alert( oSettings.fnRecordsTotal() );
-//                    alert( oSettings.fnRecordsDisplay() );
-//                    alert( oSettings.fnDisplayEnd() );
                 } else {
-//                    var mitr ="<tr>" +
-//                             "<td>" + data.componente  +"</td>" +
-//                             "<td>" + data.posicion1  +"</td>" +
-//                             "<td>" + data.posicion2  +"</td>" +
-//                             "<td>" + data.cantidad  +"</td>" +
-//                             "<td><button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button></td>" +
-//                            "</tr>";
-//                    console.log(mitr);
-//                    $('#example2_wrapper').append(mitr);
-                      var t = $('#example2_wrapper').DataTable();
-                      t.row.add( [
+                      oTable = $('#example2_wrapper').DataTable();
+                      oTable.row.add( [
                           data.componente,
                           data.posicion1,
                           data.posicion2,
                           data.cantidad,
                           "<button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button>"
                       ] ).draw();
-
+                      barraProgreso();
                 }
             }).fail(function( jqXHR, textStatus ) {
                 console.log( "Request failed: " + textStatus );

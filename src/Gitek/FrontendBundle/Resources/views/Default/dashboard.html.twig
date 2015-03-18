@@ -90,6 +90,7 @@
             <table id="example2_wrapper">
               <thead>
                 <th>Componente</th>
+                <th>Descripción</th>
                 <th>Posicion Feeder</th>
                 <th>Posicion MSL</th>
                 <th>Cantidad</th>
@@ -99,6 +100,7 @@
                 {% if log.detalles is defined %}
                     {% for componente in log.detalles  %}
                       <tr class="tr{{ loop.index0 }}">
+                        <td class="td{{ loop.index0 }}">{{ componente.componente }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.descripcion }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>

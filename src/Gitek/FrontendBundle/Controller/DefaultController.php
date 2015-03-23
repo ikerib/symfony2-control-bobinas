@@ -89,13 +89,15 @@ class DefaultController extends Controller
         $operacion = '';
         $componentes = '';
         $log = '';
+        $mijson = '';
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario' => $usuario,
             'of' => $of,
             'operacion' => $operacion,
             'componentes' => $componentes,
-            'log' => $log
+            'log' => $log,
+            'mijson' => $mijson
         ));
     }
 

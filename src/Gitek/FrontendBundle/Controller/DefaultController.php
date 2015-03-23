@@ -102,6 +102,12 @@ class DefaultController extends Controller
     }
 
     public function findofAction(Request $request,$of=null) {
+
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+
         if ( $request->getMethod() == "POST" ) {
             $of = $request->request->get('of'); //gets POST var.
             return $this->redirect($this->generateUrl("find_of", array( 'of' => $of) ));
@@ -141,6 +147,12 @@ class DefaultController extends Controller
     }
 
     public function findoperacionAction(Request $request, $operacion=null) {
+
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+
         if ( $request->getMethod() == "POST" ) {
             $operacion = $request->request->get('operacion'); //gets POST var.
 

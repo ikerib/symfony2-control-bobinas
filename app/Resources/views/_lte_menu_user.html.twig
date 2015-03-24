@@ -16,50 +16,79 @@
 
 {% block menu %}
 
-        {#<h1>{% verbatim %}{{ menua }}{% endverbatim %} </h1>#}
+    {% set menu=0 %}
+        {% if app.request.attributes.get('_route') == 'my_route' %}
+            {% set menu=1 %}
+        {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion2" or log.validacion2 == 1 %}
+                {% set menu=2 %}
+        {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion3" or log.validacion3 == 1 %}
+            {% set menu=3 %}
+        {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion4" or log.validacion4 == 1 %}
+            {% set menu=4 %}
+        {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion5" or log.validacion5 == 1 %}
+            {% set menu=5 %}
+        {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion6" or log.validacion6 == 1 %}
+            {% set menu=6 %}
+        {% endif %}
 
-        <li ng-class="{true: 'active'}[menua == 0]" ng-show="menua >= 0">
+        <li>
             <a href="{{ path('dashboard') }}">
                 <i class="fa fa-dashboard"></i> <span>Inicio</span>
             </a>
         </li>
 
-        <li ng-class="{true: 'active'}[menua == 1]" ng-show="menua >= 1">
-            <a href="#">
+    {% if menu > 0 %}
+        <li>
+            <a href="{{ path('validacion2', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>1-. Material</span>
             </a>
         </li>
+    {% endif %}
 
-        <li ng-class="{true: 'active'}[menua == 2]" ng-show="menua >= 2">
-            <a href="#">
+    {% if menu > 1 %}
+        <li>
+            <a href="{{ path('validacion3', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>2-. Validación serigrafía</span>
             </a>
         </li>
+    {% endif %}
 
-        <li ng-class="{true: 'active'}[menua == 3]" ng-show="menua >= 3">
-            <a href="#">
+    {% if menu > 2 %}
+        <li>
+            <a href="{{ path('validacion4', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>3-. Validación Pick&Place</span>
             </a>
         </li>
+    {% endif %}
 
-        <li ng-class="{true: 'active'}[menua == 4]" ng-show="menua >= 4">
-            <a href="#">
+    {% if menu > 3 %}
+        <li>
+            <a href="{{ path('validacion5', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>4-. Validación Horno</span>
             </a>
         </li>
+    {% endif %}
 
-        <li ng-class="{true: 'active'}[menua == 5]" ng-show="menua >= 5">
-            <a href="#">
+    {% if menu > 4 %}
+        <li>
+            <a href="{{ path('validacion5', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>5-. Validación AOI</span>
             </a>
         </li>
+    {% endif %}
 
-        <li ng-class="{true: 'active'}[menua == 6]" ng-show="menua >= 6">
-            <a href="#">
+    {% if menu > 5 %}
+        <li>
+            <a href="{{ path('validacion5', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>6-. Completado</span>
             </a>
         </li>
-
+    {% endif %}
 
 
 {% endblock %}

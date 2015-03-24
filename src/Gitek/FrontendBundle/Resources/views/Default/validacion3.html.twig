@@ -98,6 +98,22 @@
   <script type="text/javascript">
 
     $(function() {
+
+        var zenbatguztira = $('#countquestions').val();
+        var zenbat =  $('.btn-success').length;
+
+        if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
+            var ope = $('#miope').val();
+            var url = Routing.generate('dovalidacion3',{operacion: ope});
+            var miTexto ="<div class='alert alert-success alert-dismissable'>" +
+                    "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
+                    "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
+                    "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
+                    "</div>";
+            $('#divAlertInfo').append(miTexto);
+
+        }
+
         $('body').on('click', '.btnCheck', function(event) {
           event.preventDefault();
             var that = $(this);

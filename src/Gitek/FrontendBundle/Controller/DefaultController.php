@@ -403,7 +403,7 @@ class DefaultController extends Controller
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
 
-        return $this->render('5rontendBundle:Default:validacion4.html.twig', array(
+        return $this->render('FrontendBundle:Default:validacion5.html.twig', array(
             'log' => $log,
             'usuario' => $usuario,
         ));

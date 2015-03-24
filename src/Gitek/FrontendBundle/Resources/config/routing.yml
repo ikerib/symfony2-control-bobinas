@@ -90,3 +90,10 @@ dovalidacion3:
     requirements: { method: get}
     options:
             expose: true
+
+validacion4:
+    path: /validacion4/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Validacion4 }
+    requirements: { method: get}
+    options:
+            expose: true

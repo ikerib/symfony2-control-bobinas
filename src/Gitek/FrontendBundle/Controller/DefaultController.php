@@ -162,7 +162,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
-        if ( $log->getValidacion2() == 1 ) {
+        if ( $log->getValidacion3() == 1 ) {
+            return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
+        } elseif ( $log->getValidacion2() == 1 ) {
             return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
         }elseif ( $log->getValidacion1() == 1 ) {
             return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
@@ -375,7 +377,24 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('validacion3', array('operacion'=>$operacion)));
     }
 
+    public function validacion4Action($operacion) {
+        // Pick&Place
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
+        $questions = $em->getRepository('BackendBundle:ValidacionPickPlace')->findPickplaceVisible();
+
+        return $this->render('FrontendBundle:Default:validacion4.html.twig', array(
+            'log' => $log,
+            'usuario' => $usuario,
+            'questions' => $questions,
+        ));
+    }
 
 
 }

@@ -1,0 +1,160 @@
+{% extends '::basefrontend.html.twig' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu_user.html.twig' with {'option': 'dashboard'} %}{% endblock %}
+
+{% block headertitulo %}Inicio{% endblock %}
+
+{% block body -%}
+
+  <div class="row">
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>
+            OF:{{ log.of }}
+          </h3>
+          <p>
+
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>
+            Operación: {{ log.operacion }}
+          </h3>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+
+      <div class="box">
+          <div class="box-header">
+              <h3 class="box-title">Validacion Horno</h3>
+          </div>
+          <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+
+            <div id="divAlert" class=""></div>
+            <div id="divAlertInfo" class=""></div>
+
+            <table id="checklist">
+              <thead>
+                <th>Comprobar</th>
+                <th>Respuesta</th>
+              </thead>
+              <tbody>
+                {% for q in questions  %}
+                  <tr class="tr{{ loop.index0 }}">
+                    <td class="td{{ loop.index0 }}">{{ q.pregunta }}</td>
+                    <td>
+                        <button
+                            {% set break = false %}
+                            {% set aurkitua = false %}
+                            {% for d in log.logpickplace if not break %}
+                                {% if d.pregunta == q %}
+                                    {% if d.respuesta == "1" %}
+                                            class="btnCheck btn btn-sm btn-success btn-delete" data-logpickplaceid="{{ d.id }}"
+                                        {% else %}
+                                            class="btnCheck btn btn-sm btn-danger btn-delete" data-logpickplaceid="{{ d.id }}"
+                                    {% endif %}
+                                    {% set break = true %}
+                                    {% set aurkitua = true %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if aurkitua==false %}
+                                class="btnCheck btn btn-sm btn-danger btn-delete" data-logpickplaceid=""
+                            {% endif %}  data-idlogdetail="{{ q.id }}"><i class="fa fa -trash-o"></i></button>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div> {# box #}
+    </div> {# col-xs-12 #}
+  </div> {# row #}
+  <input type="hidden" id="leidos" value="" />
+  <input type="hidden" id="logid" value="{{ log.id }}" />
+  <input type="hidden" id="miope" value="{{ log.operacion }}" />
+  <input type="hidden" id="countquestions" value="{{ questions | length }}" />
+{% endblock %}
+
+{% block javascripts %}
+
+  {{ parent() }}
+
+  <script type="text/javascript">
+
+    $(function() {
+        $('body').on('click', '.btnCheck', function(event) {
+          event.preventDefault();
+            var that = $(this);
+            var milogpickplaceid = $(this).data('logpickplaceid');
+            var miid = $(this).data('idlogdetail');
+            var milogid = $('#logid').val();
+            var url = Routing.generate('api_1_post_validate2questions');
+            var zenbatguztira = $('#countquestions').val();
+          $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {q: miid, logpickplaceid:milogpickplaceid, logid:milogid}
+          })
+          .done(function(data) {
+            $(that).data("logpickplaceid", data.id);
+
+            if ( data.respuesta == "1" ) {
+                $(that).removeClass("btn-danger");
+                $(that).addClass("btn-success");
+
+                var zenbat =  $('.btn-success').length;
+
+                if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
+                    var ope = $('#miope').val();
+                    var url = Routing.generate('dovalidacion3',{operacion: ope});
+                    var miTexto ="<div class='alert alert-success alert-dismissable'>" +
+                            "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
+                            "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
+                            "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
+                            "</div>";
+                    $('#divAlertInfo').append(miTexto);
+
+                }
+
+            } else {
+                $(that).removeClass("btn-success");
+                $(that).addClass("btn-danger");
+            }
+          })
+          .fail(function() {
+            console.log("error");
+          })
+          .always(function() {
+            console.log("complete");
+          });
+
+        });
+
+        $('#checklist').DataTable( {
+            bFilter: false,
+            paging: false
+        });
+
+    });
+
+
+  </script>
+
+{% endblock javascripts %}

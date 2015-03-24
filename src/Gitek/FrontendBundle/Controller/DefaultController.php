@@ -158,6 +158,15 @@ class DefaultController extends Controller
 
             return $this->redirect($this->generateUrl("find_of_operacion", array( 'operacion' => $operacion) ));
         }
+
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+        if ( $log->getValidacion1() == 1 ) {
+            return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
+        }
+
+
         $client = $this->get('guzzle.client');
         $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
         $response = $request->send();
@@ -173,8 +182,6 @@ class DefaultController extends Controller
 
         $usuario = $this->getUser();
 
-        $em = $this->getDoctrine()->getManager();
-        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario'   => $usuario,
@@ -247,8 +254,19 @@ class DefaultController extends Controller
             $det->setPosicion2($bilaketa[0]["Observaciones"]);
             $det->setCantidad($bilaketa[0]["QNecesaria"]);
             $em->persist($det);
-
             $em->flush();
+
+
+            // Comprobar si completado:
+            $jsoncount = count($datos);
+            $logcount  = count($log->getDetalles());
+
+            if ( $jsoncount == $logcount ) {
+
+                $log->setValidacion1(true);
+                $em->flush();
+
+            }
 
             $serializador = $this->container->get('serializer');
             $respuesta = new Response($serializador->serialize($det, 'json'));
@@ -285,6 +303,27 @@ class DefaultController extends Controller
         $response = new Response();
         $response->setStatusCode(200);
         return $response;
+    }
+
+    public function validacion2Action($operacion) {
+
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+        $questions = $em->getRepository('BackendBundle:ValidacionSerigrafia')->findSerigrafiaVisible();
+
+        //$logserigrafia = $em->getRepository('FronendBundle:LogSerigrafia')->find();
+
+        return $this->render('FrontendBundle:Default:validacion2.html.twig', array(
+            'log' => $log,
+            'usuario' => $usuario,
+            'questions' => $questions,
+        ));
     }
 
 }

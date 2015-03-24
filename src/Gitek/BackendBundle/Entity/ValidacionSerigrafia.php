@@ -3,6 +3,7 @@
 namespace Gitek\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -52,10 +53,16 @@ class ValidacionSerigrafia
      */
     private $updated;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Gitek\FrontendBundle\Entity\LogSerigrafia", mappedBy="validacionserigrafia")
+     */
+    private $detalles;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
+        $this->detalles = new ArrayCollection();
     }
 
     public function __toString()
@@ -164,5 +171,38 @@ class ValidacionSerigrafia
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add detalles
+     *
+     * @param \Gitek\FrontendBundle\Entity\LogSerigrafia $detalles
+     * @return ValidacionSerigrafia
+     */
+    public function addDetalle(\Gitek\FrontendBundle\Entity\LogSerigrafia $detalles)
+    {
+        $this->detalles[] = $detalles;
+
+        return $this;
+    }
+
+    /**
+     * Remove detalles
+     *
+     * @param \Gitek\FrontendBundle\Entity\LogSerigrafia $detalles
+     */
+    public function removeDetalle(\Gitek\FrontendBundle\Entity\LogSerigrafia $detalles)
+    {
+        $this->detalles->removeElement($detalles);
+    }
+
+    /**
+     * Get detalles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDetalles()
+    {
+        return $this->detalles;
     }
 }

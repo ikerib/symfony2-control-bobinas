@@ -139,6 +139,8 @@
         function cleanAlerts() {
           $('#divAlertInfo').empty();
           $('#divAlert').empty();
+          $('#codbarcomponente').val('');
+          $('#codbarcomponente').text('');
         }
 
         $('#example2_wrapper').DataTable( {
@@ -197,18 +199,22 @@
             });
         });
 
+        $('body').on('click', '#btnContinuar', function() {
+
+        })
 
         $('#codbarcomponente').keypress(function(event){
-            cleanAlerts();
+
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if(keycode == '13'){
                 formAddComponentSubmit();
             }
+            cleanAlerts();
         });
 
         $('#cmdAddComponent').on('click', function(){
-            cleanAlerts();
             formAddComponentSubmit();
+            cleanAlerts();
         });
 
         function formAddComponentSubmit() {
@@ -248,6 +254,16 @@
                           "<button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button>"
                       ] ).draw();
                       barraProgreso();
+                      if ( data.log.validacion1 === true) {
+                        var ope = $('#miope').val();
+                        var url = Routing.generate('Validacion2',{operacion: ope});
+                        var miTexto ="<div class='alert alert-success alert-dismissable'>" +
+                                  "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
+                                  "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
+                                  "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
+                                "</div>";
+                        $('#divAlertInfo').append(miTexto);
+                      }
                 }
             }).fail(function( jqXHR, textStatus ) {
                 console.log( "Request failed: " + textStatus );

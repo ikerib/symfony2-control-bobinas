@@ -2,6 +2,7 @@
 
 namespace Gitek\ApiBundle\Controller;
 
+use Gitek\FrontendBundle\Entity\LogSerigrafia;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,6 +18,48 @@ use RMS\PushNotificationsBundle\Message\AndroidMessage;
 
 class ApiController extends FOSRestController
 {
+    /**
+    * @Rest\View
+    */
+    public function postValidate1questionsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $q = $request->request->get('q');
+        $milogid = $request->request->get('logid');
+        $milogserigrafiaid = $request->request->get('logserigrafiaid');
+
+        $question = $em->getRepository('BackendBundle:ValidacionSerigrafia')->find($q);
+        $log = $em->getRepository('FrontendBundle:Log')->find($milogid);
+
+        if (!$question) {
+            throw $this->createNotFoundException('Unable to find Usuario entity.');
+        }
+
+        if (!$milogserigrafiaid) {
+            $logserigrafia = new LogSerigrafia();
+            $logserigrafia->setLog($log);
+            $logserigrafia->setPregunta($question);
+            $logserigrafia->setRespuesta(1);
+            $em->persist($logserigrafia);
+            $em->flush();
+        } else {
+            $logserigrafia = $em->getRepository('FrontendBundle:LogSerigrafia')->find($milogserigrafiaid);
+            if ( $logserigrafia->getRespuesta() == 0 )
+            {
+                $logserigrafia->setRespuesta(1);
+            } else {
+                $logserigrafia->setRespuesta(0);
+            }
+            $em->persist($logserigrafia);
+            $em->flush();
+        }
+
+
+        $statusCode = 200;
+        $view = $this->view($logserigrafia, $statusCode);
+        return $this->handleView($view);
+
+    }
 
     /**
      * @Rest\View

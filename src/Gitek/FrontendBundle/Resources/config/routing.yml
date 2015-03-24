@@ -62,3 +62,10 @@ removeComponente:
     requirements: { _method: post }
     options:
             expose: true
+
+validacion2:
+    path: /Validacion2/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Validacion2 }
+    requirements: { method: get}
+    options:
+            expose: true

@@ -97,6 +97,11 @@ class Log
      */
     private $detalles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="LogSerigrafia", mappedBy="log")
+     */
+    private $logserigrafia;
+
 
     public function __construct()
     {
@@ -383,5 +388,38 @@ class Log
     public function getDetalles()
     {
         return $this->detalles;
+    }
+
+    /**
+     * Add logserigrafia
+     *
+     * @param \Gitek\FrontendBundle\Entity\LogSerigrafia $logserigrafia
+     * @return Log
+     */
+    public function addLogserigrafium(\Gitek\FrontendBundle\Entity\LogSerigrafia $logserigrafia)
+    {
+        $this->logserigrafia[] = $logserigrafia;
+
+        return $this;
+    }
+
+    /**
+     * Remove logserigrafia
+     *
+     * @param \Gitek\FrontendBundle\Entity\LogSerigrafia $logserigrafia
+     */
+    public function removeLogserigrafium(\Gitek\FrontendBundle\Entity\LogSerigrafia $logserigrafia)
+    {
+        $this->logserigrafia->removeElement($logserigrafia);
+    }
+
+    /**
+     * Get logserigrafia
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLogserigrafia()
+    {
+        return $this->logserigrafia;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Gitek\ApiBundle\Controller;
 
+use Gitek\FrontendBundle\Entity\LogPickplace;
 use Gitek\FrontendBundle\Entity\LogSerigrafia;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
@@ -60,6 +61,47 @@ class ApiController extends FOSRestController
         return $this->handleView($view);
 
     }
+
+    public function postValidate2questionsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $q = $request->request->get('q');
+        $milogid = $request->request->get('logid');
+        $milogpickplaceid = $request->request->get('logpickplaceid');
+
+        $question = $em->getRepository('BackendBundle:ValidacionPickPlace')->find($q);
+        $log = $em->getRepository('FrontendBundle:Log')->find($milogid);
+
+        if (!$question) {
+            throw $this->createNotFoundException('Unable to find Usuario entity.');
+        }
+
+        if (!$milogpickplaceid) {
+            $logpickplace = new LogPickplace();
+            $logpickplace->setLog($log);
+            $logpickplace->setPregunta($question);
+            $logpickplace->setRespuesta(1);
+            $em->persist($logpickplace);
+            $em->flush();
+        } else {
+            $logpickplace = $em->getRepository('FrontendBundle:LogPickplace')->find($milogpickplaceid);
+            if ( $logpickplace->getRespuesta() == 0 )
+            {
+                $logpickplace->setRespuesta(1);
+            } else {
+                $logpickplace->setRespuesta(0);
+            }
+            $em->persist($logpickplace);
+            $em->flush();
+        }
+
+
+        $statusCode = 200;
+        $view = $this->view($logpickplace, $statusCode);
+        return $this->handleView($view);
+
+    }
+
 
     /**
      * @Rest\View

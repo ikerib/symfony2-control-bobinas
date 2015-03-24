@@ -162,7 +162,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
-        if ( $log->getValidacion1() == 1 ) {
+        if ( $log->getValidacion2() == 1 ) {
+            return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
+        }elseif ( $log->getValidacion1() == 1 ) {
             return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
         }
 
@@ -305,8 +307,22 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function validacion2Action($operacion) {
+    public function dovalidacion2Action($operacion) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        $log->setValidacion2(1);
+        $em->persist($log);
+        $em->flush();
+        return $this->redirect($this->generateUrl('validacion2', array('operacion'=>$operacion)));
+    }
 
+    public function validacion2Action($operacion) {
+        // Serigrafia
         $securityContext = $this->container->get('security.context');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('login'));
@@ -325,5 +341,41 @@ class DefaultController extends Controller
             'questions' => $questions,
         ));
     }
+
+    public function validacion3Action($operacion) {
+        // Pick&Place
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+        $questions = $em->getRepository('BackendBundle:ValidacionPickPlace')->findPickplaceVisible();
+
+        return $this->render('FrontendBundle:Default:validacion3.html.twig', array(
+            'log' => $log,
+            'usuario' => $usuario,
+            'questions' => $questions,
+        ));
+    }
+
+    public function dovalidacion3Action($operacion) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        $log->setValidacion3(1);
+        $em->persist($log);
+        $em->flush();
+        return $this->redirect($this->generateUrl('validacion3', array('operacion'=>$operacion)));
+    }
+
+
+
 
 }

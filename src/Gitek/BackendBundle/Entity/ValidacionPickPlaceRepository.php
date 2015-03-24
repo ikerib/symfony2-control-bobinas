@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class ValidacionPickPlaceRepository extends EntityRepository
 {
+    public function findPickplaceVisible()
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT v
+                    FROM BackendBundle:ValidacionPickPlace v
+                    WHERE v.mostrar = :mostrar";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('mostrar', 1);
+//        print_r($consulta->getSQL());
+        return $consulta->getResult();
+    }
 }

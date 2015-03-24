@@ -70,9 +70,23 @@ validacion2:
     options:
             expose: true
 
+dovalidacion2:
+    path: /dovalidacion2/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Dovalidacion2}
+    requirements: { method: get}
+    options:
+            expose: true
+
 validacion3:
     path: /validacion3/{operacion}
     defaults: {_controller: FrontendBundle:Default:Validacion3 }
+    requirements: { method: get}
+    options:
+            expose: true
+
+dovalidacion3:
+    path: /dovalidacion3/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Dovalidacion3}
     requirements: { method: get}
     options:
             expose: true

@@ -102,6 +102,10 @@ class Log
      */
     private $logserigrafia;
 
+    /**
+     * @ORM\OneToMany(targetEntity="LogPickplace", mappedBy="log")
+     */
+    private $logpickplace;
 
     public function __construct()
     {
@@ -421,5 +425,38 @@ class Log
     public function getLogserigrafia()
     {
         return $this->logserigrafia;
+    }
+
+    /**
+     * Add logpickplace
+     *
+     * @param \Gitek\FrontendBundle\Entity\LogPickplace $logpickplace
+     * @return Log
+     */
+    public function addLogpickplace(\Gitek\FrontendBundle\Entity\LogPickplace $logpickplace)
+    {
+        $this->logpickplace[] = $logpickplace;
+
+        return $this;
+    }
+
+    /**
+     * Remove logpickplace
+     *
+     * @param \Gitek\FrontendBundle\Entity\LogPickplace $logpickplace
+     */
+    public function removeLogpickplace(\Gitek\FrontendBundle\Entity\LogPickplace $logpickplace)
+    {
+        $this->logpickplace->removeElement($logpickplace);
+    }
+
+    /**
+     * Get logpickplace
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLogpickplace()
+    {
+        return $this->logpickplace;
     }
 }

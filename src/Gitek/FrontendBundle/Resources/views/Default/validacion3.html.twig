@@ -62,19 +62,19 @@
                         <button
                             {% set break = false %}
                             {% set aurkitua = false %}
-                            {% for d in log.logserigrafia if not break %}
+                            {% for d in log.logpickplace if not break %}
                                 {% if d.pregunta == q %}
                                     {% if d.respuesta == "1" %}
-                                            class="btnCheck btn btn-sm btn-success btn-delete" data-logserigrafiaid="{{ d.id }}"
+                                            class="btnCheck btn btn-sm btn-success btn-delete" data-logpickplaceid="{{ d.id }}"
                                         {% else %}
-                                            class="btnCheck btn btn-sm btn-danger btn-delete" data-logserigrafiaid="{{ d.id }}"
+                                            class="btnCheck btn btn-sm btn-danger btn-delete" data-logpickplaceid="{{ d.id }}"
                                     {% endif %}
                                     {% set break = true %}
                                     {% set aurkitua = true %}
                                 {% endif %}
                             {% endfor %}
                             {% if aurkitua==false %}
-                                class="btnCheck btn btn-sm btn-danger btn-delete" data-logserigrafiaid=""
+                                class="btnCheck btn btn-sm btn-danger btn-delete" data-logpickplaceid=""
                             {% endif %}  data-idlogdetail="{{ q.id }}"><i class="fa fa -trash-o"></i></button>
                     </td>
                   </tr>
@@ -101,19 +101,19 @@
         $('body').on('click', '.btnCheck', function(event) {
           event.preventDefault();
             var that = $(this);
-            var milogserigrafiaid = $(this).data('logserigrafiaid');
+            var milogpickplaceid = $(this).data('logpickplaceid');
             var miid = $(this).data('idlogdetail');
             var milogid = $('#logid').val();
-            var url = Routing.generate('api_1_post_validate1questions');
+            var url = Routing.generate('api_1_post_validate2questions');
             var zenbatguztira = $('#countquestions').val();
           $.ajax({
             url: url,
             type: 'POST',
             dataType: 'json',
-            data: {q: miid, logserigrafiaid:milogserigrafiaid, logid:milogid}
+            data: {q: miid, logpickplaceid:milogpickplaceid, logid:milogid}
           })
           .done(function(data) {
-            $(that).data("logserigrafiaid", data.id);
+            $(that).data("logpickplaceid", data.id);
 
             if ( data.respuesta == "1" ) {
                 $(that).removeClass("btn-danger");
@@ -121,9 +121,9 @@
 
                 var zenbat =  $('.btn-success').length;
 
-                if ( zenbatguztira === zenbat ) {
+                if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
                     var ope = $('#miope').val();
-                    var url = Routing.generate('Validacion3',{operacion: ope});
+                    var url = Routing.generate('dovalidacion3',{operacion: ope});
                     var miTexto ="<div class='alert alert-success alert-dismissable'>" +
                             "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
                             "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +

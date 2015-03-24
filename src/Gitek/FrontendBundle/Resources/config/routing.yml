@@ -97,3 +97,10 @@ validacion4:
     requirements: { method: get}
     options:
             expose: true
+
+validacion5:
+    path: /validacion5/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Validacion5 }
+    requirements: { method: get}
+    options:
+            expose: true

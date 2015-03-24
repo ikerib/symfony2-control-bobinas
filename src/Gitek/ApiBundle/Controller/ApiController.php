@@ -19,6 +19,64 @@ use RMS\PushNotificationsBundle\Message\AndroidMessage;
 
 class ApiController extends FOSRestController
 {
+
+    /**
+     * @Rest\View
+     */
+    public function postValidate5Action(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $milogid = $request->request->get('logid');
+
+        $log = $em->getRepository('FrontendBundle:Log')->find($milogid);
+
+        if (!$log) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            if ( $log->getValidacion5() == 1 ) {
+                $log->setValidacion5(0);
+            } else {
+                $log->setValidacion5(1);
+            }
+            $em->persist($log);
+            $em->flush();
+            $statusCode = 200;
+            $view = $this->view($log, $statusCode);
+            return $this->handleView($view);
+        }
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function postValidate4Action(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $milogid = $request->request->get('logid');
+
+        $log = $em->getRepository('FrontendBundle:Log')->find($milogid);
+
+        if (!$log) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            if ( $log->getValidacion4() == 1 ) {
+                $log->setValidacion4(0);
+            } else {
+                $log->setValidacion4(1);
+            }
+            $em->persist($log);
+            $em->flush();
+            $statusCode = 200;
+            $view = $this->view($log, $statusCode);
+            return $this->handleView($view);
+        }
+    }
+
+
     /**
     * @Rest\View
     */

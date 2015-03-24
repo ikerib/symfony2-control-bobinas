@@ -320,7 +320,7 @@ class DefaultController extends Controller
         $log->setValidacion2(1);
         $em->persist($log);
         $em->flush();
-        return $this->redirect($this->generateUrl('validacion2', array('operacion'=>$operacion)));
+        return $this->redirect($this->generateUrl('validacion3', array('operacion'=>$operacion)));
     }
 
     public function validacion2Action($operacion) {
@@ -334,8 +334,6 @@ class DefaultController extends Controller
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
         $questions = $em->getRepository('BackendBundle:ValidacionSerigrafia')->findSerigrafiaVisible();
-
-        //$logserigrafia = $em->getRepository('FronendBundle:LogSerigrafia')->find();
 
         return $this->render('FrontendBundle:Default:validacion2.html.twig', array(
             'log' => $log,
@@ -374,11 +372,11 @@ class DefaultController extends Controller
         $log->setValidacion3(1);
         $em->persist($log);
         $em->flush();
-        return $this->redirect($this->generateUrl('validacion3', array('operacion'=>$operacion)));
+        return $this->redirect($this->generateUrl('validacion4', array('operacion'=>$operacion)));
     }
 
     public function validacion4Action($operacion) {
-        // Pick&Place
+        // Horno
         $securityContext = $this->container->get('security.context');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('login'));
@@ -387,14 +385,28 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
-        $questions = $em->getRepository('BackendBundle:ValidacionPickPlace')->findPickplaceVisible();
 
         return $this->render('FrontendBundle:Default:validacion4.html.twig', array(
             'log' => $log,
             'usuario' => $usuario,
-            'questions' => $questions,
         ));
     }
 
+    public function validacion5Action($operacion) {
+        // Horno
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+
+        return $this->render('5rontendBundle:Default:validacion4.html.twig', array(
+            'log' => $log,
+            'usuario' => $usuario,
+        ));
+    }
 
 }

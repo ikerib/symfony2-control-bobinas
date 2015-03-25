@@ -37,7 +37,7 @@
             Operación: {{ operacion }}
           </h3>
           <p>
-            <form action="{{ path('validacion1post' ) }}" method="post">
+            <form action="{{ path('find_of_operacion' ) }}" method="post">
                 <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
                 <input type="text" name="operacion" id="operacion" autoFocus>
                 <input type="hidden" name="of" value="{{ of }}">

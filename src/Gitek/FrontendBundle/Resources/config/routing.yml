@@ -41,13 +41,17 @@ find_of:
     defaults: { _controller: FrontendBundle:Default:findof , of: '' }
 
 find_of_operacion:
-    path: /OrdenFabricacionOperacion/{operacion}
-    defaults: { _controller: FrontendBundle:Default:findoperacion , operacion: '' }
+    path: /OrdenFabricacionOperacion
+    defaults: { _controller: FrontendBundle:Default:findoperacion }
+    requirements: { _method: post }
+    options:
+            expose: true
 
 validacion1:
     path: /validacion1/{operacion}
     defaults: { _controller: FrontendBundle:Default:validacion1 }
     requirements: { _method: get }
+
 validacion1post:
     path: /validacion1
     defaults: { _controller: FrontendBundle:Default:validacion1 }
@@ -102,9 +106,30 @@ validacion4:
     options:
             expose: true
 
+dovalidacion4:
+    path: /dovalidacion4/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Dovalidacion4}
+    requirements: { method: get}
+    options:
+            expose: true
+
 validacion5:
     path: /validacion5/{operacion}
     defaults: {_controller: FrontendBundle:Default:Validacion5 }
+    requirements: { method: get}
+    options:
+            expose: true
+
+dovalidacion5:
+    path: /dovalidacion5/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Dovalidacion5}
+    requirements: { method: get}
+    options:
+            expose: true
+
+validacion6:
+    path: /validacion6/{operacion}
+    defaults: {_controller: FrontendBundle:Default:Validacion6 }
     requirements: { method: get}
     options:
             expose: true

@@ -146,6 +146,30 @@ class DefaultController extends Controller
         ));
     }
 
+    public function findoperacionAction(Request $request)
+    {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+
+        $operacion = $request->request->get('operacion'); //gets POST var.
+
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        if ($log) {
+            if ( $log->getValidacion3() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
+            } elseif ( $log->getValidacion2() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
+            }elseif ( $log->getValidacion1() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
+            } else {
+                return $this->redirect($this->generateUrl("validacion1", array( 'operacion' => $operacion) ));
+            }
+        }
+    }
+
     public function validacion1Action(Request $request, $operacion=null) {
 
         $securityContext = $this->container->get('security.context');
@@ -161,15 +185,6 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
-        if ($log) {
-            if ( $log->getValidacion3() == 1 ) {
-                return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
-            } elseif ( $log->getValidacion2() == 1 ) {
-                return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
-            }elseif ( $log->getValidacion1() == 1 ) {
-                return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
-            }
-        }
 
         $client = $this->get('guzzle.client');
         $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
@@ -399,6 +414,20 @@ class DefaultController extends Controller
         ));
     }
 
+    public function dovalidacion4Action($operacion) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        $log->setValidacion4(1);
+        $em->persist($log);
+        $em->flush();
+        return $this->redirect($this->generateUrl('validacion5', array('operacion'=>$operacion)));
+    }
+
     public function validacion5Action($operacion) {
         // Horno
         $securityContext = $this->container->get('security.context');
@@ -416,4 +445,34 @@ class DefaultController extends Controller
         ));
     }
 
+    public function dovalidacion5Action($operacion) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        $log->setValidacion5(1);
+        $em->persist($log);
+        $em->flush();
+        return $this->redirect($this->generateUrl('validacion6', array('operacion'=>$operacion)));
+    }
+
+    public function validacion6Action($operacion) {
+        // Horno
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+
+        return $this->render('FrontendBundle:Default:validacion6.html.twig', array(
+            'log' => $log,
+            'usuario' => $usuario,
+        ));
+    }
 }

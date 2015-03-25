@@ -46,8 +46,9 @@
         </div>
       </div>
     </div>
-
   </div>
+
+{% if app.request.attributes.get('_route') != "dashboard" %}
     <div class="row">
         <div class="box box-solid">
             <div class="box-header with-border">
@@ -60,7 +61,7 @@
                     Componentes leídos:<span id="ComponentesLeidos"></span>
                 </code></p>
                 <div class="progress">
-                    <div id="mibarraprogresso" class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <div id="mibarraprogresso" class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                         <span class="sr-only">40% Complete (success)</span>
                     </div>
                 </div>
@@ -68,7 +69,7 @@
             </div><!-- /.box-body -->
         </div>
     </div>
-  <div class="row">
+    <div class="row">
     <div class="col-xs-12">
 
       <div class="box">
@@ -115,7 +116,8 @@
         </div> {# box #}
     </div> {# col-xs-12 #}
   </div> {# row #}
-  <input type="hidden" id="leidos" value="" />
+    <input type="hidden" id="leidos" value="" />
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}

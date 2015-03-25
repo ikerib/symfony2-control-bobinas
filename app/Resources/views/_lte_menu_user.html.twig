@@ -20,20 +20,40 @@
         {% if app.request.attributes.get('_route') == 'my_route' %}
             {% set menu=1 %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion2" or log.validacion2 == 1 %}
-                {% set menu=2 %}
+        {% if app.request.attributes.get('_route') == "validacion2" %}
+            {% if log is defined %}
+                {%  if log.validacion2 == 1 %}
+                    {% set menu=2 %}
+                {% endif %}
+            {% endif %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion3" or log.validacion3 == 1 %}
-            {% set menu=3 %}
+        {% if app.request.attributes.get('_route') == "validacion3" %}
+            {% if log is defined %}
+                {%  if log.validacion3 == 1 %}
+                    {% set menu=3 %}
+                {% endif %}
+            {% endif %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion4" or log.validacion4 == 1 %}
-            {% set menu=4 %}
+        {% if app.request.attributes.get('_route') == "validacion4" %}
+            {% if log is defined %}
+                {%  if log.validacion4 == 1 %}
+                    {% set menu=4 %}
+                {% endif %}
+            {% endif %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion5" or log.validacion5 == 1 %}
-            {% set menu=5 %}
+        {% if app.request.attributes.get('_route') == "validacion5" %}
+            {% if log is defined %}
+                {%  if log.validacion5 == 1 %}
+                    {% set menu=5 %}
+                {% endif %}
+            {% endif %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion6" or log.validacion6 == 1 %}
-            {% set menu=6 %}
+        {% if app.request.attributes.get('_route') == "validacion6" %}
+            {% if log is defined %}
+                {%  if log.validacion6 == 1 %}
+                    {% set menu=6 %}
+                {% endif %}
+            {% endif %}
         {% endif %}
 
         <li>

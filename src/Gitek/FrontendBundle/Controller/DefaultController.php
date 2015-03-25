@@ -162,13 +162,16 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
-        if ( $log->getValidacion3() == 1 ) {
-            return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
-        } elseif ( $log->getValidacion2() == 1 ) {
-            return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
-        }elseif ( $log->getValidacion1() == 1 ) {
-            return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
+        if ($log) {
+            if ( $log->getValidacion3() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
+            } elseif ( $log->getValidacion2() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
+            }elseif ( $log->getValidacion1() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
+            }
         }
+
 
 
         $client = $this->get('guzzle.client');

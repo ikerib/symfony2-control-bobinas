@@ -44,9 +44,13 @@ find_of_operacion:
     path: /OrdenFabricacionOperacion/{operacion}
     defaults: { _controller: FrontendBundle:Default:findoperacion , operacion: '' }
 
-find_of_operacion_post:
-    path: /OrdenFabricacionOperacion
-    defaults: { _controller: FrontendBundle:Default:findoperacion }
+validacion1:
+    path: /validacion1/{operacion}
+    defaults: { _controller: FrontendBundle:Default:validacion1 }
+    requirements: { _method: get }
+validacion1post:
+    path: /validacion1
+    defaults: { _controller: FrontendBundle:Default:validacion1 }
     requirements: { _method: post }
 
 addComponente:

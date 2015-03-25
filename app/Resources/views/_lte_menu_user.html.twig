@@ -17,43 +17,60 @@
 {% block menu %}
 
     {% set menu=0 %}
-        {% if app.request.attributes.get('_route') == 'my_route' %}
+    {% if not log is defined %}
+        {% set validacion1 = 0 %}
+        {% set validacion2 = 0 %}
+        {% set validacion3 = 0 %}
+        {% set validacion4 = 0 %}
+        {% set validacion5 = 0 %}
+    {% else %}
+        {% if log.validacion1 is defined %}
+            {% set validacion1 = log.validacion1 %}
+        {% else %}
+            {% set validacion1 = 0 %}
+        {% endif %}
+
+        {% if log.validacion2 is defined %}
+            {% set validacion2 = log.validacion1 %}
+        {% else %}
+            {% set validacion2 = 0 %}
+        {% endif %}
+
+        {% if log.validacion3 is defined %}
+            {% set validacion3 = log.validacion1 %}
+        {% else %}
+            {% set validacion3 = 0 %}
+        {% endif %}
+
+        {% if log.validacion4 is defined %}
+            {% set validacion4 = log.validacion1 %}
+        {% else %}
+            {% set validacion4 = 0 %}
+        {% endif %}
+
+        {% if log.validacion5 is defined %}
+            {% set validacion5 = log.validacion1 %}
+        {% else %}
+            {% set validacion5 = 0 %}
+        {% endif %}
+    {% endif %}
+        {% if app.request.attributes.get('_route') == 'dashboard' %}
             {% set menu=1 %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion2" %}
-            {% if log is defined %}
-                {%  if log.validacion2 == 1 %}
-                    {% set menu=2 %}
-                {% endif %}
-            {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion1" or  app.request.attributes.get('_route') == "validacion1post" or validacion1 == 1 %}
+            {% set menu=2 %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion3" %}
-            {% if log is defined %}
-                {%  if log.validacion3 == 1 %}
-                    {% set menu=3 %}
-                {% endif %}
-            {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion2" or validacion2 == 1 %}
+            {% set menu=3 %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion4" %}
-            {% if log is defined %}
-                {%  if log.validacion4 == 1 %}
-                    {% set menu=4 %}
-                {% endif %}
-            {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion3" or validacion3 == 1 %}
+            {% set menu=4 %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion5" %}
-            {% if log is defined %}
-                {%  if log.validacion5 == 1 %}
-                    {% set menu=5 %}
-                {% endif %}
-            {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion4" or validacion4 == 1 %}
+            {% set menu=5 %}
         {% endif %}
-        {% if app.request.attributes.get('_route') == "validacion6" %}
-            {% if log is defined %}
-                {%  if log.validacion6 == 1 %}
-                    {% set menu=6 %}
-                {% endif %}
-            {% endif %}
+        {% if app.request.attributes.get('_route') == "validacion5" or validacion5 == 1 %}
+            {% set menu=6 %}
         {% endif %}
 
         <li>
@@ -62,15 +79,15 @@
             </a>
         </li>
 
-    {% if menu > 0 %}
+    {% if menu > 1 %}
         <li>
-            <a href="{{ path('validacion2', { operacion: log.operacion }) }}">
+            <a href="{{ path('validacion1', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>1-. Material</span>
             </a>
         </li>
     {% endif %}
 
-    {% if menu > 1 %}
+    {% if menu > 2 %}
         <li>
             <a href="{{ path('validacion3', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>2-. Validación serigrafía</span>
@@ -78,7 +95,7 @@
         </li>
     {% endif %}
 
-    {% if menu > 2 %}
+    {% if menu > 3 %}
         <li>
             <a href="{{ path('validacion4', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>3-. Validación Pick&Place</span>
@@ -86,7 +103,7 @@
         </li>
     {% endif %}
 
-    {% if menu > 3 %}
+    {% if menu > 4 %}
         <li>
             <a href="{{ path('validacion5', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>4-. Validación Horno</span>
@@ -94,7 +111,7 @@
         </li>
     {% endif %}
 
-    {% if menu > 4 %}
+    {% if menu > 5 %}
         <li>
             <a href="{{ path('validacion5', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>5-. Validación AOI</span>
@@ -102,7 +119,7 @@
         </li>
     {% endif %}
 
-    {% if menu > 5 %}
+    {% if menu > 6 %}
         <li>
             <a href="{{ path('validacion5', { operacion: log.operacion }) }}">
                 <i class="fa fa-gavel"></i> <span>6-. Completado</span>

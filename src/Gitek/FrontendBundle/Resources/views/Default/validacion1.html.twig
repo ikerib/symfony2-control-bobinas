@@ -1,0 +1,280 @@
+{% extends '::basefrontend.html.twig' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu_user.html.twig' with {'option': 'dashboard'} %}{% endblock %}
+
+{% block headertitulo %}Inicio{% endblock %}
+
+{% block body -%}
+
+  <div class="row">
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>
+            OF:{{ of }}
+          </h3>
+          <p>
+
+            <form action="{{ path('find_of_post') }}" method="post">
+                <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                <input type="text" name="of" id="of" autoFocus>
+            </form>
+
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>
+            Operación: {{ operacion }}
+          </h3>
+          <p>
+            <form action="{{ path('validacion1', { 'operacion': operacion} ) }}" method="post">
+                <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                <input type="text" name="operacion" id="operacion" autoFocus>
+                <input type="hidden" name="of" value="{{ of }}">
+            </form>
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% if app.request.attributes.get('_route') != "dashboard" %}
+    <div class="row">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Progreso</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <p>
+                  <code>
+                    Total componentes: <span id="ComponentesTotales">  {{ mijson | length }}</span>
+                    Componentes leídos:<span id="ComponentesLeidos"></span>
+                </code></p>
+                <div class="progress">
+                    <div id="mibarraprogresso" class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                        <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                </div>
+
+            </div><!-- /.box-body -->
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-12">
+
+      <div class="box">
+          <div class="box-header">
+              <h3 class="box-title">Leer código de barras del Material</h3>
+              <div class="box-tools pull-left">
+                  <input type="text" id="codbarcomponente" name="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" />
+                  <button id="cmdAddComponent" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
+                  <input type="hidden" id="miof" name="of" value="{{ of }}" />
+                  <input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />
+                  <input type="hidden" id="logid" name="logid" value="{% if log.id is defined %}{{ log.id }}{% endif %}" />
+              </div>
+          </div>
+          <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+
+              <div id="divAlert" class=""></div>
+              <div id="divAlertInfo" class=""></div>
+
+            <table id="example2_wrapper">
+              <thead>
+                <th>Componente</th>
+                <th>Descripción</th>
+                <th>Posicion Feeder</th>
+                <th>Posicion MSL</th>
+                <th>Cantidad</th>
+                <th></th>
+              </thead>
+              <tbody>
+                {% if log.detalles is defined %}
+                    {% for componente in log.detalles  %}
+                      <tr class="tr{{ loop.index0 }}">
+                        <td class="td{{ loop.index0 }}">{{ componente.componente }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.descripcion }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.cantidad }}</td>
+                        <td><button class="btn btn-sm btn-danger btn-delete" data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i></button></td>
+                      </tr>
+                    {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div> {# box #}
+    </div> {# col-xs-12 #}
+  </div> {# row #}
+    <input type="hidden" id="leidos" value="" />
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+
+  {{ parent() }}
+
+  <script type="text/javascript">
+
+    $(function() {
+
+        function barraProgreso() {
+          var totales =$('#ComponentesTotales').text();
+          var leidos = $('#leidos').val();
+          var porcen = ( parseFloat(leidos) * 100 ) / parseFloat(totales);
+          var sPorcentaje = porcen + '%';
+          var pro = $('#mibarraprogresso');
+          $(pro).width(sPorcentaje);
+          $('#ComponentesLeidos').html(leidos);
+        };
+
+        function cleanAlerts() {
+          $('#divAlertInfo').empty();
+          $('#divAlert').empty();
+          $('#codbarcomponente').val('');
+          $('#codbarcomponente').text('');
+        }
+
+        $('#example2_wrapper').DataTable( {
+            language: {
+              "sProcessing":     "Procesando...",
+              "sLengthMenu":     "Mostrar _MENU_ registros",
+              "sZeroRecords":    "No se encontraron resultados",
+              "sEmptyTable":     "Ningún dato disponible en esta tabla",
+              "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+              "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+              "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+              "sInfoPostFix":    "",
+              "sSearch":         "Buscar:",
+              "sUrl":            "",
+              "sInfoThousands":  ",",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst":    "Primero",
+                  "sLast":     "Último",
+                  "sNext":     "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+              "oAria": {
+                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+              }
+            },
+            bFilter: false,
+            paging: false,
+            "fnDrawCallback": function( oSettings ) {
+              // var leidos = oSettings.fnRecordsTotal() );
+              $('#leidos').val(oSettings.fnRecordsTotal());
+              barraProgreso();
+            }
+        });
+
+        $('body').on('click','.btn-delete', function(){
+            cleanAlerts();
+            var idlogdetail = $(this).data('idlogdetail');
+            var url = Routing.generate('removeComponente');
+            var that = $(this);
+            $.ajax({
+                method:'POST',
+                url:url,
+                data: { idlogdetail:idlogdetail}
+            }).done(function( data, textStatus, jqXHR ) {
+                if ( jqXHR.status === 200 ) {
+                    var t = $('#example2_wrapper').DataTable();
+                    t.row( $(that).parents('tr') )
+                            .remove()
+                            .draw();
+                    barraProgreso();
+                }
+            }).fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+            });
+        });
+
+        $('body').on('click', '#btnContinuar', function() {
+
+        })
+
+        $('#codbarcomponente').keypress(function(event){
+
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                formAddComponentSubmit();
+            }
+            cleanAlerts();
+        });
+
+        $('#cmdAddComponent').on('click', function(){
+            formAddComponentSubmit();
+            cleanAlerts();
+        });
+
+        function formAddComponentSubmit() {
+            var micom = $('#codbarcomponente').val();
+            var miof  = $('#miof').val();
+            var miope  = $('#miope').val();
+            var logid = $('#logid').val();
+            var miurl = Routing.generate('addComponente');
+
+            $.ajax({
+                method: 'POST',
+                url: miurl,
+                data: { of: miof, operacion: miope, componente: micom, logid:logid}
+            }).done(function( data, textStatus, jqXHR ) {
+                if ( jqXHR.status === 204 ) {
+                    var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                    "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                    "<h4><i class='icon fa fa-ban'></i> Alert!</h4>"+
+                    "Este componente es incorrecto. No correspone a esta Operación u OF."+
+                    "</div>";
+                    $('#divAlert').append(miTexto);
+                } else if (data.existe === 1) {
+                    var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
+                        "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                        "<h4><i class='icon fa fa-warning'></i> Alerta!</h4>" +
+                        "El componente ya está en la lista" +
+                        "</div>";
+                    $('#divAlertInfo').append(miTexto);
+                } else {
+                      oTable = $('#example2_wrapper').DataTable();
+                      oTable.row.add( [
+                          data.componente,
+                          data.descripcion,
+                          data.posicion1,
+                          data.posicion2,
+                          data.cantidad,
+                          "<button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button>"
+                      ] ).draw();
+                      barraProgreso();
+                      if ( data.log.validacion1 === true) {
+                        var ope = $('#miope').val();
+                        var url = Routing.generate('Validacion2',{operacion: ope});
+                        var miTexto ="<div class='alert alert-success alert-dismissable'>" +
+                                  "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
+                                  "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
+                                  "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
+                                "</div>";
+                        $('#divAlertInfo').append(miTexto);
+                      }
+                }
+            }).fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+            });
+        }
+
+    });
+
+
+  </script>
+
+{% endblock javascripts %}

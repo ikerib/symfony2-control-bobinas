@@ -146,7 +146,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function findoperacionAction(Request $request, $operacion=null) {
+    public function validacion1Action(Request $request, $operacion=null) {
 
         $securityContext = $this->container->get('security.context');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -155,13 +155,12 @@ class DefaultController extends Controller
 
         if ( $request->getMethod() == "POST" ) {
             $operacion = $request->request->get('operacion'); //gets POST var.
-
-            return $this->redirect($this->generateUrl("find_of_operacion", array( 'operacion' => $operacion) ));
+//
+//            return $this->redirect($this->generateUrl("validacion1", array( 'operacion' => $operacion) ));
         }
 
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
-
         if ($log) {
             if ( $log->getValidacion3() == 1 ) {
                 return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
@@ -171,8 +170,6 @@ class DefaultController extends Controller
                 return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));
             }
         }
-
-
 
         $client = $this->get('guzzle.client');
         $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
@@ -187,10 +184,17 @@ class DefaultController extends Controller
             $of = "";
         }
 
+        if (!$log) {
+            $log = new Log();
+            $log->setOperacion($operacion);
+            $log->setOf($of);
+            $em->persist($log);
+            $em->flush();
+        }
+
         $usuario = $this->getUser();
 
-
-        return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
+        return $this->render('FrontendBundle:Default:validacion1.html.twig', array(
             'usuario'   => $usuario,
             'of'        => $of,
             'operacion' => $operacion,

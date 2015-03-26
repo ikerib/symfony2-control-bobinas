@@ -38,6 +38,20 @@ class Logdetail
     /**
      * @var string
      *
+     * @ORM\Column(name="lote", type="string", length=255, nullable=true)
+     */
+    private $lote;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="uuid", type="string", length=255, nullable=true)
+     */
+    private $uuid;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="posicion1", type="string", length=255, nullable=true)
      */
     private $posicion1;
@@ -311,5 +325,51 @@ class Logdetail
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Set lote
+     *
+     * @param string $lote
+     * @return Logdetail
+     */
+    public function setLote($lote)
+    {
+        $this->lote = $lote;
+
+        return $this;
+    }
+
+    /**
+     * Get lote
+     *
+     * @return string 
+     */
+    public function getLote()
+    {
+        return $this->lote;
+    }
+
+    /**
+     * Set uuid
+     *
+     * @param string $uuid
+     * @return Logdetail
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * Get uuid
+     *
+     * @return string 
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 }

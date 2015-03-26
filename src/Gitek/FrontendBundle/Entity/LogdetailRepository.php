@@ -12,4 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class LogdetailRepository extends EntityRepository
 {
+    public function findByComponentedatamatrix($componente, $lote, $uuid)
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT v
+                    FROM FROM FrontendBundle:Logdetail l
+                    WHERE l.componente = :componente
+                    AND l.lote = :lote
+                    AND l.uuid = :uuid";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('componente', $componente);
+        $consulta->setParameter('lote', $lote);
+        $consulta->setParameter('uuid', $uuid);
+//        print_r($consulta->getSQL());
+        return $consulta->getResult();
+    }
 }

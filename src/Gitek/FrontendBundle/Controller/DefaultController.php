@@ -222,7 +222,32 @@ class DefaultController extends Controller
         $usuario = $this->getUser();
         $of = $request->request->get("of");
         $operacion = $request->request->get("operacion");
-        $componente = $request->request->get("componente");
+        $postcomponente = $request->request->get("componente");
+
+        /* CODIGO DATAMATRIX:
+        R + 10/12 c + $ + LOTE + $ + cantidad + UUID
+        EjemploS: R11TR1F0022$3813712832/PE268754C101$3000$4642
+        R11TR1F0022$3813712832-PE268754C101$3000$4642
+        R11TR1F0022$3813712832-PE268754C101$3000$4640
+        R11TR1F0022$3813712832-PE268754C101$3000$4641
+        R11TR1F0022$3813712832-PE268754C101$3000$4639
+        R11TR1F0022$3813712832-PE268754C101$3000$4637
+        R11TR1F0022$3813712832-PE268754C101$3000$4638
+        R11di1f0014$3813712832-PE225495C301$3000$4617
+        R11DI740005$3813712832-VD46BRG17$2500$4622
+        R11TR1F0022$3813712832-PE268754C101$3000$4635
+        R11TR1F0022$3813712832-PE268754C101$3000$4634
+        R11TR1F0022$3813712832-PE268754C101$3000$4642
+        */
+
+        $compo = explode("$", $postcomponente);
+
+        $componente = substr($compo[0], 1,strlen ($compo[0]));
+        $lote = $compo[1];
+        $cantidad = $compo[2];
+        $uuid = $compo[3];
+
+
         $logid = $request->request->get('logid');
 
         // 1-. comprobar que pertenece a la OF correcta y Operación correcta
@@ -260,7 +285,8 @@ class DefaultController extends Controller
 
         }
 
-        $midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponente($componente);
+        //$midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponente($componente);
+        $midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponentedatamatrix($componente, $lote, $uuid);
 
         if ( count($midet) > 0 ) {
             $resp = array('existe'=>1);
@@ -278,7 +304,10 @@ class DefaultController extends Controller
             $det->setDescripcion($bilaketa[0]["DescArticulo"]);
             $det->setPosicion1($bilaketa[0]["PosicionFeeder"]);
             $det->setPosicion2($bilaketa[0]["Observaciones"]);
-            $det->setCantidad($bilaketa[0]["QNecesaria"]);
+            $det->setCantidad($cantidad);
+            $det->setLog($lote);
+            $det->setUuid($uuid);
+
             $em->persist($det);
             $em->flush();
 

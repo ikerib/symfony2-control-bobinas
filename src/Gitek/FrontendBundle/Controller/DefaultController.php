@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Gitek\BackendBundle\Entity\Usuario;
 use Gitek\FrontendBundle\Entity\Log;
 use Gitek\FrontendBundle\Entity\Logdetail;
+use Gitek\FrontendBundle\Entity\Logbobina;
 
 
 class DefaultController extends Controller
@@ -167,6 +168,8 @@ class DefaultController extends Controller
             } else {
                 return $this->redirect($this->generateUrl("validacion1", array( 'operacion' => $operacion) ));
             }
+        } else {
+            return $this->redirect($this->generateUrl("validacion1", array( 'operacion' => $operacion) ));
         }
     }
 
@@ -305,12 +308,11 @@ class DefaultController extends Controller
             $det->setPosicion1($bilaketa[0]["PosicionFeeder"]);
             $det->setPosicion2($bilaketa[0]["Observaciones"]);
             $det->setCantidad($cantidad);
-            $det->setLog($lote);
+            $det->setLote($lote);
             $det->setUuid($uuid);
 
             $em->persist($det);
             $em->flush();
-
 
             // Comprobar si completado:
             $jsoncount = count($datos);
@@ -504,4 +506,125 @@ class DefaultController extends Controller
             'usuario' => $usuario,
         ));
     }
+
+    public function cabiarbobinaAction() {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $of = "";
+        $operacion = "";
+
+
+        return $this->render('FrontendBundle:Default:cambiarbobina.html.twig', array(
+            'usuario' => $usuario,
+            'of' => $of,
+            'operacion' => $operacion,
+        ));
+    }
+
+    public function cambioBobinaLeeOfAction(Request $request) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $operacion = "";
+
+        if ( $request->getMethod() == "POST" ) {
+            $of = $request->request->get('of'); //gets POST var.
+        }
+
+        return $this->render('FrontendBundle:Default:cambiarbobina.html.twig', array(
+            'usuario' => $usuario,
+            'of' => $of,
+            'operacion' => $operacion,
+        ));
+    }
+
+    public function cambioBobinaLeeOperacionAction(Request $request) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $usuario = $this->getUser();
+        $operacion = "";
+        $log = "";
+
+        if ( $request->getMethod() == "POST" ) {
+            $of = $request->request->get('of'); //gets POST var.
+            $operacion = $request->request->get('operacion');
+            $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+
+        }
+
+        return $this->render('FrontendBundle:Default:cambiarbobina.html.twig', array(
+            'usuario' => $usuario,
+            'of' => $of,
+            'operacion' => $operacion,
+            'log' => $log
+        ));
+    }
+
+    public function cambioBobinaSaleAction(Request $request) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $operacion = "";
+        $log = "";
+
+        if ( $request->getMethod() == "POST" ) {
+            $of = $request->request->get('of'); //gets POST var.
+            $operacion = $request->request->get('operacion');
+            $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+            $postcomponente = $request->request->get('componente');
+
+            $compo = explode("$", $postcomponente);
+
+            $componente = substr($compo[0], 1,strlen ($compo[0]));
+            $lote = $compo[1];
+            $cantidad = $compo[2];
+            $uuid = $compo[3];
+
+            // Comprobar que ese componente esta en LogDetail
+            $sale = $em->getRepository('FrontendBundle:Logdetail')->find(
+                array(
+                    'of' => $of,
+                    'operacion' => $operacion,
+                    'componente' => $componente,
+                    'lote' => $lote,
+                    'uuid' => $uuid,
+                    ));
+
+            // Si está marcar salida
+            if ( count($sale) > 0 ) {
+                $logcambio = new Logbobina();
+                $logcambio->setLog($log);
+                $logcambio->setOf($of);
+                $logcambio->setOperacion($operacion);
+                $logcambio->setComponenteSale($componente);
+                $logcambio->setLoteSale($lote);
+                $logcambio->setUsuario($usuario);
+                $logcambio->setUuidSale($uuid);
+                $em->persist(($logcambio));
+                $em->flush();
+            }
+
+
+
+        }
+
+        return $this->render('FrontendBundle:Default:cambiarbobina.html.twig', array(
+            'usuario' => $usuario,
+            'of' => $of,
+            'operacion' => $operacion,
+            'log' => $log
+        ));
+    }
+
 }

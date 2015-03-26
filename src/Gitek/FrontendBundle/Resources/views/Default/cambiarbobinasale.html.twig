@@ -1,0 +1,75 @@
+{% extends '::basefrontend.html.twig' %}
+
+{% block title %}Cambio Bobina{% endblock %}
+
+{% block ezkerrekomenua %}{% include '_lte_menu_user.html.twig' with {'option': 'dashboard'} %}{% endblock %}
+
+{% block headertitulo %}CAMBIO  BOBINA{% endblock %}
+
+{% block body -%}
+
+  <div class="row">
+
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>
+            OF:{{ of }}
+          </h3>
+          <p>
+
+            <form action="{{ path('cambio_bobina_lee_of') }}" method="post">
+                <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                <input type="text" name="of" id="of" autoFocus>
+            </form>
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>
+            Operación: {{ operacion }}
+          </h3>
+          <p>
+            <form action="{{ path('find_of_operacion' ) }}" method="post">
+                <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                <input type="text" name="operacion" id="operacion" autoFocus>
+                <input type="hidden" name="of" value="{{ of }}">
+            </form>
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-lg-6 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>
+                    OF:{{ of }}
+                </h3>
+                <p>
+
+                <form action="{{ path('cambio_bobina_lee_salida') }}" method="post">
+                    <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                    <input type="text" name="componenete" id="componente" autoFocus>
+                </form>
+
+                </p>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+{% if  %}
+
+{% endblock %}

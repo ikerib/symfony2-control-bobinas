@@ -201,17 +201,13 @@
             });
         });
 
-        $('body').on('click', '#btnContinuar', function() {
-
-        })
-
         $('#codbarcomponente').keypress(function(event){
-
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if(keycode == '13'){
                 formAddComponentSubmit();
             }
-            cleanAlerts();
+            $('#codbarcomponente').val('');
+            $('#codbarcomponente').text('');
         });
 
         $('#cmdAddComponent').on('click', function(){

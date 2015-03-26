@@ -9,7 +9,7 @@
         {% block head_javascripts %}{% endblock %}
 
     </head>
-    <body class="skin-blue" ng-controller="frontendController">
+    <body {% block skin %} class="skin-blue" {% endblock %} >
         {% block gorputza %}
             {% block header %}{% endblock %}
             {% block container %}{% endblock %}

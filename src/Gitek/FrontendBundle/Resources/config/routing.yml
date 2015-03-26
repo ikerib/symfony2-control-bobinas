@@ -133,3 +133,19 @@ validacion6:
     requirements: { method: get}
     options:
             expose: true
+
+cambiobobina:
+    path: /cambio
+    defaults: { _controller: FrontendBundle:Default:Cabiarbobina }
+
+cambio_bobina_lee_of:
+    path: /cambio/leeof
+    defaults: { _controller: FrontendBundle:Default:Cabiarbobina1 }
+
+cambio_bobina_lee_of:
+    path: /cambio/leeof
+    defaults: { _controller: FrontendBundle:Default:cambio_bobina_lee_of}
+
+cambio_bobina_lee_salida:
+    path: /cambio/sale
+    defaults: { _controller: FrontendBundle:Default:cambio_sale}

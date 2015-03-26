@@ -16,8 +16,8 @@ class LogdetailRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
 
-        $dql = "SELECT v
-                    FROM FROM FrontendBundle:Logdetail l
+        $dql = "SELECT l
+                    FROM FrontendBundle:Logdetail l
                     WHERE l.componente = :componente
                     AND l.lote = :lote
                     AND l.uuid = :uuid";

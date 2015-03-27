@@ -156,10 +156,16 @@ class Usuario
      */
     private $detalles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Gitek\FrontendBundle\Entity\Logbobina", mappedBy="usuario")
+     */
+    private $logbobinas;
+
 
     public function __construct()
     {
         $this->detalles = new ArrayCollection();
+        $this->logbobinas = new ArrayCollection();
     }
 
 
@@ -414,5 +420,38 @@ class Usuario
     public function getDetalles()
     {
         return $this->detalles;
+    }
+
+    /**
+     * Add logbobinas
+     *
+     * @param \Gitek\FrontendBundle\Entity\Logbobina $logbobinas
+     * @return Usuario
+     */
+    public function addLogbobina(\Gitek\FrontendBundle\Entity\Logbobina $logbobinas)
+    {
+        $this->logbobinas[] = $logbobinas;
+
+        return $this;
+    }
+
+    /**
+     * Remove logbobinas
+     *
+     * @param \Gitek\FrontendBundle\Entity\Logbobina $logbobinas
+     */
+    public function removeLogbobina(\Gitek\FrontendBundle\Entity\Logbobina $logbobinas)
+    {
+        $this->logbobinas->removeElement($logbobinas);
+    }
+
+    /**
+     * Get logbobinas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLogbobinas()
+    {
+        return $this->logbobinas;
     }
 }

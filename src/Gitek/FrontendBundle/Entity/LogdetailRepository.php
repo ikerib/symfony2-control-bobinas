@@ -29,4 +29,27 @@ class LogdetailRepository extends EntityRepository
 //        print_r($consulta->getSQL());
         return $consulta->getResult();
     }
+
+    public function findCheckdatamatrix($of, $operacion, $componente, $lote, $uuid)
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT l
+                    FROM FrontendBundle:Logdetail l
+                    INNER JOIN l.log g
+                    WHERE g.of = :of
+                    AND g.operacion = :operacion
+                    AND l.componente = :componente
+                    AND l.lote = :lote
+                    AND l.uuid = :uuid";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('of', $of);
+        $consulta->setParameter('operacion', $operacion);
+        $consulta->setParameter('componente', $componente);
+        $consulta->setParameter('lote', $lote);
+        $consulta->setParameter('uuid', $uuid);
+//        print_r($consulta->getSQL());
+        return $consulta->getResult();
+    }
 }

@@ -21,14 +21,14 @@
 
             <form action="{{ path('cambio_bobina_lee_of') }}" method="post">
                 <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
-                <input type="text" name="of" id="of" autoFocus>
+                <input type="text" name="of" id="of">
             </form>
 
           </p>
         </div>
       </div>
     </div>
-    {% if app.request.attributes.get('_route') == 'cambiobobina_step1' %}
+    {% if app.request.attributes.get('_route') == 'cambio_bobina_lee_of' %}
         <div class="col-lg-6 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-green">
@@ -37,10 +37,10 @@
             Operación: {{ operacion }}
           </h3>
           <p>
-            <form action="{{ path('find_of_operacion' ) }}" method="post">
+            <form action="{{ path('cambio_bobina_lee_operacion' ) }}" method="post">
                 <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
                 <input type="text" name="operacion" id="operacion" autoFocus>
-                <input type="hidden" name="of" value="{{ of }}">
+                <input type="hidden" name="of" value="{{ of }}" >
             </form>
             </p>
         </div>
@@ -48,7 +48,4 @@
     </div>
     {% endif %}
   </div>
-
-{% if  %}
-
 {% endblock %}

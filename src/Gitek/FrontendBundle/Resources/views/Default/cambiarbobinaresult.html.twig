@@ -44,35 +44,26 @@
         <div class="small-box bg-aqua">
             <div class="inner">
                 <h3>
-                    BOBINA SALE:{{ logcambio.componenteSale }}
+                    BOBINA SALE: {{ logcambio.componenteSale }}
                 </h3>
             </div>
         </div>
     </div>
+
+{% if app.request.attributes.get('_route') == 'ambio_bobina_lee_salida' %}
 
     <div class="col-lg-6 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
                 <h3>
-                    BOBINA ENTRA:
+                    BOBINA ENTRA:{{ logcambio.componenteEntra }}
                 </h3>
-                <p>
-
-                <form action="{{ path('cambio_bobina_lee_entra') }}" method="post">
-                    <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
-                    <input type="text" name="componente" id="componente" autoFocus>
-                    <input type="hidden" name="of"          value="{{ of }}" >
-                    <input type="hidden" name="operacion"   value="{{ operacion }}" >
-                    <input type="hidden" name="log"         value="{{ log }}" >
-                </form>
-
-                </p>
             </div>
         </div>
     </div>
 
-
+{% endif %}
 
   </div>
 

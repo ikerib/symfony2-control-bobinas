@@ -38,42 +38,42 @@ class Logbobina
     /**
      * @var string
      *
-     * @ORM\Column(name="componenteSale", type="string", length=255)
+     * @ORM\Column(name="componenteSale", type="string", length=255, nullable=true)
      */
     private $componenteSale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="componenteEntra", type="string", length=255)
+     * @ORM\Column(name="componenteEntra", type="string", length=255, nullable=true)
      */
     private $componenteEntra;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="loteSale", type="string", length=255)
+     * @ORM\Column(name="loteSale", type="string", length=255, nullable=true)
      */
     private $loteSale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="loteEntra", type="string", length=255)
+     * @ORM\Column(name="loteEntra", type="string", length=255, nullable=true)
      */
     private $loteEntra;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="uuidSale", type="string", length=255)
+     * @ORM\Column(name="uuidSale", type="string", length=255, nullable=true)
      */
     private $uuidSale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="uuidEntra", type="string", length=255)
+     * @ORM\Column(name="uuidEntra", type="string", length=255, nullable=true)
      */
     private $uuidEntra;
 
@@ -98,7 +98,7 @@ class Logbobina
     protected $log;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gitek\BackendBundle\Entity\Usuario", inversedBy="detalles")
+     * @ORM\ManyToOne(targetEntity="Gitek\BackendBundle\Entity\Usuario", inversedBy="logbobinas")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     protected $usuario;

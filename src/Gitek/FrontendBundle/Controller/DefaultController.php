@@ -551,6 +551,7 @@ class DefaultController extends Controller
         $usuario = $this->getUser();
         $operacion = "";
         $log = "";
+        $em = $this->getDoctrine()->getManager();
 
         if ( $request->getMethod() == "POST" ) {
             $of = $request->request->get('of'); //gets POST var.
@@ -560,11 +561,11 @@ class DefaultController extends Controller
 
         }
 
-        return $this->render('FrontendBundle:Default:cambiarbobina.html.twig', array(
-            'usuario' => $usuario,
-            'of' => $of,
+        return $this->render('FrontendBundle:Default:cambiarbobinasale.html.twig', array(
+            'usuario'   => $usuario,
+            'of'        => $of,
             'operacion' => $operacion,
-            'log' => $log
+            'log'       => $log
         ));
     }
 
@@ -592,14 +593,7 @@ class DefaultController extends Controller
             $uuid = $compo[3];
 
             // Comprobar que ese componente esta en LogDetail
-            $sale = $em->getRepository('FrontendBundle:Logdetail')->find(
-                array(
-                    'of' => $of,
-                    'operacion' => $operacion,
-                    'componente' => $componente,
-                    'lote' => $lote,
-                    'uuid' => $uuid,
-                    ));
+            $sale = $em->getRepository('FrontendBundle:Logdetail')->findCheckdatamatrix($of,$operacion,$componente,$lote,$uuid);
 
             // Si está marcar salida
             if ( count($sale) > 0 ) {
@@ -609,7 +603,7 @@ class DefaultController extends Controller
                 $logcambio->setOperacion($operacion);
                 $logcambio->setComponenteSale($componente);
                 $logcambio->setLoteSale($lote);
-                $logcambio->setUsuario($usuario);
+//                $logcambio->setUsuario($usuario);
                 $logcambio->setUuidSale($uuid);
                 $em->persist(($logcambio));
                 $em->flush();
@@ -619,12 +613,76 @@ class DefaultController extends Controller
 
         }
 
-        return $this->render('FrontendBundle:Default:cambiarbobina.html.twig', array(
-            'usuario' => $usuario,
-            'of' => $of,
+        return $this->render('FrontendBundle:Default:cambiarbobinasale.html.twig', array(
+            'usuario'   => $usuario,
+            'of'        => $of,
             'operacion' => $operacion,
-            'log' => $log
+            'log'       => $log,
+            'logcambio' => $logcambio
         ));
     }
 
+    public function cambioBobinaEntraAction(Request $request) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $operacion = "";
+        $log = "";
+
+        if ( $request->getMethod() == "POST" ) {
+            $of = $request->request->get('of'); //gets POST var.
+            $operacion = $request->request->get('operacion');
+            $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion' => $operacion));
+            $postcomponente = $request->request->get('componente');
+
+            $compo = explode("$", $postcomponente);
+
+            $componente = substr($compo[0], 1, strlen($compo[0]));
+            $lote = $compo[1];
+            $cantidad = $compo[2];
+            $uuid = $compo[3];
+
+            // Comprobar que ese componente esta en LogDetail
+            $sale = $em->getRepository('FrontendBundle:Logdetail')->findCheckdatamatrix($of, $operacion, $componente, $lote, $uuid);
+
+            // Si está marcar salida
+            if (count($sale) == 0) {
+                $logcambio = new Logbobina();
+                $logcambio->setLog($log);
+                $logcambio->setOf($of);
+                $logcambio->setOperacion($operacion);
+                $logcambio->setComponenteEntra($componente);
+                $logcambio->setLoteEntra($lote);
+//                $logcambio->setUsuario($usuario);
+                $logcambio->setUuidEntra($uuid);
+                $em->persist(($logcambio));
+                $em->flush();
+
+                return $this->render('FrontendBundle:Default:cambiarbobinaresult.html.twig', array(
+                    'usuario' => $usuario,
+                    'of' => $of,
+                    'operacion' => $operacion,
+                    'log' => $log,
+                    'logcambio' => $logcambio
+                ));
+
+
+            } else {
+
+                // ERROR ES LA MISMA BOBINA
+
+                return $this->render('FrontendBundle:Default:cambiarbobinasale.html.twig', array(
+                    'usuario' => $usuario,
+                    'of' => $of,
+                    'operacion' => $operacion,
+                    'log' => $log,
+                    'logcambio' => $sale[0],
+                    'error' => 1,
+                ));
+            }
+        }
+    }
 }

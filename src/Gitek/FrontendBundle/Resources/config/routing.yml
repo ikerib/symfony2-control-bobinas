@@ -140,12 +140,16 @@ cambiobobina:
 
 cambio_bobina_lee_of:
     path: /cambio/leeof
-    defaults: { _controller: FrontendBundle:Default:Cabiarbobina1 }
+    defaults: { _controller: FrontendBundle:Default:cambioBobinaLeeOf}
 
-cambio_bobina_lee_of:
-    path: /cambio/leeof
-    defaults: { _controller: FrontendBundle:Default:cambio_bobina_lee_of}
+cambio_bobina_lee_operacion:
+    path: /cambio/leeoperacion
+    defaults: { _controller: FrontendBundle:Default:cambioBobinaLeeOperacion}
 
 cambio_bobina_lee_salida:
     path: /cambio/sale
-    defaults: { _controller: FrontendBundle:Default:cambio_sale}
+    defaults: { _controller: FrontendBundle:Default:cambioBobinaSale}
+
+cambio_bobina_lee_entra:
+    path: /cambio/entra
+    defaults: { _controller: FrontendBundle:Default:cambioBobinaEntra}

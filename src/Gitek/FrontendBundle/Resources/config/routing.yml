@@ -23,6 +23,10 @@ logout:
     path: /logout
     defaults: { _controller: FrontendBundle:Default:logout}
 
+menu:
+    path: /menu/
+    defaults: { _controller: FrontendBundle:Default:menu}
+
 dashboard:
     path: /dashboard/
     defaults: { _controller: FrontendBundle:Default:dashboard}

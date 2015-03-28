@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Selecciona Acción{% endblock %}
+
+{% block headertitulo %}Selecciona Acción{% endblock %}
+
+{% block body -%}
+
+    <div class="row">
+        <div class="col-lg-6 col-xs-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">&nbsp;</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <a href="{{ path('cambiobobina') }}" class="btn btn-block btn-primary btn-lg">Cambio bobina</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-xs-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">&nbsp;</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <a href="{{ path('dashboard') }}" class="btn btn-block btn-primary btn-lg">Nueva Referencia</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -66,13 +66,13 @@ class DefaultController extends Controller
             $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_ADMIN'));
             $this->get('security.context')->setToken($token);
             $this->get('session')->set('_security_main',serialize($token));
-            return $this->redirect($this->generateUrl('backend_dashboard'));
+            return $this->redirect($this->generateUrl('backend'));
 
         } else {
             $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_USER'));
             $this->get('security.context')->setToken($token);
             $this->get('session')->set('_security_main',serialize($token));
-            return $this->redirect($this->generateUrl('dashboard'));
+            return $this->redirect($this->generateUrl('menu'));
         }
     }
 
@@ -81,6 +81,12 @@ class DefaultController extends Controller
         $this->get("security.context")->setToken(null);
         $this->get("session")->setFlash('message.success', true);
         return new RedirectResponse($this->generateUrl('login'));
+    }
+
+    public function menuAction() {
+
+
+        return $this->render('FrontendBundle:Default:menu.html.twig');
     }
 
     public function dashboardAction() {

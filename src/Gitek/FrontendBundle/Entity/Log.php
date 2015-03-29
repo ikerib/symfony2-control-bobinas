@@ -107,11 +107,19 @@ class Log
      */
     private $logpickplace;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Logbobina", mappedBy="log")
+     */
+    private $logbobinas;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
         $this->detalles = new ArrayCollection();
+        $this->logserigrafia = new ArrayCollection();
+        $this->logpickplace = new ArrayCollection();
+        $this->logbobinas = new ArrayCollection();
     }
 
     public function __toString()
@@ -458,5 +466,38 @@ class Log
     public function getLogpickplace()
     {
         return $this->logpickplace;
+    }
+
+    /**
+     * Add logbobinas
+     *
+     * @param \Gitek\FrontendBundle\Entity\Logbobina $logbobinas
+     * @return Log
+     */
+    public function addLogbobina(\Gitek\FrontendBundle\Entity\Logbobina $logbobinas)
+    {
+        $this->logbobinas[] = $logbobinas;
+
+        return $this;
+    }
+
+    /**
+     * Remove logbobinas
+     *
+     * @param \Gitek\FrontendBundle\Entity\Logbobina $logbobinas
+     */
+    public function removeLogbobina(\Gitek\FrontendBundle\Entity\Logbobina $logbobinas)
+    {
+        $this->logbobinas->removeElement($logbobinas);
+    }
+
+    /**
+     * Get logbobinas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLogbobinas()
+    {
+        return $this->logbobinas;
     }
 }

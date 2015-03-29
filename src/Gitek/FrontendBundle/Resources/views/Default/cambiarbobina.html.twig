@@ -18,12 +18,12 @@
             OF:{{ of }}
           </h3>
           <p>
-
-            <form action="{{ path('cambio_bobina_lee_of') }}" method="post">
+            {% if app.request.attributes.get('_route') != 'cambio_bobina_lee_of' %}
+              <form action="{{ path('cambio_bobina_lee_of') }}" method="post">
                 <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
-                <input type="text" name="of" id="of">
-            </form>
-
+                <input type="text" name="of" id="of" autofocus>
+              </form>
+            {% endif %}
           </p>
         </div>
       </div>

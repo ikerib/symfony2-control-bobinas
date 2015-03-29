@@ -92,13 +92,13 @@ class Logbobina
     private $updated_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Log", inversedBy="detalles")
+     * @ORM\ManyToOne(targetEntity="Log", inversedBy="logbobinas")
      * @ORM\JoinColumn(name="log_id", referencedColumnName="id")
      */
     protected $log;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gitek\BackendBundle\Entity\Usuario", inversedBy="logbobinas")
+     * @ORM\ManyToOne(targetEntity="Gitek\BackendBundle\Entity\Usuario", inversedBy="logbobinas",cascade={"persist"})
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     protected $usuario;
@@ -112,7 +112,7 @@ class Logbobina
 
     public function __toString()
     {
-        return $this->getDescripcion();
+        return $this->getOperacion();
     }
 
 

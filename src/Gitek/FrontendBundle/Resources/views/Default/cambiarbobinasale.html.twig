@@ -8,73 +8,86 @@
 
 {% block body -%}
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-aqua">
-        <div class="inner">
-          <h3>
-            OF:{{ of }}
-          </h3>
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>
+                        OF:{{ of }}
+                    </h3>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>
-            Operación: {{ operacion }}
-          </h3>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">&nbsp;</div>
-  <div class="row">&nbsp;</div>
-  <div class="row">&nbsp;</div>
-  <div class="row">&nbsp;</div>
-
-  <div class="row">
-
-    <div class="col-lg-6 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-aqua">
-            <div class="inner">
-                <h3>
-                    BOBINA SALE:{{ logcambio.componenteSale }}
-                </h3>
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>
+                        Operación: {{ operacion }}
+                    </h3>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-6 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-aqua">
-            <div class="inner">
-                <h3>
-                    BOBINA ENTRA:
-                </h3>
-                <p>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
 
-                <form action="{{ path('cambio_bobina_lee_entra') }}" method="post">
-                    <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
-                    <input type="text" name="componente" id="componente" autoFocus>
-                    <input type="hidden" name="of"          value="{{ of }}" >
-                    <input type="hidden" name="operacion"   value="{{ operacion }}" >
-                    <input type="hidden" name="log"         value="{{ log }}" >
-                </form>
+    <div class="row">
 
-                </p>
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>
+                        BOBINA SALE:
+                    </h3>
+                    <p>
+
+                    <form action="{{ path('cambio_bobina_lee_salida') }}" method="post">
+                        <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                        <input type="text" name="componente" id="componente" autoFocus>
+                        <input type="hidden" name="of"          value="{{ of }}" >
+                        <input type="hidden" name="operacion"   value="{{ operacion }}" >
+                        <input type="hidden" name="log"         value="{{ log }}" >
+                    </form>
+
+                    </p>
+                </div>
             </div>
         </div>
+
+        {% if app.request.attributes.get('_route') == 'ambio_bobina_lee_salida' %}
+
+            <div class="col-lg-6 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>
+                            BOBINA En:
+                        </h3>
+                        <p>
+
+                        <form action="{{ path('cambio_bobina_lee_salida') }}" method="post">
+                            <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
+                            <input type="text" name="componente" id="componente" autoFocus>
+                            <input type="hidden" name="of"          value="{{ of }}" >
+                            <input type="hidden" name="operacion"   value="{{ operacion }}" >
+                            <input type="hidden" name="log"         value="{{ log }}" >
+                        </form>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+
     </div>
-
-
-
-  </div>
 
 
 

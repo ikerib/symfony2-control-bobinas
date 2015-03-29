@@ -153,6 +153,7 @@ cambio_bobina_lee_operacion:
 cambio_bobina_lee_salida:
     path: /cambio/sale
     defaults: { _controller: FrontendBundle:Default:cambioBobinaSale}
+    requirements: { _method: post }
 
 cambio_bobina_lee_entra:
     path: /cambio/entra

@@ -584,7 +584,8 @@ class DefaultController extends Controller
         $usuario = $this->getUser();
         $operacion = "";
         $log = "";
-
+        $cambio = "111";
+        $error=0;
         if ( $request->getMethod() == "POST" ) {
             $of = $request->request->get('of'); //gets POST var.
             $operacion = $request->request->get('operacion');
@@ -614,19 +615,33 @@ class DefaultController extends Controller
                 $em->persist(($logcambio));
                 $em->flush();
             }
-
-
-
         }
-
-        return $this->render('FrontendBundle:Default:cambiarbobinasale.html.twig', array(
+        return $this->render('FrontendBundle:Default:cambiarbobinaentra.html.twig', array(
             'usuario'   => $usuario,
             'of'        => $of,
             'operacion' => $operacion,
             'log'       => $log,
-            'logcambio' => $logcambio
+            'logcambio' => $logcambio,
+            'error'     => $error
         ));
+
     }
+
+    /* CODIGO DATAMATRIX:
+        R + 10/12 c + $ + LOTE + $ + cantidad + UUID
+        EjemploS: R11TR1F0022$3813712832/PE268754C101$3000$4642
+        R11TR1F0022$3813712832-PE268754C101$3000$4642
+        R11TR1F0022$3813712832-PE268754C101$3000$4640
+        R11TR1F0022$3813712832-PE268754C101$3000$4641
+        R11TR1F0022$3813712832-PE268754C101$3000$4639
+        R11TR1F0022$3813712832-PE268754C101$3000$4637
+        R11TR1F0022$3813712832-PE268754C101$3000$4638
+        R11di1f0014$3813712832-PE225495C301$3000$4617
+        R11DI740005$3813712832-VD46BRG17$2500$4622
+        R11TR1F0022$3813712832-PE268754C101$3000$4635
+        R11TR1F0022$3813712832-PE268754C101$3000$4634
+        R11TR1F0022$3813712832-PE268754C101$3000$4642
+        */
 
     public function cambioBobinaEntraAction(Request $request) {
         $securityContext = $this->container->get('security.context');
@@ -637,12 +652,16 @@ class DefaultController extends Controller
         $usuario = $this->getUser();
         $operacion = "";
         $log = "";
+        $error=0;
 
         if ( $request->getMethod() == "POST" ) {
             $of = $request->request->get('of'); //gets POST var.
             $operacion = $request->request->get('operacion');
-            $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion' => $operacion));
             $postcomponente = $request->request->get('componente');
+            $logcambioid = $request->request->get('logcambioid');
+
+            $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion' => $operacion));
+            $logcambio = $em->getRepository('FrontendBundle:Logbobina')->find($logcambioid);
 
             $compo = explode("$", $postcomponente);
 
@@ -656,13 +675,9 @@ class DefaultController extends Controller
 
             // Si está marcar salida
             if (count($sale) == 0) {
-                $logcambio = new Logbobina();
-                $logcambio->setLog($log);
-                $logcambio->setOf($of);
-                $logcambio->setOperacion($operacion);
                 $logcambio->setComponenteEntra($componente);
                 $logcambio->setLoteEntra($lote);
-//                $logcambio->setUsuario($usuario);
+                $logcambio->setUsuario($usuario);
                 $logcambio->setUuidEntra($uuid);
                 $em->persist(($logcambio));
                 $em->flush();
@@ -679,14 +694,14 @@ class DefaultController extends Controller
             } else {
 
                 // ERROR ES LA MISMA BOBINA
-
-                return $this->render('FrontendBundle:Default:cambiarbobinasale.html.twig', array(
+                $error=1;
+                return $this->render('FrontendBundle:Default:cambiarbobinaentra.html.twig', array(
                     'usuario' => $usuario,
                     'of' => $of,
                     'operacion' => $operacion,
                     'log' => $log,
-                    'logcambio' => $sale[0],
-                    'error' => 1,
+                    'logcambio' => $logcambio,
+                    'error' => $error,
                 ));
             }
         }

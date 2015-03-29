@@ -2,9 +2,9 @@
 
 {% block title %}Cambio Bobina{% endblock %}
 
-{% block ezkerrekomenua %}{% include '_lte_menu_user.html.twig' with {'option': 'dashboard'} %}{% endblock %}
+{% block ezkerrekomenua %}&nbsp;{% endblock %}
 
-{% block headertitulo %}CAMBIO  BOBINA{% endblock %}
+{% block headertitulo %}CAMBIO  BOBINA COMPLETADO{% endblock %}
 
 {% block body -%}
 
@@ -75,9 +75,9 @@
 
     <div class="col-lg-8 col-xs-8">
         <!-- small box -->
-        <div class="small-box bg-green">
+        <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>
+                <h3 style="text-align: center; color: #000000;" >
                     Proceso completado correctamente.
                 </h3>
             </div>
@@ -90,6 +90,24 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-lg-2 col-xs-2">
+        &nbsp;
+    </div>
+
+    <div class="col-lg-8 col-xs-8">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <a href="{{ path('menu') }}" class="btn btn-block btn-primary btn-lg">Terminar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-xs-2">
+        &nbsp;
+    </div>
+</div>
 
 
 

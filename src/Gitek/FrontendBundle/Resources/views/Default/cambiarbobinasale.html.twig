@@ -2,17 +2,25 @@
 
 {% block title %}Cambio Bobina{% endblock %}
 
-{% block ezkerrekomenua %}{% include '_lte_menu_user.html.twig' with {'option': 'dashboard'} %}{% endblock %}
+{% block ezkerrekomenua %}&nbsp;{% endblock %}
 
 {% block headertitulo %}CAMBIO  BOBINA{% endblock %}
 
 {% block body -%}
 
+    {% if error == 1 %}
+        <div class='alert alert-danger alert-dismissable'>
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
+            <h4><i class='icon fa fa-ban'></i> Alerta!</h4>
+            No se encuentra el componente en la OF y Operacion seleccionada.
+        </div>
+    {% endif %}
+
     <div class="row">
 
         <div class="col-lg-6 col-xs-6">
             <!-- small box -->
-            <div class="small-box bg-aqua">
+            <div class="small-box bg-green">
                 <div class="inner">
                     <h3>
                         OF:{{ of }}
@@ -53,7 +61,7 @@
                         <input type="text" name="componente" id="componente" autoFocus>
                         <input type="hidden" name="of"          value="{{ of }}" >
                         <input type="hidden" name="operacion"   value="{{ operacion }}" >
-                        <input type="hidden" name="log"         value="{{ log }}" >
+                        <input type="hidden" name="log"         value="{{ log.id }}" >
                     </form>
 
                     </p>

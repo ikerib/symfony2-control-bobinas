@@ -59,4 +59,19 @@ class LogRepository extends EntityRepository
         return $consulta->getResult();
 //        return $consulta->getResult(\Doctrine\ORM\Query::HYDRATE_OBJECT);
     }
+
+    public function findPorOfOperacion($of, $operacion) {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT l
+                    FROM FrontendBundle:Log l
+                    WHERE l.of = :of
+                    AND l.operacion = :operacion";
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('operacion', $operacion);
+        $consulta->setParameter('of', $of);
+        return $consulta->getResult();
+
+    }
+
 }

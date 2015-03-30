@@ -207,7 +207,11 @@ class DefaultController extends Controller
 
 
         if ($log) {
-            if ( $log->getValidacion3() == 1 ) {
+            if ( $log->getValidacion5() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion6", array('operacion' => $operacion)));
+            } elseif ( $log->getValidacion4() == 1 ) {
+                return $this->redirect($this->generateUrl("validacion5", array('operacion' => $operacion)));
+            } elseif ( $log->getValidacion3() == 1 ) {
                 return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
             } elseif ( $log->getValidacion2() == 1 ) {
                 return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
@@ -259,22 +263,6 @@ class DefaultController extends Controller
         $of = $request->request->get("of");
         $operacion = $request->request->get("operacion");
         $postcomponente = $request->request->get("componente");
-
-        /* CODIGO DATAMATRIX:
-        R + 10/12 c + $ + LOTE + $ + cantidad + UUID
-        EjemploS: R11TR1F0022$3813712832/PE268754C101$3000$4642
-        R11TR1F0022$3813712832-PE268754C101$3000$4642
-        R11TR1F0022$3813712832-PE268754C101$3000$4640
-        R11TR1F0022$3813712832-PE268754C101$3000$4641
-        R11TR1F0022$3813712832-PE268754C101$3000$4639
-        R11TR1F0022$3813712832-PE268754C101$3000$4637
-        R11TR1F0022$3813712832-PE268754C101$3000$4638
-        R11di1f0014$3813712832-PE225495C301$3000$4617
-        R11DI740005$3813712832-VD46BRG17$2500$4622
-        R11TR1F0022$3813712832-PE268754C101$3000$4635
-        R11TR1F0022$3813712832-PE268754C101$3000$4634
-        R11TR1F0022$3813712832-PE268754C101$3000$4642
-        */
 
         $compo = explode("$", $postcomponente);
 
@@ -404,6 +392,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
         $log->setValidacion2(1);
+        $log->setUpdatedAt(new \DateTime());
         $em->persist($log);
         $em->flush();
         return $this->redirect($this->generateUrl('validacion3', array('operacion'=>$operacion)));
@@ -456,6 +445,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
         $log->setValidacion3(1);
+        $log->setUpdatedAt(new \DateTime());
         $em->persist($log);
         $em->flush();
         return $this->redirect($this->generateUrl('validacion4', array('operacion'=>$operacion)));
@@ -487,13 +477,14 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
         $log->setValidacion4(1);
+        $log->setUpdatedAt(new \DateTime());
         $em->persist($log);
         $em->flush();
         return $this->redirect($this->generateUrl('validacion5', array('operacion'=>$operacion)));
     }
 
     public function validacion5Action($operacion) {
-        // Horno
+        // Validación AOI
         $securityContext = $this->container->get('security.context');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('login'));
@@ -518,13 +509,14 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
         $log->setValidacion5(1);
+        $log->setUpdatedAt(new \DateTime());
         $em->persist($log);
         $em->flush();
         return $this->redirect($this->generateUrl('validacion6', array('operacion'=>$operacion)));
     }
 
     public function validacion6Action($operacion) {
-        // Horno
+        // Finish
         $securityContext = $this->container->get('security.context');
         if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('login'));
@@ -534,7 +526,7 @@ class DefaultController extends Controller
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
 
 
-        return $this->render('FrontendBundle:Default:validacion6.html.twig', array(
+        return $this->render('FrontendBundle:Default:finish.html.twig', array(
             'log' => $log,
             'usuario' => $usuario,
         ));

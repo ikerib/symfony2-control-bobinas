@@ -4,7 +4,7 @@
 
 {% block ezkerrekomenua %}{% include '_lte_menu_user.html.twig' with {'option': 'dashboard'} %}{% endblock %}
 
-{% block headertitulo %}Inicio{% endblock %}
+{% block headertitulo %}Preceso completado{% endblock %}
 
 {% block body -%}
 
@@ -12,7 +12,7 @@
 
     <div class="col-lg-6 col-xs-6">
       <!-- small box -->
-      <div class="small-box bg-aqua">
+      <div class="small-box bg-green">
         <div class="inner">
           <h3>
             OF:{{ log.of }}
@@ -37,26 +37,50 @@
 
   </div>
 
+  <div class="row">&nbsp;</div>
+  <div class="row">&nbsp;</div>
+  <div class="row">&nbsp;</div>
   <div class="row">
     <div class="col-xs-12">
 
       <div class="box">
-          <div class="box-header">
-              <h3 class="box-title">Validacion 5</h3>
-          </div>
           <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
 
             <div id="divAlert" class=""></div>
             <div id="divAlertInfo" class=""></div>
 
-            <h1>COMPLETADO</h1>
+            <div class="row">
+              <div class="col-lg-6 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                  <div class="inner">
+                    <h3>
+                      Iniciado: {{ log.createdAt  | date('d/m/Y H:i:s') }}
+                    </h3>
+                    <p>
+
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                  <div class="inner">
+                    <h3>
+                      Operación: {{ log.updatedAt | date('d/m/Y H:i:s') }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div> {# box #}
     </div> {# col-xs-12 #}
   </div> {# row #}
-  <input type="hidden" id="leidos" value="" />
-  <input type="hidden" id="logid" value="{{ log.id }}" />
-  <input type="hidden" id="miope" value="{{ log.operacion }}" />
+
 {% endblock %}
 
 {% block javascripts %}

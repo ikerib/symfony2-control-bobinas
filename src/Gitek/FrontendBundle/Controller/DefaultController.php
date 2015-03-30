@@ -104,7 +104,8 @@ class DefaultController extends Controller
             'operacion' => $operacion,
             'componentes' => $componentes,
             'log' => $log,
-            'mijson' => $mijson
+            'mijson' => $mijson,
+            'error' =>0
         ));
     }
 
@@ -120,12 +121,11 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl("find_of", array( 'of' => $of) ));
         }
 
-        // miramos si la ya han comenzado con la OF
+        $usuario = $this->getUser();
+        $operacion = "";
+        $componentes = "";
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findByOf($of);
-        if  ( count($log) > 0 ) {
-
-        }
 
         $client = $this->get('guzzle.client');
         $request = $client->get('http://10.0.0.12:5080/expertis/delaoferta?of=' . $of);
@@ -133,7 +133,14 @@ class DefaultController extends Controller
         $data = $response->json();
 
         if ( !count($data) > 0 ) {
-            $of = "no encontrado";
+            $of = "";
+            return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
+                'usuario' => $usuario,
+                'of' => $of,
+                'operacion' => $operacion,
+                'componentes' => $componentes,
+                'error' => 1
+            ));
         }
 
         $log = new Log();
@@ -141,15 +148,14 @@ class DefaultController extends Controller
         $em->persist($log);
         $em->flush();
 
-        $usuario = $this->getUser();
-        $operacion = "";
-        $componentes = "";
+
 
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario' => $usuario,
             'of' => $of,
             'operacion' => $operacion,
-            'componentes' => $componentes
+            'componentes' => $componentes,
+            'error' => 0
         ));
     }
 
@@ -161,9 +167,52 @@ class DefaultController extends Controller
         }
 
         $operacion = $request->request->get('operacion'); //gets POST var.
-
+        $miof = $request->request->get("of");
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+        $client = $this->get('guzzle.client');
+        $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
+        $response = $request->send();
+        $data = $response->json();
+
+        $usuario = $this->getUser();
+        $componentes = "";
+
+        if ( count($data) > 0 ) {
+
+            $of = $data[0]['NOrden'];
+
+            if ( ($miof == "") && ($miof != $of)) {
+
+                return $this->redirect($this->generateUrl('find_of', array(
+                    'usuario' => $usuario,
+                    'of' => $of,
+                    'operacion' => $operacion,
+                    'componentes' => $componentes,
+                    'error' => 2
+                )));
+            }
+        } else {
+            $of ="";
+            return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
+                'usuario' => $usuario,
+                'of' => $of,
+                'operacion' => $operacion,
+                'componentes' => $componentes,
+                'error' => 2
+            ));
+        }
+
+        if (!$log) {
+            $log = new Log();
+            $log->setOperacion($operacion);
+            $log->setOf($of);
+            $em->persist($log);
+            $em->flush();
+        }
+
+
         if ($log) {
             if ( $log->getValidacion3() == 1 ) {
                 return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
@@ -194,27 +243,12 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        $of = $log->getOf();
 
         $client = $this->get('guzzle.client');
         $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
         $response = $request->send();
         $data = $response->json();
-
-        if ( count($data) > 0 ) {
-            $of = $data[0]['NOrden'];
-
-        } else {
-            $operacion = "no encontrado";
-            $of = "";
-        }
-
-        if (!$log) {
-            $log = new Log();
-            $log->setOperacion($operacion);
-            $log->setOf($of);
-            $em->persist($log);
-            $em->flush();
-        }
 
         $usuario = $this->getUser();
 
@@ -675,22 +709,6 @@ class DefaultController extends Controller
 
         }
     }
-
-    /* CODIGO DATAMATRIX:
-        R + 10/12 c + $ + LOTE + $ + cantidad + UUID
-        EjemploS: R11TR1F0022$3813712832/PE268754C101$3000$4642
-        R11TR1F0022$3813712832-PE268754C101$3000$4642
-        R11TR1F0022$3813712832-PE268754C101$3000$4640
-        R11TR1F0022$3813712832-PE268754C101$3000$4641
-        R11TR1F0022$3813712832-PE268754C101$3000$4639
-        R11TR1F0022$3813712832-PE268754C101$3000$4637
-        R11TR1F0022$3813712832-PE268754C101$3000$4638
-        R11di1f0014$3813712832-PE225495C301$3000$4617
-        R11DI740005$3813712832-VD46BRG17$2500$4622
-        R11TR1F0022$3813712832-PE268754C101$3000$4635
-        R11TR1F0022$3813712832-PE268754C101$3000$4634
-        R11TR1F0022$3813712832-PE268754C101$3000$4642
-        */
 
     public function cambioBobinaEntraAction(Request $request) {
         $securityContext = $this->container->get('security.context');

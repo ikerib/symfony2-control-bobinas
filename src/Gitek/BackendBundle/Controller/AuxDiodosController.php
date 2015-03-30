@@ -178,7 +178,7 @@ class AuxDiodosController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-//        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BackendBundle:AuxDiodos')->find($id);
 
@@ -188,7 +188,7 @@ class AuxDiodosController extends Controller
 
             $em->remove($entity);
             $em->flush();
-//        }
+        //}
 
         return $this->redirect($this->generateUrl('admin_auxdiodos'));
     }

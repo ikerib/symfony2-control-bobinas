@@ -8,6 +8,26 @@
 
 {% block body -%}
 
+  {% if error == 1 %}
+    <div class="row">
+      <div class='alert alert-danger alert-dismissable'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
+        <h4><i class='icon fa fa-ban'></i> Alerta!</h4>
+        OF no encontrada.
+      </div>
+    </div>
+  {% endif %}
+
+  {% if error == 2 %}
+    <div class="row">
+      <div class='alert alert-danger alert-dismissable'>
+        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
+        <h4><i class='icon fa fa-ban'></i> Alerta!</h4>
+        Esa operación no corresponde a esa OF,
+      </div>
+    </div>
+  {% endif %}
+
   <div class="row">
 
     <div class="col-lg-6 col-xs-6">
@@ -21,7 +41,11 @@
 
             <form action="{{ path('find_of_post') }}" method="post">
                 <label for="of">Leer Código de barras:&nbsp;&nbsp;</label>
-                <input type="text" name="of" id="of" autoFocus>
+                {% if of == "" %}
+                  <input type="text" name="of" id="of" autoFocus>
+                {% else %}
+                  <input type="text" name="of" id="of">
+                {% endif %}
             </form>
 
           </p>
@@ -31,7 +55,7 @@
 
     <div class="col-lg-6 col-xs-6">
       <!-- small box -->
-      <div class="small-box bg-green">
+      <div class="small-box bg-aqua">
         <div class="inner">
           <h3>
             Operación: {{ operacion }}

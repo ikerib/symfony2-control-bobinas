@@ -101,7 +101,7 @@
         </div> {# box #}
     </div> {# col-xs-12 #}
   </div> {# row #}
-    <input type="text" id="leidos" value="{{ log.detalles | length }}" />
+    <input type="hidden" id="leidos" value="{{ log.detalles | length }}" />
 {% endif %}
 {% endblock %}
 
@@ -115,7 +115,7 @@
         var zenbatguztira = $('#leidos').val();
         var zenbat =  $('.btn-delete').length;
 
-        if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
+        if ( (zenbat !=0) && (parseInt(zenbatguztira) === parseInt(zenbat)) ) {
             var ope = $('#miope').val();
             var url = Routing.generate('dovalidacion2',{operacion: ope});
             var miTexto ="<div class='alert alert-success alert-dismissable'>" +
@@ -252,7 +252,7 @@
                       barraProgreso();
                       if ( data.log.validacion1 === true) {
                         var ope = $('#miope').val();
-                        var url = Routing.generate('Validacion2',{operacion: ope});
+                        var url = Routing.generate('validacion2',{operacion: ope});
                         var miTexto ="<div class='alert alert-success alert-dismissable'>" +
                                   "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
                                   "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +

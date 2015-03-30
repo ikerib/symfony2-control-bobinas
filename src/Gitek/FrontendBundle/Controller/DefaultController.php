@@ -143,13 +143,6 @@ class DefaultController extends Controller
             ));
         }
 
-        $log = new Log();
-        $log->setOf($of);
-        $em->persist($log);
-        $em->flush();
-
-
-
         return $this->render('FrontendBundle:Default:dashboard.html.twig', array(
             'usuario' => $usuario,
             'of' => $of,
@@ -183,7 +176,7 @@ class DefaultController extends Controller
 
             $of = $data[0]['NOrden'];
 
-            if ( ($miof == "") && ($miof != $of)) {
+            if ( ($miof != "") && ($miof != $of)) {
 
                 return $this->redirect($this->generateUrl('find_of', array(
                     'usuario' => $usuario,

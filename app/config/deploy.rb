@@ -1,7 +1,7 @@
 set :application, "Control Bobinas"
 set :domain,      "192.168.1.1"
 set :user,        "root"
-set :deploy_to,   "/var/www/validacion"
+set :deploy_to,   "/var/www/superlinea"
 set :app_path,    "app"
 
 set :use_composer, true
@@ -32,7 +32,7 @@ set :permission_method,   :acl
 set :use_set_permissions, true
 
 set  :php_bin,          "/usr/bin/php"
-set  :update_vendors,   false
+set  :update_vendors,   true
 
 set  :dump_assetic_assets, false
 # after "deploy", "deploy:cleanup"
@@ -42,10 +42,10 @@ default_run_options[:pty] = true
 # perform tasks after deploying
 after "deploy" do
   # clear the cache
-  run "cd /var/www/validacion/current && php app/console cache:clear --env=prod --no-debug"
+  run "cd /var/www/superlinea/current && php app/console cache:clear --env=prod --no-debug"
 
   # dump assets (if using assetic)
-  run "cd /var/www/validacion/current && php app/console assetic:dump --env=prod --no-debug"
+  run "cd /var/www/superlinea/current && php app/console assetic:dump --env=prod --no-debug"
 end
 
 # Be more verbose by uncommenting the following line

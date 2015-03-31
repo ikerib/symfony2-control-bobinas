@@ -30,18 +30,6 @@
         </ul>
     </li>
 
-    <li class="treeview {% if option is defined and (option == 'menus' or option == 'menus_new' or option == 'menus_edit') %}active{% endif %}">
-        <a href="#">
-            <i class="fa fa-gavel"></i>
-            <span>Menus</span>
-            <i class="fa pull-right fa-angle-right"></i>
-        </a>
-        <ul class="treeview-menu" style="display: none;">
-            <li {% if option is defined and option == 'menus' %}class="active"{% endif %}><a href="{{ path('menus') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Lista</a></li>
-            <li {% if option is defined and option == 'menus_new' %}class="active"{% endif %}><a href="{{ path('menus_new') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i> Nuevo</a></li>
-        </ul>
-    </li>
-
     <li class="treeview {% if option is defined and (option == 'auxdiodos' or option == 'auxdiodos_new' or option == 'auxdiodos_edit') %}active{% endif %}">
         <a href="#">
             <i class="fa fa-gavel"></i>

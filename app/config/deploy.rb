@@ -39,7 +39,7 @@ set :use_set_permissions, true
 set  :php_bin,          "/usr/bin/php"
 set  :update_vendors,   false
 
-set  :dump_assetic_assets, true
+set  :dump_assetic_assets, false
 # after "deploy", "deploy:cleanup"
 default_run_options[:pty] = true
 

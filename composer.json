@@ -28,11 +28,11 @@
         "vich/uploader-bundle": "~0.10.0",
         "friendsofsymfony/rest-bundle": "~1.5",
         "jms/serializer-bundle": "~0.13",
-        "misd/guzzle-bundle": "~1.0"
+        "misd/guzzle-bundle": "~1.0",
+        "sensio/generator-bundle": "~2.5"
 
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
     },
     "scripts": {
         "post-root-package-install": [

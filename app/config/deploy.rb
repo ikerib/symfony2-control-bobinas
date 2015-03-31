@@ -32,7 +32,7 @@ set :permission_method,   :acl
 set :use_set_permissions, true
 
 set  :php_bin,          "/usr/bin/php"
-set  :update_vendors,   false
+set  :update_vendors,   true
 
 set  :dump_assetic_assets, false
 # after "deploy", "deploy:cleanup"

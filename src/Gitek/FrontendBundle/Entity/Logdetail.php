@@ -52,6 +52,20 @@ class Logdetail
     /**
      * @var string
      *
+     * @ORM\Column(name="bin1", type="string", length=255, nullable=true)
+     */
+    private $bin1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bin2", type="string", length=255, nullable=true)
+     */
+    private $bin2;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="posicion1", type="string", length=255, nullable=true)
      */
     private $posicion1;
@@ -371,5 +385,51 @@ class Logdetail
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    /**
+     * Set bin1
+     *
+     * @param string $bin1
+     * @return Logdetail
+     */
+    public function setBin1($bin1)
+    {
+        $this->bin1 = $bin1;
+
+        return $this;
+    }
+
+    /**
+     * Get bin1
+     *
+     * @return string 
+     */
+    public function getBin1()
+    {
+        return $this->bin1;
+    }
+
+    /**
+     * Set bin2
+     *
+     * @param string $bin2
+     * @return Logdetail
+     */
+    public function setBin2($bin2)
+    {
+        $this->bin2 = $bin2;
+
+        return $this;
+    }
+
+    /**
+     * Get bin2
+     *
+     * @return string 
+     */
+    public function getBin2()
+    {
+        return $this->bin2;
     }
 }

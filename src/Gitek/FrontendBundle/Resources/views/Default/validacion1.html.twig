@@ -80,6 +80,9 @@
                 <th>Posicion Feeder</th>
                 <th>Posicion MSL</th>
                 <th>Cantidad</th>
+                <th>Lote</th>
+                <th>Bin1</th>
+                <th>Bin2</th>
                 <th></th>
               </thead>
               <tbody>
@@ -91,6 +94,10 @@
                         <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.cantidad }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.lote }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.bin1 }}</td>
+                        <td class="td{{ loop.index0 }}">{{ componente.bin2 }}</td>
+
                         <td><button class="btn btn-sm btn-danger btn-delete" data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i></button></td>
                       </tr>
                     {% endfor %}
@@ -247,6 +254,9 @@
                           data.posicion1,
                           data.posicion2,
                           data.cantidad,
+                              data.lote,
+                              data.bin1,
+                              data.bin2,
                           "<button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button>"
                       ] ).draw();
                       barraProgreso();

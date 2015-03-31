@@ -281,9 +281,6 @@ class DefaultController extends Controller
             $uuid = "";
         }
 
-
-
-
         $logid = $request->request->get('logid');
 
         // 1-. comprobar que pertenece a la OF correcta y Operación correcta
@@ -293,6 +290,7 @@ class DefaultController extends Controller
         $datos = $response->json();
 
         $bilaketa = $this->search_objects($datos, 'IDComponente', $componente);
+
 
         if ( count($bilaketa) == 0 )
         {
@@ -330,17 +328,54 @@ class DefaultController extends Controller
             $respuesta->headers->set('Content-Type', 'application/json');
             return $respuesta;
         } else {
+            // Check si es Diodo Led y hay que pedir bin o no
+            $four = substr($componente,0,4);
+            $pedirbin=false;
+            if ( ( $four == "11DL" ) || ( $four == "18DL" ) ) {
+                // Es diodo LED
+                // Miramos si está en la tabla Auxliar
+                $esta = $em->getRepository('BackendBundle:AuxDiodos')->findBy(array('referencia'=>$componente));
+
+                if ( count($esta) > 0 ) {
+                    $pedirbin = true;
+                } else {
+                    $pedirbin = false;
+                }
+
+            }
+
+            //R11DL1F0022$3813712832-PE268754C101$3000$4642
+
             $det = new Logdetail();
             $det->setLog($log);
             $user = $em->getRepository('BackendBundle:Usuario')->find($usuario->getId());
             $det->setUsuario($user);
+            if ( $pedirbin == true ) {
+                $det->setBin1("-1");
+            } else {
+                $det->setBin1("0");
+            }
+
+            if ( $pedirbin == true ) {
+                $det->setBin2("-1");
+            } else {
+                $det->setBin2("0");
+            }
 
             $det->setComponente($componente);
             $det->setDescripcion($bilaketa[0]["DescArticulo"]);
+//            $det->setDescripcion("-");
             $det->setPosicion1($bilaketa[0]["PosicionFeeder"]);
+//            $det->setPosicion1("-");
             $det->setPosicion2($bilaketa[0]["Observaciones"]);
+//            $det->setPosicion2("-");
             $det->setCantidad($cantidad);
-            $det->setLote($lote);
+            if (($lote!="") && ($lote!=null)) {
+                $det->setLote($lote);
+            } else {
+                $det->setLote("-");
+            }
+
             $det->setUuid($uuid);
 
             $em->persist($det);

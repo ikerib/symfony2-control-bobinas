@@ -17,7 +17,7 @@ login:
 login_check:
     path: /logincheck
     defaults: { _controller: FrontendBundle:Default:logincheck}
-    requirements: { _method: get|post }
+    requirements: { _method: post }
 
 logout:
     path: /logout

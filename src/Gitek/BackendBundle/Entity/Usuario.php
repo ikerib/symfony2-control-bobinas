@@ -36,21 +36,14 @@ class Usuario
     /**
      * @var string
      *
-     * @ORM\Column(name="androidreg", type="string", length=255)
-     */
-    private $androidreg;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="apellidos", type="string", length=255)
+     * @ORM\Column(name="apellidos", type="string", length=255, nullable=true)
      */
     private $apellidos;
 
@@ -166,6 +159,8 @@ class Usuario
     {
         $this->detalles = new ArrayCollection();
         $this->logbobinas = new ArrayCollection();
+        $this->admin = 0;
+        $this->encargado = 0;
     }
 
 

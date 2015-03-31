@@ -66,7 +66,7 @@ class DefaultController extends Controller
             $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_ADMIN'));
             $this->get('security.context')->setToken($token);
             $this->get('session')->set('_security_main',serialize($token));
-            return $this->redirect($this->generateUrl('backend'));
+            return $this->redirect($this->generateUrl('admin_usuarios'));
 
         } else {
             $token = new UsernamePasswordToken($usuario, null, 'main', array('ROLE_USER'));

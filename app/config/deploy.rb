@@ -24,9 +24,9 @@ role :app,        domain, :primary => true       # This may be the same as your 
 set  :use_sudo,         false
 set  :keep_releases,    5
 set  :shared_files,     ["app/config/parameters.yml"]
-set  :shared_children,  [app_path + "/logs",web_path + "/uploads", web_path + "/images",web_path + "/video",web_path + "/media", "vendor"]
+set  :shared_children,  [app_path + "/logs",web_path + "/uploads", web_path + "/images",web_path + "/img",web_path + "/video",web_path + "/media", "vendor"]
 
-set :writable_dirs, [app_path + "/cache", app_path + "/logs", web_path + "/uploads", web_path + "/images",web_path + "/video",web_path + "/media"]
+set :writable_dirs, [app_path + "/cache", app_path + "/logs", web_path + "/uploads", web_path + "/images",web_path + "/img",web_path + "/video",web_path + "/media"]
 set :webserver_user,      "www-data"
 set :permission_method,   :acl
 set :use_set_permissions, true

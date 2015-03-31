@@ -47,11 +47,11 @@ default_run_options[:pty] = true
 # perform tasks after deploying
 after "deploy" do
   # clear the cache
-  run "cd /var/www/superlinea/current && php app/console cache:clear --env=prod --no-debug"
+  run "cd /var/www/validacion/current && php app/console cache:clear --env=prod --no-debug"
 
   # dump assets (if using assetic)
-  run "cd /var/www/superlinea/current && php app/console assetic:dump --env=prod --no-debug"
+  run "cd /var/www/validacion/current && php app/console assetic:dump --env=prod --no-debug"
 end
 
 # Be more verbose by uncommenting the following line
-#logger.level = Logger::MAX_LEVEL
+logger.level = Logger::MAX_LEVEL

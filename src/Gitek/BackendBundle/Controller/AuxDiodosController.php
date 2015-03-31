@@ -44,6 +44,22 @@ class AuxDiodosController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $postcomponente = $entity->getReferencia();
+
+            $compo = explode("$", $postcomponente);
+            $componente ="";
+            if ( count($compo) >1 ) {
+                $componente = substr($compo[0], 1,strlen ($compo[0]));
+                $lote = $compo[1];
+                $cantidad = $compo[2];
+                $uuid = $compo[3];
+            } else {
+                $componente = $postcomponente;
+
+            }
+            $entity->setReferencia($componente);
+
             $em->persist($entity);
             $em->flush();
 
@@ -157,6 +173,24 @@ class AuxDiodosController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $postcomponente = $entity->getReferencia();
+
+            $compo = explode("$", $postcomponente);
+            $componente ="";
+            if ( count($compo) >1 ) {
+                $componente = substr($compo[0], 1,strlen ($compo[0]));
+                $lote = $compo[1];
+                $cantidad = $compo[2];
+                $uuid = $compo[3];
+            } else {
+                $componente = $postcomponente;
+
+            }
+            $entity->setReferencia($componente);
+
+
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_auxdiodos', array('id' => $id)));

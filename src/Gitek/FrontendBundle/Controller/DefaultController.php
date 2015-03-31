@@ -234,8 +234,6 @@ class DefaultController extends Controller
 
         if ( $request->getMethod() == "POST" ) {
             $operacion = $request->request->get('operacion'); //gets POST var.
-//
-//            return $this->redirect($this->generateUrl("validacion1", array( 'operacion' => $operacion) ));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -266,10 +264,24 @@ class DefaultController extends Controller
 
         $compo = explode("$", $postcomponente);
 
-        $componente = substr($compo[0], 1,strlen ($compo[0]));
-        $lote = $compo[1];
-        $cantidad = $compo[2];
-        $uuid = $compo[3];
+        if ( count($compo) >1 ) {
+            $componente = substr($compo[0], 1,strlen ($compo[0]));
+            $lote = $compo[1];
+            $cantidad = $compo[2];
+            $uuid = $compo[3];
+        } else {
+            if ( $postcomponente == "" ) {
+                $response = new Response();
+                $response->setStatusCode(204);
+                return $response;
+            }
+            $componente = $postcomponente;
+            $lote = "";
+            $cantidad = "";
+            $uuid = "";
+        }
+
+
 
 
         $logid = $request->request->get('logid');
@@ -309,7 +321,6 @@ class DefaultController extends Controller
 
         }
 
-        //$midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponente($componente);
         $midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponentedatamatrix($componente, $lote, $uuid);
 
         if ( count($midet) > 0 ) {

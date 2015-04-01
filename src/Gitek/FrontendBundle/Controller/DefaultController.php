@@ -207,13 +207,13 @@ class DefaultController extends Controller
 
 
         if ($log) {
-            if ( $log->getValidacion5() == 1 ) {
+            if (( $log->getValidacion5() == 1 ) && ($log->getValidacion4()) && ($log->getValidacion3()) && ($log->getValidacion2()) && ($log->getValidacion1())){
                 return $this->redirect($this->generateUrl("validacion6", array('operacion' => $operacion)));
-            } elseif ( $log->getValidacion4() == 1 ) {
+            } elseif ( ( $log->getValidacion4() == 1 ) && ($log->getValidacion3() == 1) && ($log->getValidacion2() == 1) && ($log->getValidacion1())) {
                 return $this->redirect($this->generateUrl("validacion5", array('operacion' => $operacion)));
-            } elseif ( $log->getValidacion3() == 1 ) {
+            } elseif ( ($log->getValidacion3() == 1) && ($log->getValidacion2() == 1) && ($log->getValidacion1()) ) {
                 return $this->redirect($this->generateUrl("validacion4", array( 'operacion' => $operacion) ));
-            } elseif ( $log->getValidacion2() == 1 ) {
+            } elseif ( ($log->getValidacion2() == 1) && ($log->getValidacion1()) ) {
                 return $this->redirect($this->generateUrl("validacion3", array( 'operacion' => $operacion) ));
             }elseif ( $log->getValidacion1() == 1 ) {
                 return $this->redirect($this->generateUrl("validacion2", array( 'operacion' => $operacion) ));

@@ -56,12 +56,16 @@
               </thead>
               <tbody>
                 <tr>
-                    <td>¿Esta todo correcto?</td>
+                    <td>Introduce Nombre Programa:</td>
+                    <td><input id="programa" type="text" name="programa" value="{{ log.programa }}" /><span id="resul"></span><a id="cmdgrabar" href="#"><i class="fa fa-floppy-o"></i></a></td>
+                </tr>
+                <tr>
+                    <td>¿Muestra patrón correcta?</td>
                     <td>
-                        {% if log.validacion4 == 1 %}
-                            <button class="btnCheck btn btn-sm btn-success btn-delete"></button>
+                        {% if log.aoipatron == 1 %}
+                            <button class="btnCheck btnAoi btn btn-sm btn-success btn-delete"><i class="fa fa-check"></i></button>
                         {% else %}
-                            <button class="btnCheck btn btn-sm btn-danger btn-delete"></button>
+                            <button class="btnCheck btnAoi btn btn-sm btn-danger btn-delete"><i class="fa fa-exclamation-circle"></i></button>
                         {% endif %}
                     </td>
                 </tr>
@@ -88,9 +92,52 @@
 
     $(function() {
 
+        $('.btnAoi').on('click', function(){
+            var that = $(this);
+            var milogid = $('#logid').val();
+            var url = Routing.generate('api_1_post_aoipatron');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: {logid:milogid}
+            })
+            .done(function(data) {
+                location.reload();
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+
+        });
+
+        $('#cmdgrabar').on('click', function() {
+            var milogid = $('#logid').val();
+            var programa = $('#programa').val();
+            var url = Routing.generate('api_1_post_logprograma');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: {logid:milogid, programa:programa}
+            })
+            .done(function(data) {
+                $('#resul').append('<i class="fa fa-check-circle"></i>');
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+        });
+
         var zenbat =  $('.btn-success').length;
 
-        if (  parseInt(zenbat)>0 ) {
+        if ( ($('#programa').val()) && (parseInt(zenbat)>0) ) {
             var ope = $('#miope').val();
             var url = Routing.generate('dovalidacion5',{operacion: ope});
             var miTexto ="<div class='alert alert-success alert-dismissable'>" +
@@ -102,49 +149,37 @@
 
         }
 
-        $('body').on('click', '.btnCheck', function(event) {
-          event.preventDefault();
-            var that = $(this);
-            var milogid = $('#logid').val();
-            var url = Routing.generate('api_1_post_validate4');
-          $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            data: {logid:milogid}
-          })
-          .done(function(data) {
-            if ( data.validacion4 == "1" ) {
-                $(that).removeClass("btn-danger");
-                $(that).addClass("btn-success");
-
-                var ope = $('#miope').val();
-                var url = Routing.generate('dovalidacion3',{operacion: ope});
-                var miTexto ="<div class='alert alert-success alert-dismissable'>" +
-                        "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
-                        "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
-                        "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
-                        "</div>";
-                $('#divAlertInfo').append(miTexto);
-
-
-            } else {
-                $(that).removeClass("btn-success");
-                $(that).addClass("btn-danger");
-            }
-          })
-          .fail(function() {
-            console.log("error");
-          })
-          .always(function() {
-            console.log("complete");
-          });
-
-        });
-
         $('#checklist').DataTable( {
+            language: {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
             bFilter: false,
-            paging: false
+            paging: false,
+            "fnDrawCallback": function( oSettings ) {
+                // var leidos = oSettings.fnRecordsTotal() );
+                $('#leidos').val(oSettings.fnRecordsTotal());
+            }
         });
 
     });

@@ -23,6 +23,60 @@ class ApiController extends FOSRestController
     /**
      * @Rest\View
      */
+    public function postLogprogramaAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $logid = $request->request->get('logid');
+        $programa = $request->request->get('programa');
+
+
+        $log = $em->getRepository('FrontendBundle:Log')->find($logid);
+
+        if ((!$log) || (count($log)==0)) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            $log->setPrograma($programa);
+            $em->persist($log);
+            $em->flush();
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        }
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function postAoipatronAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $milogid = $request->request->get('logid');
+
+        $log = $em->getRepository('FrontendBundle:Log')->find($milogid);
+
+        if (!$log) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            if ( $log->getAoipatron() == 1 ) {
+                $log->setAoipatron(0);
+            } else {
+                $log->setAoipatron(1);
+            }
+            $em->persist($log);
+            $em->flush();
+            $statusCode = 200;
+            $view = $this->view($log, $statusCode);
+            return $this->handleView($view);
+        }
+    }
+
+    /**
+     * @Rest\View
+     */
     public function postCheckpickplaceAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();

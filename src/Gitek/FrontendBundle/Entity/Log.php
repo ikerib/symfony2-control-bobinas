@@ -79,6 +79,20 @@ class Log
     private $validacion6;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="programa", type="string", length=255, nullable=true)
+     */
+    private $programa;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="aoipatron", type="boolean", nullable=true)
+     */
+    private $aoipatron;
+
+    /**
      * @var \DateTime $created_at
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
@@ -499,5 +513,51 @@ class Log
     public function getLogbobinas()
     {
         return $this->logbobinas;
+    }
+
+    /**
+     * Set programa
+     *
+     * @param string $programa
+     * @return Log
+     */
+    public function setPrograma($programa)
+    {
+        $this->programa = $programa;
+
+        return $this;
+    }
+
+    /**
+     * Get programa
+     *
+     * @return string 
+     */
+    public function getPrograma()
+    {
+        return $this->programa;
+    }
+
+    /**
+     * Set aoipatron
+     *
+     * @param boolean $aoipatron
+     * @return Log
+     */
+    public function setAoipatron($aoipatron)
+    {
+        $this->aoipatron = $aoipatron;
+
+        return $this;
+    }
+
+    /**
+     * Get aoipatron
+     *
+     * @return boolean 
+     */
+    public function getAoipatron()
+    {
+        return $this->aoipatron;
     }
 }

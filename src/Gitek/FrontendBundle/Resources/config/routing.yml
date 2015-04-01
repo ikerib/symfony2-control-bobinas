@@ -161,3 +161,8 @@ cambio_bobina_lee_entra:
     path: /cambio/entra
     defaults: { _controller: FrontendBundle:Default:cambioBobinaEntra}
     requirements: { _method: post }
+
+adddetail:
+    path: /logdetail/adddetail
+    defaults: { _controller: FrontendBundle:Default:adddetail}
+    requirements: { _method: post }

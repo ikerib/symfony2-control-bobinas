@@ -814,4 +814,26 @@ class DefaultController extends Controller
             }
         }
     }
+
+    public function adddetailAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $ldi = $request->request->get('id');
+        $lote = $request->request->get('lote');
+        $bin1 = $request->request->get('bin1');
+        $bin2 = $request->request->get('bin2');
+        $operacion = $request->request->get('ldoperacion');
+
+        $logdetail = $em->getRepository('FrontendBundle:Logdetail')->find($ldi);
+
+        if($logdetail) {
+            $logdetail->setLote($lote);
+            $logdetail->setBin1($bin1);
+            $logdetail->setBin2($bin2);
+            $em->persist($logdetail);
+            $em->flush();
+
+        }
+        return $this->redirect($this->generateUrl('validacion1', array('operacion' => $operacion)));
+    }
 }

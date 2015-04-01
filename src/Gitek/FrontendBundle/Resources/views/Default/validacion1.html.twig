@@ -98,7 +98,16 @@
                         <td class="td{{ loop.index0 }}">{{ componente.bin1 }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.bin2 }}</td>
 
-                        <td><button class="btn btn-sm btn-danger btn-delete" data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i></button></td>
+                        <td>
+                            <button class="btn btn-sm btn-danger btn-delete" data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i></button>
+                            <button type="button" class="btn btn-primary btn-sm btnadd" data-ldi="{{ componente.id }}"
+                                    data-lote="{{ componente.lote }}"
+                                    data-bin1="{{ componente.bin1 }}"
+                                    data-bin2="{{ componente.bin2 }}"
+                                    data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle"></i>
+
+                            </button>
+                        </td>
                       </tr>
                     {% endfor %}
                 {% endif %}
@@ -110,6 +119,41 @@
   </div> {# row #}
     <input type="hidden" id="leidos" value="{{ log.detalles | length }}" />
 {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Datos adicionales</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="addDetail" action="{{ path('adddetail') }}" method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Lote:</label>
+                            <input type="text" name="lote" class="form-control" id="lote">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Bin1:</label>
+                            <input type="text" name="bin1" class="form-control" id="bin1"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Bin2:</label>
+                            <input type="text" name="bin2" class="form-control" id="bin2"></input>
+                        </div>
+                        <input type="text" name="id" id="logadddetailid" value="" />
+                        <input type="text" name="ldoperacion" id="ldoperacion" value="{{ operacion }}" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary btnEnviar">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -119,6 +163,21 @@
   <script type="text/javascript">
 
     $(function() {
+        $('.btnadd').on('click', function() {
+           var li = $(this).data('ldi');
+           var lote = $(this).data('lote');
+           var bin1 = $(this).data('bin1');
+           var bin2 = $(this).data('bin2');
+           $('#logadddetailid').val(li);
+           $('#lote').val(lote);
+           $('#bin1').val(bin1);
+           $('#bin2').val(bin2);
+        });
+
+        $('.btnEnviar').on('click', function(){
+            $('#addDetail').submit();
+        });
+
         var zenbatguztira = $('#leidos').val();
         var zenbat =  $('.btn-delete').length;
 
@@ -247,29 +306,30 @@
                         "</div>";
                     $('#divAlertInfo').append(miTexto);
                 } else {
-                      oTable = $('#example2_wrapper').DataTable();
-                      oTable.row.add( [
-                          data.componente,
-                          data.descripcion,
-                          data.posicion1,
-                          data.posicion2,
-                          data.cantidad,
-                              data.lote,
-                              data.bin1,
-                              data.bin2,
-                          "<button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button>"
-                      ] ).draw();
-                      barraProgreso();
-                      if ( data.log.validacion1 === true) {
-                        var ope = $('#miope').val();
-                        var url = Routing.generate('validacion2',{operacion: ope});
-                        var miTexto ="<div class='alert alert-success alert-dismissable'>" +
-                                  "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
-                                  "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
-                                  "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
-                                "</div>";
-                        $('#divAlertInfo').append(miTexto);
-                      }
+//                      oTable = $('#example2_wrapper').DataTable();
+//                      oTable.row.add( [
+//                          data.componente,
+//                          data.descripcion,
+//                          data.posicion1,
+//                          data.posicion2,
+//                          data.cantidad,
+//                              data.lote,
+//                              data.bin1,
+//                              data.bin2,
+//                          "<button class='btn btn-sm btn-danger btn-delete' data-idlogdetail=" + data.id +"><i class='fa fa-trash-o'></i></button>"
+//                      ] ).draw();
+//                      barraProgreso();
+//                      if ( data.log.validacion1 === true) {
+//                        var ope = $('#miope').val();
+//                        var url = Routing.generate('validacion2',{operacion: ope});
+//                        var miTexto ="<div class='alert alert-success alert-dismissable'>" +
+//                                  "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
+//                                  "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
+//                                  "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
+//                                "</div>";
+//                        $('#divAlertInfo').append(miTexto);
+//                      }
+                    location.reload(true);
                 }
             }).fail(function( jqXHR, textStatus ) {
                 console.log( "Request failed: " + textStatus );

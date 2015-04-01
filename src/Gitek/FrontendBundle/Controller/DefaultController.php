@@ -309,14 +309,11 @@ class DefaultController extends Controller
             $log = $em->getRepository('FrontendBundle:Log')->find($logid);
         }
 
-
-
         if ( count($log) === 0 ) {
             $log = new Log();
             $log->setOf($of);
             $log->setOperacion($operacion);
             $em->persist($log);
-
         }
 
         $midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponentedatamatrix($componente, $lote, $uuid);
@@ -421,7 +418,7 @@ class DefaultController extends Controller
             $response->setStatusCode(204);
             return $response;
         }
-
+        $logdetail->getLog()->setValidacion1(0);
         $em->remove($logdetail);
         $em->flush();
         $response = new Response();
@@ -817,12 +814,13 @@ class DefaultController extends Controller
 
     public function adddetailAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $this->getUser();
+
         $ldi = $request->request->get('id');
         $lote = $request->request->get('lote');
         $bin1 = $request->request->get('bin1');
         $bin2 = $request->request->get('bin2');
         $operacion = $request->request->get('ldoperacion');
+
 
         $logdetail = $em->getRepository('FrontendBundle:Logdetail')->find($ldi);
 
@@ -833,7 +831,11 @@ class DefaultController extends Controller
             $em->persist($logdetail);
             $em->flush();
 
+            return $this->redirect($this->generateUrl('validacion1', array('operacion' => $operacion)));
+        } else {
+
+
         }
-        return $this->redirect($this->generateUrl('validacion1', array('operacion' => $operacion)));
+
     }
 }

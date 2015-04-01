@@ -349,7 +349,7 @@ class DefaultController extends Controller
             $det = new Logdetail();
             $det->setLog($log);
             $user = $em->getRepository('BackendBundle:Usuario')->find($usuario->getId());
-            $det->setUsuario($user);
+            //$det->setUsuario($user);
             if ( $pedirbin == true ) {
                 $det->setBin1("-1");
             } else {
@@ -784,7 +784,7 @@ class DefaultController extends Controller
                 if (count($sale) == 0) {
                     $logcambio->setComponenteEntra($componente);
                     $logcambio->setLoteEntra($lote);
-                    $logcambio->setUsuario($usuario);
+//                    $logcambio->setUsuario($usuario);
                     $logcambio->setUuidEntra($uuid);
                     $em->persist(($logcambio));
                     $em->flush();

@@ -94,9 +94,9 @@
                         <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>
                         <td class="td{{ loop.index0 }}">{{ componente.cantidad }}</td>
-                        <td class="td{{ loop.index0 }}">{{ componente.lote }}</td>
-                        <td class="td{{ loop.index0 }}">{{ componente.bin1 }}</td>
-                        <td class="td{{ loop.index0 }}">{{ componente.bin2 }}</td>
+                        <td class="td{{ loop.index0 }} {% if componente.lote == -1 %}requerido{% endif %}">{{ componente.lote }}</td>
+                        <td class="td{{ loop.index0 }} {% if componente.bin1 == -1 %}requerido{% endif %}">{{ componente.bin1 }}</td>
+                        <td class="td{{ loop.index0 }} {% if componente.bin2 == -1 %}requerido{% endif %}">{{ componente.bin2 }}</td>
 
                         <td>
                             <button class="btn btn-sm btn-danger btn-delete" data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i></button>
@@ -142,13 +142,13 @@
                             <label for="message-text" class="control-label">Bin2:</label>
                             <input type="text" name="bin2" class="form-control" id="bin2"></input>
                         </div>
-                        <input type="text" name="id" id="logadddetailid" value="" />
-                        <input type="text" name="ldoperacion" id="ldoperacion" value="{{ operacion }}" />
+                        <input type="hidden" name="id" id="logadddetailid" value="" />
+                        <input type="hidden" name="ldoperacion" id="ldoperacion" value="{{ operacion }}" />
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="hidden" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="hidden" class="btn btn-primary btnEnviar">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary btnEnviar">Guardar</button>
                 </div>
             </div>
         </div>
@@ -183,8 +183,9 @@
 
         var zenbatguztira = $('#leidos').val();
         var zenbat =  $('.btn-delete').length;
+        var zenbatrequerido =  $('.requerido').length;
 
-        if ( (zenbat !=0) && (parseInt(zenbatguztira) === parseInt(zenbat)) ) {
+        if ( (zenbat !=0) && (parseInt(zenbatguztira) === parseInt(zenbat)) && (zenbatrequerido ==0) ) {
             var ope = $('#miope').val();
             var url = Routing.generate('dovalidacion2',{operacion: ope});
             var miTexto ="<div class='alert alert-success alert-dismissable'>" +
@@ -194,6 +195,13 @@
                     "</div>";
             $('#divAlertInfo').append(miTexto);
 
+        } else {
+            var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                    "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                    "<h4><i class='icon fa fa-ban'></i> Alert!</h4>"+
+                    "Comprueba que has introducido todos los datos necesarios."+
+                    "</div>";
+            $('#divAlert').append(miTexto);
         }
 
         function barraProgreso() {
@@ -266,6 +274,7 @@
             }).fail(function( jqXHR, textStatus ) {
                 console.log( "Request failed: " + textStatus );
             });
+            $('#codbarcomponente').focus();
         });
 
         $('#codbarcomponente').keypress(function(event){

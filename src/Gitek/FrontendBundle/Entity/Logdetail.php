@@ -99,6 +99,13 @@ class Logdetail
     private $updated_at;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="pickplace", type="boolean", nullable=true)
+     */
+    private $pickplace;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Log", inversedBy="detalles")
      * @ORM\JoinColumn(name="log_id", referencedColumnName="id")
      */
@@ -115,12 +122,15 @@ class Logdetail
     {
         $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
+        $this->pickplace = 0;
     }
 
     public function __toString()
     {
         return $this->getDescripcion();
     }
+
+
 
 
 
@@ -178,6 +188,98 @@ class Logdetail
     public function getDescripcion()
     {
         return $this->descripcion;
+    }
+
+    /**
+     * Set lote
+     *
+     * @param string $lote
+     * @return Logdetail
+     */
+    public function setLote($lote)
+    {
+        $this->lote = $lote;
+
+        return $this;
+    }
+
+    /**
+     * Get lote
+     *
+     * @return string 
+     */
+    public function getLote()
+    {
+        return $this->lote;
+    }
+
+    /**
+     * Set uuid
+     *
+     * @param string $uuid
+     * @return Logdetail
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * Get uuid
+     *
+     * @return string 
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Set bin1
+     *
+     * @param string $bin1
+     * @return Logdetail
+     */
+    public function setBin1($bin1)
+    {
+        $this->bin1 = $bin1;
+
+        return $this;
+    }
+
+    /**
+     * Get bin1
+     *
+     * @return string 
+     */
+    public function getBin1()
+    {
+        return $this->bin1;
+    }
+
+    /**
+     * Set bin2
+     *
+     * @param string $bin2
+     * @return Logdetail
+     */
+    public function setBin2($bin2)
+    {
+        $this->bin2 = $bin2;
+
+        return $this;
+    }
+
+    /**
+     * Get bin2
+     *
+     * @return string 
+     */
+    public function getBin2()
+    {
+        return $this->bin2;
     }
 
     /**
@@ -296,6 +398,29 @@ class Logdetail
     }
 
     /**
+     * Set pickplace
+     *
+     * @param boolean $pickplace
+     * @return Logdetail
+     */
+    public function setPickplace($pickplace)
+    {
+        $this->pickplace = $pickplace;
+
+        return $this;
+    }
+
+    /**
+     * Get pickplace
+     *
+     * @return boolean 
+     */
+    public function getPickplace()
+    {
+        return $this->pickplace;
+    }
+
+    /**
      * Set log
      *
      * @param \Gitek\FrontendBundle\Entity\Log $log
@@ -339,97 +464,5 @@ class Logdetail
     public function getUsuario()
     {
         return $this->usuario;
-    }
-
-    /**
-     * Set lote
-     *
-     * @param string $lote
-     * @return Logdetail
-     */
-    public function setLote($lote)
-    {
-        $this->lote = $lote;
-
-        return $this;
-    }
-
-    /**
-     * Get lote
-     *
-     * @return string 
-     */
-    public function getLote()
-    {
-        return $this->lote;
-    }
-
-    /**
-     * Set uuid
-     *
-     * @param string $uuid
-     * @return Logdetail
-     */
-    public function setUuid($uuid)
-    {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
-    /**
-     * Get uuid
-     *
-     * @return string 
-     */
-    public function getUuid()
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * Set bin1
-     *
-     * @param string $bin1
-     * @return Logdetail
-     */
-    public function setBin1($bin1)
-    {
-        $this->bin1 = $bin1;
-
-        return $this;
-    }
-
-    /**
-     * Get bin1
-     *
-     * @return string 
-     */
-    public function getBin1()
-    {
-        return $this->bin1;
-    }
-
-    /**
-     * Set bin2
-     *
-     * @param string $bin2
-     * @return Logdetail
-     */
-    public function setBin2($bin2)
-    {
-        $this->bin2 = $bin2;
-
-        return $this;
-    }
-
-    /**
-     * Get bin2
-     *
-     * @return string 
-     */
-    public function getBin2()
-    {
-        return $this->bin2;
     }
 }

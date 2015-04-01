@@ -31,28 +31,28 @@ class AuxSiplace
     /**
      * @var string
      *
-     * @ORM\Column(name="componente", type="string", length=255)
+     * @ORM\Column(name="componente", type="string", length=255, nullable=true)
      */
     private $componente;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="assambleon", type="string", length=255)
+     * @ORM\Column(name="assambleon", type="string", length=255, nullable=true)
      */
     private $assambleon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ipulse", type="string", length=255)
+     * @ORM\Column(name="ipulse", type="string", length=255, nullable=true)
      */
     private $ipulse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="siplace", type="string", length=255)
+     * @ORM\Column(name="siplace", type="string", length=255, nullable=true)
      */
     private $siplace;
 

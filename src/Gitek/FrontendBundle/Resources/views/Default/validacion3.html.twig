@@ -42,7 +42,31 @@
 
       <div class="box">
           <div class="box-header">
-              <h3 class="box-title">Realiza las comprobaciones correspondientes</h3>
+              <div class="row">&nbsp;</div>
+              <div class="row">&nbsp;</div>
+              <div class="row">
+                  <div class="col-xs-6">
+                      <h3 class="box-title zuzendu">Leer código de barras del Componente</h3>
+                      <div class="box-tools pull-left">
+                          <input type="text" id="codbarcomponente" name="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" autoFocus />
+                          <button id="cmdComponente" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
+                          {#<input type="hidden" id="miof" name="of" value="{{ of }}" />#}
+                          {#<input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />#}
+                          {#<input type="hidden" id="logid" name="logid" value="{% if log.id is defined %}{{ log.id }}{% endif %}" />#}
+                      </div>
+                  </div>
+                  <div class="col-xs-6">
+                      <h3 class="box-title zuzendu">Leer código de barras del Posición</h3>
+                      <div class="box-tools pull-left">
+                          <input type="text" id="codbarposicion" name="codbarposicion" class="form-control input-sm pull-left" style="width: 150px;" />
+                          <button id="cmdPosicion" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
+                          {#<input type="hidden" id="miof" name="of" value="{{ of }}" />#}
+                          {#<input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />#}
+                          {#<input type="hidden" id="logid" name="logid" value="{% if log.id is defined %}{{ log.id }}{% endif %}" />#}
+                      </div>
+                  </div>
+              </div>
+
           </div>
           <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
 
@@ -50,36 +74,33 @@
             <div id="divAlertInfo" class=""></div>
 
             <table id="checklist">
-              <thead>
-                <th>Comprobar</th>
-                <th>Respuesta</th>
-              </thead>
-              <tbody>
-                {% for q in questions  %}
-                  <tr class="tr{{ loop.index0 }}">
-                    <td class="td{{ loop.index0 }}">{{ q.pregunta }}</td>
-                    <td>
-                        <button
-                            {% set break = false %}
-                            {% set aurkitua = false %}
-                            {% for d in log.logpickplace if not break %}
-                                {% if d.pregunta == q %}
-                                    {% if d.respuesta == "1" %}
-                                            class="btnCheck btn btn-sm btn-success btn-delete" data-logpickplaceid="{{ d.id }}"
-                                        {% else %}
-                                            class="btnCheck btn btn-sm btn-danger btn-delete" data-logpickplaceid="{{ d.id }}"
-                                    {% endif %}
-                                    {% set break = true %}
-                                    {% set aurkitua = true %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if aurkitua==false %}
-                                class="btnCheck btn btn-sm btn-danger btn-delete" data-logpickplaceid=""
-                            {% endif %}  data-idlogdetail="{{ q.id }}"><i class="fa fa -trash-o"></i></button>
-                    </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
+                <thead>
+                <th>Componente</th>
+                <th>Descripción</th>
+                <th>Posicion Feeder</th>
+                <th>Posicion MSL</th>
+                <th>Cantidad</th>
+                <th>Lote</th>
+                <th>Bin1</th>
+                <th>Bin2</th>
+                </thead>
+                <tbody>
+                {% if log.detalles is defined %}
+                    {% for componente in log.detalles  %}
+                        {#{{ componente |ladybug_dump }}#}
+                        <tr class="tr {% if ((componente.pickplace is defined) and (componente.pickplace == 1)) %} validado {% endif %}">
+                            <td class="td">{{ componente.componente }}</td>
+                            <td class="td">{{ componente.descripcion }}</td>
+                            <td class="td">{{ componente.posicion1 }}</td>
+                            <td class="td">{{ componente.posicion2 }}</td>
+                            <td class="td">{{ componente.cantidad }}</td>
+                            <td class="td">{{ componente.lote }}</td>
+                            <td class="td">{{ componente.bin1 }}</td>
+                            <td class="td">{{ componente.bin2 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
             </table>
           </div>
         </div> {# box #}
@@ -99,8 +120,96 @@
 
     $(function() {
 
+        $('#codbarcomponente').keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                $('#codbarposicion').focus();
+            }
+        });
+
+        function chechPickPlace() {
+            var micom = $('#codbarcomponente').val();
+            var mipos = $('#codbarposicion').val();
+            var miope  = $('#miope').val();
+
+            var miurl = Routing.generate('api_1_post_checkpickplace');
+
+            $('#codbarcomponente').val('');
+            $('#codbarcomponente').text('');
+            $('#codbarposicion').val('');
+            $('#codbarposicion').text('');
+            $.ajax({
+                method: 'POST',
+                url: miurl,
+                data: {  operacion: miope, componente: micom, posicion:mipos}
+            }).done(function( data, textStatus, jqXHR ) {
+                if ( data === 204 ) {
+                    var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                            "<h4><i class='icon fa fa-ban'></i> Alert!</h4>"+
+                            "Este componente es incorrecto. No correspone a esta Operación u OF."+
+                            "</div>";
+                    $('#divAlert').append(miTexto);
+                } else if (data.existe === 1) {
+                    var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
+                            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                            "<h4><i class='icon fa fa-warning'></i> Alerta!</h4>" +
+                            "El componente ya está en la lista" +
+                            "</div>";
+                    $('#divAlertInfo').append(miTexto);
+                } else {
+                    location.reload(true);
+                }
+            }).fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+            });
+        }
+
+        $('#codbarposicion').keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                chechPickPlace();
+            }
+        });
+
+
+
+
+        $('#checklist').DataTable( {
+            language: {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            bFilter: false,
+            paging: false,
+            "fnDrawCallback": function( oSettings ) {
+                // var leidos = oSettings.fnRecordsTotal() );
+                $('#leidos').val(oSettings.fnRecordsTotal());
+            }
+        });
+
         var zenbatguztira = $('#countquestions').val();
-        var zenbat =  $('.btn-success').length;
+        var zenbat =  $('.validado').length;
 
         if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
             var ope = $('#miope').val();
@@ -113,60 +222,6 @@
             $('#divAlertInfo').append(miTexto);
 
         }
-
-        $('body').on('click', '.btnCheck', function(event) {
-          event.preventDefault();
-            var that = $(this);
-            var milogpickplaceid = $(this).data('logpickplaceid');
-            var miid = $(this).data('idlogdetail');
-            var milogid = $('#logid').val();
-            var url = Routing.generate('api_1_post_validate2questions');
-            var zenbatguztira = $('#countquestions').val();
-          $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            data: {q: miid, logpickplaceid:milogpickplaceid, logid:milogid}
-          })
-          .done(function(data) {
-            $(that).data("logpickplaceid", data.id);
-
-            if ( data.respuesta == "1" ) {
-                $(that).removeClass("btn-danger");
-                $(that).addClass("btn-success");
-
-                var zenbat =  $('.btn-success').length;
-
-                if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
-                    var ope = $('#miope').val();
-                    var url = Routing.generate('dovalidacion3',{operacion: ope});
-                    var miTexto ="<div class='alert alert-success alert-dismissable'>" +
-                            "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
-                            "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
-                            "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
-                            "</div>";
-                    $('#divAlertInfo').append(miTexto);
-
-                }
-
-            } else {
-                $(that).removeClass("btn-success");
-                $(that).addClass("btn-danger");
-            }
-          })
-          .fail(function() {
-            console.log("error");
-          })
-          .always(function() {
-            console.log("complete");
-          });
-
-        });
-
-        $('#checklist').DataTable( {
-            bFilter: false,
-            paging: false
-        });
 
     });
 

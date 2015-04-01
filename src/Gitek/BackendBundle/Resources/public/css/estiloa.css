@@ -15,3 +15,11 @@
     color: #fff;
     font-weight: bold;
 }
+.validado {
+    background-color: #8FBC8F !important;
+    color: black;
+}
+
+.zuzendu {
+    padding: 4px 0px 10px 10px !important;
+}

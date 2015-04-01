@@ -15,10 +15,47 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Gitek\BackendBundle\Entity\ValidacionSerigrafia;
 use Gitek\BackendBundle\Entity\Usuario;
-use RMS\PushNotificationsBundle\Message\AndroidMessage;
+use Gitek\FrontendBundle\Entity\Logdetail;
 
 class ApiController extends FOSRestController
 {
+
+    /**
+     * @Rest\View
+     */
+    public function postCheckpickplaceAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $componente = $request->request->get('componente');
+        $posicion = $request->request->get('posicion');
+        $operacion = $request->request->get('operacion');
+
+        $aux = $em->getRepository('BackendBundle:AuxSiplace')->fincComponente($componente, $posicion);
+
+        if ((!$aux) || (count($aux)==0)) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+
+            foreach ($log->getDetalles() as $d) {
+                if ( $d->getComponente() == $componente) {
+                    $d->setPickplace(1);
+                    $em->persist($d);
+                    $em->flush();
+                    $statusCode = 200;
+                    $view = $this->view($aux, $statusCode);
+                    return $this->handleView($view);
+                }
+            }
+
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        }
+    }
+
 
     /**
      * @Rest\View

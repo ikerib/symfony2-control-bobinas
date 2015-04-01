@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class AuxSiplaceRepository extends EntityRepository
 {
+    public function fincComponente($componente, $posicion)
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT c
+                    FROM BackendBundle:AuxSiplace c
+                    WHERE c.componente = :componente
+                    AND (
+                            c.assambleon = :posicion
+                        OR  c.ipulse  = :posicion
+                        OR  c.siplace = :posicion)";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('componente', $componente);
+        $consulta->setParameter('posicion', $posicion);
+
+//        print_r($consulta->getSQL());
+        return $consulta->getResult();
+    }
 }

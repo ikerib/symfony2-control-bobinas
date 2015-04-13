@@ -17,6 +17,9 @@
 {% block menu %}
 
     {% set menu=0 %}
+
+    {# Ahora dicen que tiene que mostrar todos los menus siempre #}
+
     {% if not log is defined %}
         {% set validacion1 = 0 %}
         {% set validacion2 = 0 %}
@@ -78,6 +81,17 @@
                 <i class="fa fa-dashboard"></i> <span>Inicio</span>
             </a>
         </li>
+
+    {# ********************************************************************************************************************************
+        FIX menu
+        Como ahora dicen que el menu tiene que salir siempre hackeamos. Para hacer que vaya step by step, eliminar la siguientes lineas
+    **********************************************************************************************************************************#}
+    {% if log is defined %}
+        {% set menu=8 %}
+    {% endif %}
+    {# ********************************************************************************************************************************
+        END FIX menu
+    **********************************************************************************************************************************#}
 
     {% if menu > 1 %}
         <li>

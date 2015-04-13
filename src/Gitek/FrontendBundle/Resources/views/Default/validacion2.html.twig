@@ -139,12 +139,25 @@
                 if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
                     var ope = $('#miope').val();
                     var url = Routing.generate('dovalidacion2',{operacion: ope});
-                    var miTexto ="<div class='alert alert-success alert-dismissable'>" +
-                            "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
-                            "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
-                            "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
+                    var miTexto = "<div class='modal fade' id='myModal2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
+                            "<div class='modal-dialog'>" +
+                            "<div class='modal-content'>" +
+                            "<div class='modal-header'>" +
+                            "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+                            "<h4 class='modal-title' id='myModalLabel'>COMPLETADO!</h4>" +
+                            "</div>" +
+                            "<div class='modal-body'>" +
+                            "Proceso completado correctamente. ¿Quieres terminar el proceso y pasar a la siguiente fase?" +
+                            "</div>" +
+                            "<div class='modal-footer'>" +
+                            "<a href='#' data-dismiss='modal' class='btn'>CERRAR</a>" +
+                            "<a href="+ url +" class='btn btn-primary'>ACEPTAR</a>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>" +
                             "</div>";
                     $('#divAlertInfo').append(miTexto);
+                    $('#myModal2').modal('show');
 
                 }
 

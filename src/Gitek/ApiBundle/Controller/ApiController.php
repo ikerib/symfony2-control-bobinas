@@ -80,7 +80,25 @@ class ApiController extends FOSRestController
     public function postCheckpickplaceAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $componente = $request->request->get('componente');
+        $postcomponente = $request->request->get('componente');
+        $compo = explode("$", $postcomponente);
+
+        if ( count($compo) >1 ) {
+            $componente = substr($compo[0], 1,strlen ($compo[0]));
+            $lote = $compo[1];
+            $cantidad = $compo[2];
+            $uuid = $compo[3];
+        } else {
+            if ( $postcomponente == "" ) {
+                $response = new Response();
+                $response->setStatusCode(204);
+                return $response;
+            }
+            $componente = $postcomponente;
+            $lote = "";
+            $cantidad = "";
+            $uuid = "";
+        }
         $posicion = $request->request->get('posicion');
         $operacion = $request->request->get('operacion');
 

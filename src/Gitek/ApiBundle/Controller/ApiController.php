@@ -289,28 +289,6 @@ class ApiController extends FOSRestController
     /**
      * @Rest\View
      */
-    public function getOrdenAction($id)
-    {
-        $statusCode = 200;
-        $entity = array('id' => 'OF212042');
-        $view = $this->view($entity, $statusCode);
-        return $this->handleView($view);
-    }
-
-    /**
-     * @Rest\View
-     */
-    public function getOperacionAction($id)
-    {
-        $statusCode = 200;
-        $entity = array('operacion' => 'SMD CARA TOP');
-        $view = $this->view($entity, $statusCode);
-        return $this->handleView($view);
-    }
-
-    /**
-     * @Rest\View
-     */
     public function  getSerigrafiaAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -322,41 +300,16 @@ class ApiController extends FOSRestController
     }
 
     public function sendEmailAction() {
+        $codigo = rand(0, 9999);
+
         $message = \Swift_Message::newInstance()
-            ->setSubject('Código: 123')
+            ->setSubject('Código: ' . $codigo)
             ->setFrom('planificacion@gureak.com')
             ->setTo('ikerib@gmail.com')
             ->setBody("");
         $resp = $this->get('mailer')->send($message);
         $statusCode = 200;
         $view = $this->view($resp, $statusCode);
-        return $this->handleView($view);
-    }
-
-    /**
-     * Collection post action
-     * @var Request $request
-     * @return View|array
-     */
-    public function postRegisterphoneAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $androidid = $request->request->get('androidid');
-        $androiduser = $request->request->get('androiduser');
-        $user = $em->getRepository('BackendBundle:Usuario')->findOneBy(array('nombre' => $androiduser ));
-
-        if (!$user) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
-        }
-
-        if ($androidid) {
-            $user->setAndroidreg($androidid);
-            $user->setUpdated(new \DateTime());
-            $em->flush();
-        }
-
-        $statusCode = 200;
-        $view = $this->view($user, $statusCode);
         return $this->handleView($view);
     }
 

@@ -17,6 +17,7 @@ class UsuarioType extends AbstractType
         $builder
             ->add('nombre')
             ->add('apellidos')
+            ->add('email')
             ->add('encargado', 'choice', array(
                 'choices' => array(
                     0 => 'No',

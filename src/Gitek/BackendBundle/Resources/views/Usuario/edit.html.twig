@@ -32,6 +32,11 @@
                         {{ form_widget(form.apellidos,{ 'attr': {'class': 'form-control' }}) }}
                     </div>
 
+                    <div class="form-group">
+                        {{ form_label(form.email,'Email: ' | trans) }}
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email,{ 'attr': {'class': 'form-control' }}) }}
+                    </div>
 
                     <div class="form-group">
                         {{ form_label(form.encargado,'Encargado: ' | trans) }}

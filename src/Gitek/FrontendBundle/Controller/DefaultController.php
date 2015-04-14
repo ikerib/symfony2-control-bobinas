@@ -246,13 +246,15 @@ class DefaultController extends Controller
         $data = $response->json();
 
         $usuario = $this->getUser();
+        $encargados = $em->getRepository('BackendBundle:Usuario')->findEncargados();
 
         return $this->render('FrontendBundle:Default:validacion1.html.twig', array(
             'usuario'   => $usuario,
             'of'        => $of,
             'operacion' => $operacion,
             'log'       => $log,
-            'mijson'    => $data
+            'mijson'    => $data,
+            'encargados'=>$encargados
         ));
     }
 

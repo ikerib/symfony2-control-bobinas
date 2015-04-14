@@ -25,4 +25,17 @@ class UsuarioRepository extends EntityRepository
 //        print_r($consulta->getSQL());
         return $consulta->getResult();
     }
+
+    public function findEncargados()
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT u
+                    FROM BackendBundle:Usuario u
+                    WHERE u.encargado=1";
+
+        $consulta = $em->createQuery($dql);
+        return $consulta->getResult();
+    }
+
 }

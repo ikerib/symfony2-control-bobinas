@@ -56,6 +56,16 @@ validacion1:
     defaults: { _controller: FrontendBundle:Default:validacion1 }
     requirements: { _method: get }
 
+dovalidacionencargado:
+    path: /dovalidacionencargado/{encargado}/{operacion}/{paso}
+    defaults: { _controller: FrontendBundle:Default:dovalidacionencargado }
+    requirements: { _method: get|post }
+
+completevalidacionencargado:
+    path: /completevalidacionencargado
+    defaults: { _controller: FrontendBundle:Default:completevalidacionencargado }
+    requirements: { _method: post }
+
 validacion1post:
     path: /validacion1
     defaults: { _controller: FrontendBundle:Default:validacion1 }

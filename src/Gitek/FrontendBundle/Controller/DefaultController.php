@@ -258,6 +258,122 @@ class DefaultController extends Controller
         ));
     }
 
+    public function dovalidacionencargadoAction(Request $request, $encargado, $operacion, $paso) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+
+        if ( $request->getMethod() == "POST" ) {
+            $operacion = $request->request->get('operacion'); //gets POST var.
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        $encargado = $em->getRepository('BackendBundle:Usuario')->find($encargado);
+
+        $codigo = rand(0,9999);
+        $asunto = 'Validación OF: ' . $log->getOf();
+        $para = $encargado->getEmail();
+        $mensaje = "Tienes que validar la OF: " . $log->getOf() . " Operación: " . $log->getOperacion() . " <br>";
+        switch ($paso) {
+            case 1:
+                $mensaje = $mensaje . "Paso: 1., Recogida material <br>";
+                $log->setCodval1($codigo);
+                break;
+            case 2:
+                $mensaje = $mensaje . "Paso: 2., Validación Serigrafía <br>";
+                $log->setCodval2($codigo);
+                break;
+            case 3:
+                $mensaje = $mensaje . "Paso: 3., Validación Pick & Place <br>";
+                $log->setCodval3($codigo);
+                break;
+            case 4:
+                $mensaje = $mensaje . "Paso: 4., Validación Horno <br>";
+                $log->setCodval4($codigo);
+                break;
+            case 5:
+                $mensaje = $mensaje . "Paso: 5., Validación AOI <br>";
+                $log->setCodval5($codigo);
+                break;
+        }
+
+        $mensaje = $mensaje . " El codigo de aprobado es: " . $codigo;
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($asunto)
+            ->setFrom('planificacion@gureak.com')
+            ->setTo($para)
+            ->setBody($mensaje);
+        $resp = $this->get('mailer')->send($message);
+
+        $log->setCodval1($codigo);
+        $em->persist($log);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('validacion1', array('operacion' => $operacion)));
+    }
+
+
+    public function completevalidacionencargadoAction(Request $request) {
+        $securityContext = $this->container->get('security.context');
+        if (!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('login'));
+        }
+
+        if ( $request->getMethod() == "POST" ) {
+            $operacion = $request->request->get('operacion'); //gets POST var.
+        }
+
+        $operacion =$request->request->get('operacion');
+        $codval=$request->request->get('codval');
+        $paso=$request->request->get('paso');
+
+        $em = $this->getDoctrine()->getManager();
+        $log = $em->getRepository('FrontendBundle:Log')->findOneByOperacion(array('operacion'=>$operacion));
+        $resul=false;
+
+        switch ($paso) {
+            case 1:
+                if ( $log->getCodval1() == $codval ) {
+                    $log->setValidacion1 (1);
+                    $resul = true;
+                }
+            case 2:
+                if ( $log->getCodval2() == $codval ) {
+                    $log->setValidacion2 (1);
+                    $resul = true;
+                }
+            case 3:
+                if ( $log->getCodval3() == $codval ) {
+                    $log->setValidacion3 (1);
+                    $resul = true;
+                }
+            case 4:
+                if ( $log->getCodval4() == $codval ) {
+                    $log->setValidacion4 (1);
+                    $resul = true;
+                }
+            case 5:
+                if ( $log->getCodval5() == $codval ) {
+                    $log->setValidacion5 (1);
+                    $resul = true;
+                }
+        }
+
+        if ( $resul == true ) {
+            $em->persist($log);
+            $em->flush();
+            return $this->redirect($this->generateUrl('validacion2', array('operacion' => $operacion)));
+        }
+
+        return $this->redirect($this->generateUrl('validacion1', array('operacion' => $operacion)));
+
+    }
+
+
+
     public function addComponenteAction(Request $request) {
         $usuario = $this->getUser();
         $of = $request->request->get("of");

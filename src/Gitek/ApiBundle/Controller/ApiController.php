@@ -299,19 +299,4 @@ class ApiController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function sendEmailAction() {
-        $codigo = rand(0, 9999);
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Código: ' . $codigo)
-            ->setFrom('planificacion@gureak.com')
-            ->setTo('ikerib@gmail.com')
-            ->setBody("");
-        $resp = $this->get('mailer')->send($message);
-        $statusCode = 200;
-        $view = $this->view($resp, $statusCode);
-        return $this->handleView($view);
-    }
-
-
 }

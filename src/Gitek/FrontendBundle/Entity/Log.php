@@ -44,11 +44,26 @@ class Log
     private $validacion1;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="codval1", type="string", length=255, nullable=true)
+     */
+    private $codval1;
+
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="validacion2", type="boolean", nullable=true)
      */
     private $validacion2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codval2", type="string", length=255, nullable=true)
+     */
+    private $codval2;
 
     /**
      * @var boolean
@@ -58,11 +73,26 @@ class Log
     private $validacion3;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="codval3", type="string", length=255, nullable=true)
+     */
+    private $codval3;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="validacion4", type="boolean", nullable=true)
      */
     private $validacion4;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codval4", type="string", length=255, nullable=true)
+     */
+
+    private $codval4;
 
     /**
      * @var boolean
@@ -72,11 +102,26 @@ class Log
     private $validacion5;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="codval5", type="string", length=255, nullable=true)
+     */
+    private $codval5;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="validacion6", type="boolean", nullable=true)
      */
     private $validacion6;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codval6", type="string", length=255, nullable=true)
+     */
+    private $codval6;
+
 
     /**
      * @var string
@@ -146,7 +191,7 @@ class Log
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -169,7 +214,7 @@ class Log
     /**
      * Get of
      *
-     * @return string 
+     * @return string
      */
     public function getOf()
     {
@@ -192,7 +237,7 @@ class Log
     /**
      * Get operacion
      *
-     * @return string 
+     * @return string
      */
     public function getOperacion()
     {
@@ -215,7 +260,7 @@ class Log
     /**
      * Get validacion1
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValidacion1()
     {
@@ -238,7 +283,7 @@ class Log
     /**
      * Get validacion2
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValidacion2()
     {
@@ -261,7 +306,7 @@ class Log
     /**
      * Get validacion3
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValidacion3()
     {
@@ -284,7 +329,7 @@ class Log
     /**
      * Get validacion4
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValidacion4()
     {
@@ -307,7 +352,7 @@ class Log
     /**
      * Get validacion5
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValidacion5()
     {
@@ -330,7 +375,7 @@ class Log
     /**
      * Get validacion6
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValidacion6()
     {
@@ -353,7 +398,7 @@ class Log
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -376,7 +421,7 @@ class Log
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -409,7 +454,7 @@ class Log
     /**
      * Get detalles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDetalles()
     {
@@ -442,7 +487,7 @@ class Log
     /**
      * Get logserigrafia
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLogserigrafia()
     {
@@ -475,7 +520,7 @@ class Log
     /**
      * Get logpickplace
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLogpickplace()
     {
@@ -508,7 +553,7 @@ class Log
     /**
      * Get logbobinas
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLogbobinas()
     {
@@ -531,7 +576,7 @@ class Log
     /**
      * Get programa
      *
-     * @return string 
+     * @return string
      */
     public function getPrograma()
     {
@@ -554,10 +599,148 @@ class Log
     /**
      * Get aoipatron
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getAoipatron()
     {
         return $this->aoipatron;
+    }
+
+    /**
+     * Set codval1
+     *
+     * @param string $codval1
+     * @return Log
+     */
+    public function setCodval1($codval1)
+    {
+        $this->codval1 = $codval1;
+
+        return $this;
+    }
+
+    /**
+     * Get codval1
+     *
+     * @return string 
+     */
+    public function getCodval1()
+    {
+        return $this->codval1;
+    }
+
+    /**
+     * Set codval2
+     *
+     * @param string $codval2
+     * @return Log
+     */
+    public function setCodval2($codval2)
+    {
+        $this->codval2 = $codval2;
+
+        return $this;
+    }
+
+    /**
+     * Get codval2
+     *
+     * @return string 
+     */
+    public function getCodval2()
+    {
+        return $this->codval2;
+    }
+
+    /**
+     * Set codval3
+     *
+     * @param string $codval3
+     * @return Log
+     */
+    public function setCodval3($codval3)
+    {
+        $this->codval3 = $codval3;
+
+        return $this;
+    }
+
+    /**
+     * Get codval3
+     *
+     * @return string 
+     */
+    public function getCodval3()
+    {
+        return $this->codval3;
+    }
+
+    /**
+     * Set codval4
+     *
+     * @param string $codval4
+     * @return Log
+     */
+    public function setCodval4($codval4)
+    {
+        $this->codval4 = $codval4;
+
+        return $this;
+    }
+
+    /**
+     * Get codval4
+     *
+     * @return string 
+     */
+    public function getCodval4()
+    {
+        return $this->codval4;
+    }
+
+    /**
+     * Set codval5
+     *
+     * @param string $codval5
+     * @return Log
+     */
+    public function setCodval5($codval5)
+    {
+        $this->codval5 = $codval5;
+
+        return $this;
+    }
+
+    /**
+     * Get codval5
+     *
+     * @return string 
+     */
+    public function getCodval5()
+    {
+        return $this->codval5;
+    }
+
+    /**
+     * Set codval6
+     *
+     * @param string $codval6
+     * @return Log
+     */
+    public function setCodval6($codval6)
+    {
+        $this->codval6 = $codval6;
+
+        return $this;
+    }
+
+    /**
+     * Get codval6
+     *
+     * @return string 
+     */
+    public function getCodval6()
+    {
+        return $this->codval6;
     }
 }

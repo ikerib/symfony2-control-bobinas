@@ -8,166 +8,183 @@
 
 {% block body -%}
 
-  <div class="row">
-
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>
-            OF:{{ of }}
-          </h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>
-            Operación: {{ operacion }}
-          </h3>
-        </div>
-      </div>
-    </div>
-  </div>
-
-{% if app.request.attributes.get('_route') != "dashboard" %}
-    {% if not log.validacion1 is  empty %}
-
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box box-solid bg-green">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Proceso validado</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <p>Proceso completado y validado.</p>
-                    </div><!-- /.box-body -->
-                </div>
-            </div>
-        </div>
-
-    {% elseif log.codval1 is  empty %}
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Progreso</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <p>
-                          <code>
-                            Total componentes: <span id="ComponentesTotales">  {{ mijson | length }}</span>
-                            Componentes leídos:<span id="ComponentesLeidos"></span>
-                        </code></p>
-                        <div class="progress">
-                            <div id="mibarraprogresso" class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                <span class="sr-only">40% Complete (success)</span>
-                            </div>
-                        </div>
-
-                    </div><!-- /.box-body -->
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box box-solid bg-yellow">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Esperando validación:</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <form action="{{ path('completevalidacionencargado') }}" method="post" >
-                            <label for="codval">Código:</label>
-                            <input id="codval" class="" type="text" name="codval" value="" autofocus />
-                            <input type="submit" value="Validar" />
-                            <input type="hidden" name="paso" value="1" />
-                            <input type="hidden" name="operacion" value="{{ operacion }}" />
-                        </form>
-                    </div><!-- /.box-body -->
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
     <div class="row">
-    <div class="col-xs-12">
 
-      <div class="box">
-          <div class="box-header">
-              {% if log.codval1 is  empty %}
-                  <h3 class="box-title">Leer código de barras del Material</h3>
-                  <div class="box-tools pull-left">
-                      <input type="text" id="codbarcomponente" name="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" autoFocus />
-                      <button id="cmdAddComponent" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
-                      <input type="hidden" id="miof" name="of" value="{{ of }}" />
-                      <input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />
-                      <input type="hidden" id="logid" name="logid" value="{% if log.id is defined %}{{ log.id }}{% endif %}" />
-                  </div>
-              {% endif %}
-          </div>
-          <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>
+                        OF:{{ of }}
+                    </h3>
+                </div>
+            </div>
+        </div>
 
-              <div id="divAlert" class=""></div>
-              <div id="divAlertInfo" class=""></div>
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>
+                        Operación: {{ operacion }}
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <table id="example2_wrapper">
-              <thead>
-                <th>Componente</th>
-                <th>Descripción</th>
-                <th>Posicion Feeder</th>
-                <th>Posicion MSL</th>
-                <th>Cantidad</th>
-                <th>Lote</th>
-                <th>Bin1</th>
-                <th>Bin2</th>
-                <th></th>
-              </thead>
-              <tbody>
-                {% if log.detalles is defined %}
-                    {% for componente in log.detalles  %}
-                      <tr class="tr{{ loop.index0 }}">
-                        <td class="td{{ loop.index0 }}">{{ componente.componente }}</td>
-                        <td class="td{{ loop.index0 }}">{{ componente.descripcion }}</td>
-                        <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
-                        <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>
-                        <td class="td{{ loop.index0 }}">{{ componente.cantidad }}</td>
-                        <td class="td{{ loop.index0 }} {% if componente.lote == -1 %}requerido{% endif %}">{{ componente.lote }}</td>
-                        <td class="td{{ loop.index0 }} {% if componente.bin1 == -1 %}requerido{% endif %}">{{ componente.bin1 }}</td>
-                        <td class="td{{ loop.index0 }} {% if componente.bin2 == -1 %}requerido{% endif %}">{{ componente.bin2 }}</td>
+    {% if app.request.attributes.get('_route') != "dashboard" %}
+        {% if not log.validacion1 is  empty %}
 
-                        <td>
-                            <button class="btn btn-sm btn-danger btn-delete" data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i></button>
-                            <button type="button" class="btn btn-primary btn-sm btnadd" data-ldi="{{ componente.id }}"
-                                    data-lote="{{ componente.lote }}"
-                                    data-bin1="{{ componente.bin1 }}"
-                                    data-bin2="{{ componente.bin2 }}"
-                                    data-toggle="modal" data-target="#myModal"><i class="fa fa-info-circle"></i>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-solid bg-green">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Proceso validado</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <p>Proceso completado y validado.</p>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
 
-                            </button>
-                        </td>
-                      </tr>
-                    {% endfor %}
-                {% endif %}
-              </tbody>
-            </table>
-          </div>
-        </div> {# box #}
-    </div> {# col-xs-12 #}
-  </div> {# row #}
-    <input type="hidden" id="leidos" value="{{ log.detalles | length }}" />
-    <input type="hidden" id="codval1" value="{{ log.codval1 }}" />
-{% endif %}
+        {% elseif log.codval1 is  empty %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Progreso</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <p>
+                                <code>
+                                    Total componentes: <span id="ComponentesTotales">  {{ mijson | length }}</span>
+                                    Componentes leídos:<span id="ComponentesLeidos"></span>
+                                </code></p>
+
+                            <div class="progress">
+                                <div id="mibarraprogresso"
+                                     class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar"
+                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-solid bg-yellow">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Esperando validación:</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <form action="{{ path('completevalidacionencargado') }}" method="post">
+                                <label for="codval">Código:</label>
+                                <input id="codval" class="" type="text" name="codval" value="" autofocus/>
+                                <input type="submit" value="Validar"/>
+                                <input type="hidden" name="paso" value="1"/>
+                                <input type="hidden" name="operacion" value="{{ operacion }}"/>
+                            </form>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="box">
+                    <div class="box-header">
+                        {% if log.codval1 is  empty %}
+                            <h3 class="box-title">Leer código de barras del Material</h3>
+                            <div class="box-tools pull-left">
+                                <input type="text" id="codbarcomponente" name="codbarcomponente"
+                                       class="form-control input-sm pull-left" style="width: 150px;" autoFocus/>
+                                <button id="cmdAddComponent" class="btn btn-sm btn-default"><i
+                                            class="fa fa-barcode"></i></button>
+                                <input type="hidden" id="miof" name="of" value="{{ of }}"/>
+                                <input type="hidden" id="miope" name="operacion" value="{{ operacion }}"/>
+                                <input type="hidden" id="logid" name="logid"
+                                       value="{% if log.id is defined %}{{ log.id }}{% endif %}"/>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+
+                        <div id="divAlert" class=""></div>
+                        <div id="divAlertInfo" class=""></div>
+
+                        <table id="example2_wrapper">
+                            <thead>
+                            <th>Componente</th>
+                            <th>Descripción</th>
+                            <th>Posicion Feeder</th>
+                            <th>Posicion MSL</th>
+                            <th>Cantidad</th>
+                            <th>Lote</th>
+                            <th>Bin1</th>
+                            <th>Bin2</th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                            {% if log.detalles is defined %}
+                                {% for componente in log.detalles %}
+                                    <tr class="tr{{ loop.index0 }}">
+                                        <td class="td{{ loop.index0 }}">{{ componente.componente }}</td>
+                                        <td class="td{{ loop.index0 }}">{{ componente.descripcion }}</td>
+                                        <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
+                                        <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>
+                                        <td class="td{{ loop.index0 }}">{{ componente.cantidad }}</td>
+                                        <td class="td{{ loop.index0 }} {% if componente.lote == -1 %}requerido{% endif %}">{{ componente.lote }}</td>
+                                        <td class="td{{ loop.index0 }} {% if componente.bin1 == -1 %}requerido{% endif %}">{{ componente.bin1 }}</td>
+                                        <td class="td{{ loop.index0 }} {% if componente.bin2 == -1 %}requerido{% endif %}">{{ componente.bin2 }}</td>
+
+                                        <td>
+                                            <button class="btn btn-sm btn-danger btn-delete"
+                                                    data-idlogdetail="{{ componente.id }}"><i class="fa fa-trash-o"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm btnadd"
+                                                    data-ldi="{{ componente.id }}"
+                                                    data-lote="{{ componente.lote }}"
+                                                    data-bin1="{{ componente.bin1 }}"
+                                                    data-bin2="{{ componente.bin2 }}"
+                                                    data-toggle="modal" data-target="#myModal"><i
+                                                        class="fa fa-info-circle"></i>
+
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div> {# box #}
+            </div> {# col-xs-12 #}
+        </div> {# row #}
+        <input type="hidden" id="leidos" value="{{ log.detalles | length }}"/>
+        <input type="hidden" id="codval1" value="{{ log.codval1 }}"/>
+    {% endif %}
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Datos adicionales</h4>
                 </div>
                 <div class="modal-body">
@@ -184,8 +201,8 @@
                             <label for="message-text" class="control-label">Bin2:</label>
                             <input type="text" name="bin2" class="form-control" id="bin2"></input>
                         </div>
-                        <input type="hidden" name="id" id="logadddetailid" value="" />
-                        <input type="hidden" name="ldoperacion" id="ldoperacion" value="{{ operacion }}" />
+                        <input type="hidden" name="id" id="logadddetailid" value=""/>
+                        <input type="hidden" name="ldoperacion" id="ldoperacion" value="{{ operacion }}"/>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -200,7 +217,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     <h4 class='modal-title' id='myModalLabel'>COMPLETADO!</h4>
                 </div>
                 <div class="modal-body">
@@ -210,7 +228,8 @@
                     <a href='#' data-dismiss='modal' class='btn'>CERRAR</a>
                     {% for u in encargados %}
 
-                        <a href="{{ path('dovalidacionencargado', {'encargado': u.id, 'operacion': operacion, 'paso': 1}) }}" class='btn btn-primary'>{{ u.nombre }}</a>
+                        <a href="{{ path('dovalidacionencargado', {'encargado': u.id, 'operacion': operacion, 'paso': 1}) }}"
+                           class='btn btn-primary'>{{ u.nombre }}</a>
 
                     {% endfor %}
                 </div>
@@ -222,179 +241,176 @@
 
 {% block javascripts %}
 
-  {{ parent() }}
+    {{ parent() }}
 
-  <script type="text/javascript">
+    <script type="text/javascript">
 
-    $(function() {
+        $(function () {
 
-        $('.btnadd').on('click', function() {
-           var li = $(this).data('ldi');
-           var lote = $(this).data('lote');
-           var bin1 = $(this).data('bin1');
-           var bin2 = $(this).data('bin2');
-           $('#logadddetailid').val(li);
-           $('#lote').val(lote);
-           $('#bin1').val(bin1);
-           $('#bin2').val(bin2);
-        });
+            $('.btnadd').on('click', function () {
+                var li = $(this).data('ldi');
+                var lote = $(this).data('lote');
+                var bin1 = $(this).data('bin1');
+                var bin2 = $(this).data('bin2');
+                $('#logadddetailid').val(li);
+                $('#lote').val(lote);
+                $('#bin1').val(bin1);
+                $('#bin2').val(bin2);
+            });
 
-        $('.btnEnviar').on('click', function(){
-            $('#addDetail').submit();
-        });
+            $('.btnEnviar').on('click', function () {
+                $('#addDetail').submit();
+            });
 
-        $esperandovalidacion = $('#codval1').val();
+            $esperandovalidacion = $('#codval1').val();
 
-        if ( ($esperandovalidacion !== "") && ($esperandovalidacion !== undefined) ) {
+            if (($esperandovalidacion !== "") && ($esperandovalidacion !== undefined)) {
 
-        } else {
-          var zenbatguztira = $('#leidos').val();
-          var zenbat =  $('.btn-delete').length;
-          var zenbatrequerido =  $('.requerido').length;
+            } else {
+                var zenbatguztira = $('#leidos').val();
+                var zenbat = $('.btn-delete').length;
+                var zenbatrequerido = $('.requerido').length;
 
-          if ( (zenbat !=0) && (parseInt(zenbatguztira) === parseInt(zenbat)) && (zenbatrequerido ==0) )  {
-              var ope = $('#miope').val();
-              var url = Routing.generate('dovalidacion2',{operacion: ope});
-              $('#myModal2').modal('show');
+                if ((zenbat != 0) && (parseInt(zenbatguztira) === parseInt(zenbat)) && (zenbatrequerido == 0)) {
 
-          } else {
-              if(zenbat!=0) {
-                  var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
-                          "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
-                          "<h4><i class='icon fa fa-ban'></i> Alert!</h4>"+
-                          "Comprueba que has introducido todos los datos necesarios."+
-                          "</div>";
-                  $('#divAlert').append(miTexto);
-              }
-          }
-        }
+                    $('#myModal2').modal('show');
 
-
-
-        function barraProgreso() {
-          var totales =$('#ComponentesTotales').text();
-          var leidos = $('#leidos').val();
-          var porcen = ( parseFloat(leidos) * 100 ) / parseFloat(totales);
-          var sPorcentaje = porcen + '%';
-          var pro = $('#mibarraprogresso');
-          $(pro).width(sPorcentaje);
-          $('#ComponentesLeidos').html(leidos);
-        };
-
-        function cleanAlerts() {
-          $('#divAlertInfo').empty();
-          $('#divAlert').empty();
-
-        }
-
-        $('#example2_wrapper').DataTable( {
-            language: {
-              "sProcessing":     "Procesando...",
-              "sLengthMenu":     "Mostrar _MENU_ registros",
-              "sZeroRecords":    "No se encontraron resultados",
-              "sEmptyTable":     "Ningún dato disponible en esta tabla",
-              "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-              "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-              "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-              "sInfoPostFix":    "",
-              "sSearch":         "Buscar:",
-              "sUrl":            "",
-              "sInfoThousands":  ",",
-              "sLoadingRecords": "Cargando...",
-              "oPaginate": {
-                  "sFirst":    "Primero",
-                  "sLast":     "Último",
-                  "sNext":     "Siguiente",
-                  "sPrevious": "Anterior"
-              },
-              "oAria": {
-                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-              }
-            },
-            bFilter: false,
-            paging: false,
-            "fnDrawCallback": function( oSettings ) {
-              $('#leidos').val(oSettings.fnRecordsTotal());
-              barraProgreso();
+                } else {
+                    if (zenbat != 0) {
+                        var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                                "<h4><i class='icon fa fa-ban'></i> Alert!</h4>" +
+                                "Comprueba que has introducido todos los datos necesarios." +
+                                "</div>";
+                        $('#divAlert').append(miTexto);
+                    }
+                }
             }
-        });
 
-        $('body').on('click','.btn-delete', function(){
-            cleanAlerts();
-            var idlogdetail = $(this).data('idlogdetail');
-            var url = Routing.generate('removeComponente');
-            var that = $(this);
-            $.ajax({
-                method:'POST',
-                url:url,
-                data: { idlogdetail:idlogdetail}
-            }).done(function( data, textStatus, jqXHR ) {
-                if ( jqXHR.status === 200 ) {
-                    var t = $('#example2_wrapper').DataTable();
-                    t.row( $(that).parents('tr') )
-                            .remove()
-                            .draw();
+
+            function barraProgreso() {
+                var totales = $('#ComponentesTotales').text();
+                var leidos = $('#leidos').val();
+                var porcen = ( parseFloat(leidos) * 100 ) / parseFloat(totales);
+                var sPorcentaje = porcen + '%';
+                var pro = $('#mibarraprogresso');
+                $(pro).width(sPorcentaje);
+                $('#ComponentesLeidos').html(leidos);
+            };
+
+            function cleanAlerts() {
+                $('#divAlertInfo').empty();
+                $('#divAlert').empty();
+
+            }
+
+            $('#example2_wrapper').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                bFilter: false,
+                paging: false,
+                "fnDrawCallback": function (oSettings) {
+                    $('#leidos').val(oSettings.fnRecordsTotal());
                     barraProgreso();
                 }
-            }).fail(function( jqXHR, textStatus ) {
-                console.log( "Request failed: " + textStatus );
             });
-            $('#codbarcomponente').focus();
-        });
 
-        $('#codbarcomponente').keypress(function(event){
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if(keycode == '13'){
-                formAddComponentSubmit();
-            }
-        });
+            $('body').on('click', '.btn-delete', function () {
+                cleanAlerts();
+                var idlogdetail = $(this).data('idlogdetail');
+                var url = Routing.generate('removeComponente');
+                var that = $(this);
+                $.ajax({
+                    method: 'POST',
+                    url: url,
+                    data: {idlogdetail: idlogdetail}
+                }).done(function (data, textStatus, jqXHR) {
+                    if (jqXHR.status === 200) {
+                        var t = $('#example2_wrapper').DataTable();
+                        t.row($(that).parents('tr'))
+                                .remove()
+                                .draw();
+                        barraProgreso();
+                    }
+                }).fail(function (jqXHR, textStatus) {
+                    console.log("Request failed: " + textStatus);
+                });
+                $('#codbarcomponente').focus();
+            });
 
-
-
-        $('#cmdAddComponent').on('click', function(){
-            formAddComponentSubmit();
-            cleanAlerts();
-        });
-
-        function formAddComponentSubmit() {
-            var micom = $('#codbarcomponente').val();
-            var miof  = $('#miof').val();
-            var miope  = $('#miope').val();
-            var logid = $('#logid').val();
-            var miurl = Routing.generate('addComponente');
-            $('#codbarcomponente').val('');
-            $('#codbarcomponente').text('');
-            $.ajax({
-                method: 'POST',
-                url: miurl,
-                data: { of: miof, operacion: miope, componente: micom, logid:logid}
-            }).done(function( data, textStatus, jqXHR ) {
-                if ( jqXHR.status === 204 ) {
-                    var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
-                    "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
-                    "<h4><i class='icon fa fa-ban'></i> Alert!</h4>"+
-                    "Este componente es incorrecto. No correspone a esta Operación u OF."+
-                    "</div>";
-                    $('#divAlert').append(miTexto);
-                } else if (data.existe === 1) {
-                    var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
-                        "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
-                        "<h4><i class='icon fa fa-warning'></i> Alerta!</h4>" +
-                        "El componente ya está en la lista" +
-                        "</div>";
-                    $('#divAlertInfo').append(miTexto);
-                } else {
-                    location.reload(true);
+            $('#codbarcomponente').keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    formAddComponentSubmit();
                 }
-            }).fail(function( jqXHR, textStatus ) {
-                console.log( "Request failed: " + textStatus );
             });
-        }
-
-    });
 
 
-  </script>
+            $('#cmdAddComponent').on('click', function () {
+                formAddComponentSubmit();
+                cleanAlerts();
+            });
+
+            function formAddComponentSubmit() {
+                var micom = $('#codbarcomponente').val();
+                var miof = $('#miof').val();
+                var miope = $('#miope').val();
+                var logid = $('#logid').val();
+                var miurl = Routing.generate('addComponente');
+                $('#codbarcomponente').val('');
+                $('#codbarcomponente').text('');
+                $.ajax({
+                    method: 'POST',
+                    url: miurl,
+                    data: {of: miof, operacion: miope, componente: micom, logid: logid}
+                }).done(function (data, textStatus, jqXHR) {
+                    if (jqXHR.status === 204) {
+                        var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                                "<h4><i class='icon fa fa-ban'></i> Alert!</h4>" +
+                                "Este componente es incorrecto. No correspone a esta Operación u OF." +
+                                "</div>";
+                        $('#divAlert').append(miTexto);
+                    } else if (data.existe === 1) {
+                        var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
+                                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                                "<h4><i class='icon fa fa-warning'></i> Alerta!</h4>" +
+                                "El componente ya está en la lista" +
+                                "</div>";
+                        $('#divAlertInfo').append(miTexto);
+                    } else {
+                        location.reload(true);
+                    }
+                }).fail(function (jqXHR, textStatus) {
+                    console.log("Request failed: " + textStatus);
+                });
+            }
+
+        });
+
+
+    </script>
 
 {% endblock javascripts %}

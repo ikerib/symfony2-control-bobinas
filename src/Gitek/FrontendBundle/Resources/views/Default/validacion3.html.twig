@@ -8,244 +8,292 @@
 
 {% block body -%}
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-aqua">
-        <div class="inner">
-          <h3>
-            OF:{{ log.of }}
-          </h3>
-          <p>
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>
+                        OF:{{ log.of }}
+                    </h3>
 
-          </p>
+                    <p>
+
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>
+                        Operación: {{ log.operacion }}
+                    </h3>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>
-            Operación: {{ log.operacion }}
-          </h3>
+    {% if not log.validacion3 is  empty %}
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid bg-green">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Proceso validado</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <p>Proceso completado y validado.</p>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-  </div>
+    {% elseif not log.codval3 is  empty %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid bg-yellow">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Esperando validación:{% if errovalidar == 1 %}<span class="errorValidacion"> Código incorrecto!!</span>{% endif %}</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form action="{{ path('completevalidacionencargado') }}" method="post">
+                            <label for="codval">Código:</label>
+                            <input id="codval" class="" type="text" name="codval" value="" autofocus/>
+                            <input type="submit" value="Validar"/>
+                            <input type="hidden" name="paso" value="3"/>
+                            <input type="hidden" name="operacion" value="{{ operacion }}"/>
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
-  <div class="row">
-    <div class="col-xs-12">
+    <div class="row">
+        <div class="col-xs-12">
 
-      <div class="box">
-          <div class="box-header">
-              <div class="row">&nbsp;</div>
-              <div class="row">&nbsp;</div>
-              <div class="row">
-                  <div class="col-xs-6">
-                      <h3 class="box-title zuzendu">Leer código de barras del Componente</h3>
-                      <div class="box-tools pull-left">
-                          <input type="text" id="codbarcomponente" name="codbarcomponente" class="form-control input-sm pull-left" style="width: 150px;" autoFocus />
-                          <button id="cmdComponente" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
-                          {#<input type="hidden" id="miof" name="of" value="{{ of }}" />#}
-                          {#<input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />#}
-                          {#<input type="hidden" id="logid" name="logid" value="{% if log.id is defined %}{{ log.id }}{% endif %}" />#}
-                      </div>
-                  </div>
-                  <div class="col-xs-6">
-                      <h3 class="box-title zuzendu">Leer código de barras del Posición</h3>
-                      <div class="box-tools pull-left">
-                          <input type="text" id="codbarposicion" name="codbarposicion" class="form-control input-sm pull-left" style="width: 150px;" />
-                          <button id="cmdPosicion" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i></button>
-                          {#<input type="hidden" id="miof" name="of" value="{{ of }}" />#}
-                          {#<input type="hidden" id="miope" name="operacion" value="{{ operacion }}" />#}
-                          {#<input type="hidden" id="logid" name="logid" value="{% if log.id is defined %}{{ log.id }}{% endif %}" />#}
-                      </div>
-                  </div>
-              </div>
+            <div class="box">
+                <div class="box-header">
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                    {% if log.codval3 is  empty %}
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h3 class="box-title zuzendu">Leer código de barras del Componente</h3>
 
-          </div>
-          <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+                                <div class="box-tools pull-left">
+                                    <input type="text" id="codbarcomponente" name="codbarcomponente"
+                                           class="form-control input-sm pull-left" style="width: 150px;" autoFocus/>
+                                    <button id="cmdComponente" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <h3 class="box-title zuzendu">Leer código de barras del Posición</h3>
 
-            <div id="divAlert" class=""></div>
-            <div id="divAlertInfo" class=""></div>
+                                <div class="box-tools pull-left">
+                                    <input type="text" id="codbarposicion" name="codbarposicion"
+                                           class="form-control input-sm pull-left" style="width: 150px;"/>
+                                    <button id="cmdPosicion" class="btn btn-sm btn-default"><i class="fa fa-barcode"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
 
-            <table id="checklist">
-                <thead>
-                <th>Componente</th>
-                <th>Descripción</th>
-                <th>Posicion Feeder</th>
-                <th>Posicion MSL</th>
-                <th>Cantidad</th>
-                <th>Lote</th>
-                <th>Bin1</th>
-                <th>Bin2</th>
-                </thead>
-                <tbody>
-                {% if log.detalles is defined %}
-                    {% for componente in log.detalles  %}
-                        {#{{ componente |ladybug_dump }}#}
-                        <tr class="tr {% if ((componente.pickplace is defined) and (componente.pickplace == 1)) %} validado {% endif %}">
-                            <td class="td">{{ componente.componente }}</td>
-                            <td class="td">{{ componente.descripcion }}</td>
-                            <td class="td">{{ componente.posicion1 }}</td>
-                            <td class="td">{{ componente.posicion2 }}</td>
-                            <td class="td">{{ componente.cantidad }}</td>
-                            <td class="td">{{ componente.lote }}</td>
-                            <td class="td">{{ componente.bin1 }}</td>
-                            <td class="td">{{ componente.bin2 }}</td>
-                        </tr>
+                    <div id="divAlert" class=""></div>
+                    <div id="divAlertInfo" class=""></div>
+
+                    <table id="checklist">
+                        <thead>
+                        <th>Componente</th>
+                        <th>Descripción</th>
+                        <th>Posicion Feeder</th>
+                        <th>Posicion MSL</th>
+                        <th>Cantidad</th>
+                        <th>Lote</th>
+                        <th>Bin1</th>
+                        <th>Bin2</th>
+                        </thead>
+                        <tbody>
+                        {% if log.detalles is defined %}
+                            {% for componente in log.detalles %}
+                                {#{{ componente |ladybug_dump }}#}
+                                <tr class="tr {% if ((componente.pickplace is defined) and (componente.pickplace == 1)) %} validado {% endif %}">
+                                    <td class="td">{{ componente.componente }}</td>
+                                    <td class="td">{{ componente.descripcion }}</td>
+                                    <td class="td">{{ componente.posicion1 }}</td>
+                                    <td class="td">{{ componente.posicion2 }}</td>
+                                    <td class="td">{{ componente.cantidad }}</td>
+                                    <td class="td">{{ componente.lote }}</td>
+                                    <td class="td">{{ componente.bin1 }}</td>
+                                    <td class="td">{{ componente.bin2 }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div> {# box #}
+        </div> {# col-xs-12 #}
+    </div> {# row #}
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class='modal-title' id='myModalLabel'>COMPLETADO!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Selecciona encargado para validar:</p>
+                </div>
+                <div class="modal-footer">
+                    <a href='#' data-dismiss='modal' class='btn'>CERRAR</a>
+                    {% for u in encargados %}
+
+                        <a href="{{ path('dovalidacionencargado', {'encargado': u.id, 'operacion': operacion, 'paso': 3}) }}"
+                           class='btn btn-primary'>{{ u.nombre }}</a>
+
                     {% endfor %}
-                {% endif %}
-                </tbody>
-            </table>
-          </div>
-        </div> {# box #}
-    </div> {# col-xs-12 #}
-  </div> {# row #}
-  <input type="hidden" id="leidos" value="" />
-  <input type="hidden" id="logid" value="{{ log.id }}" />
-  <input type="hidden" id="miope" value="{{ log.operacion }}" />
-  <input type="hidden" id="countquestions" value="{{ questions | length }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="leidos" value=""/>
+    <input type="hidden" id="logid" value="{{ log.id }}"/>
+    <input type="hidden" id="miope" value="{{ log.operacion }}"/>
+    <input type="hidden" id="countquestions" value="{{ questions | length }}"/>
+    <input type="hidden" id="codval3" value="{{ log.codval3 }}"/>
+
+
 {% endblock %}
 
 {% block javascripts %}
 
-  {{ parent() }}
+    {{ parent() }}
 
-  <script type="text/javascript">
+    <script type="text/javascript">
 
-    $(function() {
+        $(function () {
 
-        $('#codbarcomponente').keypress(function(event){
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if(keycode == '13'){
-                $('#codbarposicion').focus();
-            }
-        });
-
-        function chechPickPlace() {
-            var micom = $('#codbarcomponente').val();
-            var mipos = $('#codbarposicion').val();
-            var miope  = $('#miope').val();
-
-            var miurl = Routing.generate('api_1_post_checkpickplace');
-
-            $('#codbarcomponente').val('');
-            $('#codbarcomponente').text('');
-            $('#codbarposicion').val('');
-            $('#codbarposicion').text('');
-            $.ajax({
-                method: 'POST',
-                url: miurl,
-                data: {  operacion: miope, componente: micom, posicion:mipos}
-            }).done(function( data, textStatus, jqXHR ) {
-                if ( data === 204 ) {
-                    var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
-                            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
-                            "<h4><i class='icon fa fa-ban'></i> Alert!</h4>"+
-                            "Este componente es incorrecto. No correspone a esta Operación u OF."+
-                            "</div>";
-                    $('#divAlert').append(miTexto);
-                } else if (data.existe === 1) {
-                    var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
-                            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
-                            "<h4><i class='icon fa fa-warning'></i> Alerta!</h4>" +
-                            "El componente ya está en la lista" +
-                            "</div>";
-                    $('#divAlertInfo').append(miTexto);
-                } else {
-                    location.reload(true);
+            $('#codbarcomponente').keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    $('#codbarposicion').focus();
                 }
-            }).fail(function( jqXHR, textStatus ) {
-                console.log( "Request failed: " + textStatus );
             });
-        }
 
-        $('#codbarposicion').keypress(function(event){
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if(keycode == '13'){
-                chechPickPlace();
+            function chechPickPlace() {
+                var micom = $('#codbarcomponente').val();
+                var mipos = $('#codbarposicion').val();
+                var miope = $('#miope').val();
+
+                var miurl = Routing.generate('api_1_post_checkpickplace');
+
+                $('#codbarcomponente').val('');
+                $('#codbarcomponente').text('');
+                $('#codbarposicion').val('');
+                $('#codbarposicion').text('');
+                $.ajax({
+                    method: 'POST',
+                    url: miurl,
+                    data: {operacion: miope, componente: micom, posicion: mipos}
+                }).done(function (data, textStatus, jqXHR) {
+                    if (data === 204) {
+                        var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                                "<h4><i class='icon fa fa-ban'></i> Alert!</h4>" +
+                                "Este componente es incorrecto. No correspone a esta Operación u OF." +
+                                "</div>";
+                        $('#divAlert').append(miTexto);
+                    } else if (data.existe === 1) {
+                        var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
+                                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                                "<h4><i class='icon fa fa-warning'></i> Alerta!</h4>" +
+                                "El componente ya está en la lista" +
+                                "</div>";
+                        $('#divAlertInfo').append(miTexto);
+                    } else {
+                        location.reload(true);
+                    }
+                }).fail(function (jqXHR, textStatus) {
+                    console.log("Request failed: " + textStatus);
+                });
             }
-        });
 
-
-
-
-        $('#checklist').DataTable( {
-            language: {
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix":    "",
-                "sSearch":         "Buscar:",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst":    "Primero",
-                    "sLast":     "Último",
-                    "sNext":     "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            $('#codbarposicion').keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    chechPickPlace();
                 }
-            },
-            bFilter: false,
-            paging: false,
-            "fnDrawCallback": function( oSettings ) {
-                // var leidos = oSettings.fnRecordsTotal() );
-                $('#leidos').val(oSettings.fnRecordsTotal());
+            });
+
+            $('#checklist').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                bFilter: false,
+                paging: false,
+                "fnDrawCallback": function (oSettings) {
+                    // var leidos = oSettings.fnRecordsTotal() );
+                    $('#leidos').val(oSettings.fnRecordsTotal());
+                }
+            });
+
+            $esperandovalidacion = $('#codval3').val();
+            if (($esperandovalidacion !== "") && ($esperandovalidacion !== undefined)) {
+
+            } else {
+                var zenbatguztira = $('#countquestions').val();
+                var zenbat = $('.validado').length;
+
+                if (parseInt(zenbatguztira) === parseInt(zenbat)) {
+                    var ope = $('#miope').val();
+                    var url = Routing.generate('dovalidacion3', {operacion: ope});
+
+                    $('#myModal2').modal('show');
+
+                }
             }
+
         });
 
-        var zenbatguztira = $('#countquestions').val();
-        var zenbat =  $('.validado').length;
 
-        if ( parseInt(zenbatguztira) === parseInt(zenbat) ) {
-            var ope = $('#miope').val();
-            var url = Routing.generate('dovalidacion3',{operacion: ope});
-//            var miTexto ="<div class='alert alert-success alert-dismissable'>" +
-//                    "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
-//                    "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
-//                    "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
-//                    "</div>";
-//            $('#divAlertInfo').append(miTexto);
-
-            var miTexto = "<div class='modal fade' id='myModal2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
-                    "<div class='modal-dialog'>" +
-                    "<div class='modal-content'>" +
-                    "<div class='modal-header'>" +
-                    "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                    "<h4 class='modal-title' id='myModalLabel'>COMPLETADO!</h4>" +
-                    "</div>" +
-                    "<div class='modal-body'>" +
-                    "Proceso completado correctamente. ¿Quieres terminar el proceso y pasar a la siguiente fase?" +
-                    "</div>" +
-                    "<div class='modal-footer'>" +
-                    "<a href='#' data-dismiss='modal' class='btn'>CERRAR</a>" +
-                    "<a href="+ url +" class='btn btn-primary'>ACEPTAR</a>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>";
-            $('#divAlertInfo').append(miTexto);
-            $('#myModal2').modal('show');
-
-        }
-
-    });
-
-
-  </script>
+    </script>
 
 {% endblock javascripts %}

@@ -701,6 +701,7 @@ class DefaultController extends Controller
         return $this->render('FrontendBundle:Default:validacion4.html.twig', array(
             'log' => $log,
             'usuario' => $usuario,
+            'operacion' => $operacion,
             'encargados' => $encargados,
             'errovalidar' => $errovalidar
         ));
@@ -722,7 +723,7 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('validacion5', array('operacion' => $operacion)));
     }
 
-    public function validacion5Action($operacion)
+    public function validacion5Action(Request $request, $operacion)
     {
         // Validación AOI
         $securityContext = $this->container->get('security.context');
@@ -739,6 +740,7 @@ class DefaultController extends Controller
         return $this->render('FrontendBundle:Default:validacion5.html.twig', array(
             'log' => $log,
             'usuario' => $usuario,
+            'operacion' => $operacion,
             'encargados' => $encargados,
             'errovalidar' => $errovalidar
         ));
@@ -760,7 +762,7 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('validacion6', array('operacion' => $operacion)));
     }
 
-    public function validacion6Action($operacion)
+    public function validacion6Action(Request $request, $operacion)
     {
         // Finish
         $securityContext = $this->container->get('security.context');

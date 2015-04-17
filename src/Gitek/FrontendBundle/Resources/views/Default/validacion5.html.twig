@@ -8,203 +8,250 @@
 
 {% block body -%}
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-aqua">
-        <div class="inner">
-          <h3>
-            OF:{{ log.of }}
-          </h3>
-          <p>
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>
+                        OF:{{ log.of }}
+                    </h3>
 
-          </p>
+                    <p>
+
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="col-lg-6 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>
+                        Operación: {{ log.operacion }}
+                    </h3>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-lg-6 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>
-            Operación: {{ log.operacion }}
-          </h3>
+    {% if not log.validacion5 is  empty %}
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid bg-green">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Proceso validado</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <p>Proceso completado y validado.</p>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
         </div>
-      </div>
+    {% elseif not log.codval2 is  empty %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-solid bg-yellow">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Esperando validación: {% if errovalidar == 1 %}<span class="errorValidacion">Código incorrecto!!</span>{% endif %}</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <form action="{{ path('completevalidacionencargado') }}" method="post" >
+                            <label for="codval">Código:</label>
+                            <input id="codval" class="" type="text" name="codval" value="" autofocus />
+                            <input type="submit" value="Validar" />
+                            <input type="hidden" name="paso" value="5" />
+                            <input type="hidden" name="operacion" value="{{ operacion }}" />
+                        </form>
+                    </div><!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Validación AOI</h3>
+                </div>
+                <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
+
+                    <div id="divAlert" class=""></div>
+                    <div id="divAlertInfo" class=""></div>
+
+                    <table id="checklist">
+                        <thead>
+                        <th>Comprobar</th>
+                        <th>Respuesta</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Introduce Nombre Programa:</td>
+                            <td><input id="programa" type="text" name="programa" value="{{ log.programa }}"/><span
+                                        id="resul"></span><a id="cmdgrabar" href="#"><i class="fa fa-floppy-o"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>¿Muestra patrón correcta?</td>
+                            <td>
+                                {% if log.aoipatron == 1 %}
+                                    <button class="btnCheck btnAoi btn btn-sm btn-success btn-delete"><i
+                                                class="fa fa-check"></i></button>
+                                {% else %}
+                                    <button class="btnCheck btnAoi btn btn-sm btn-danger btn-delete"><i
+                                                class="fa fa-exclamation-circle"></i></button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> {# box #}
+        </div> {# col-xs-12 #}
+    </div> {# row #}
+
+
+
+
+    <input type="hidden" id="leidos" value=""/>
+    <input type="hidden" id="logid" value="{{ log.id }}"/>
+    <input type="hidden" id="miope" value="{{ log.operacion }}"/>
+    <input type="hidden" id="codval5" value="{{ log.codval5 }}" />
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class='modal-title' id='myModalLabel'>COMPLETADO!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Selecciona encargado para validar:</p>
+                </div>
+                <div class="modal-footer">
+                    <a href='#' data-dismiss='modal' class='btn'>CERRAR</a>
+                    {% for u in encargados %}
+
+                        <a href="{{ path('dovalidacionencargado', {'encargado': u.id, 'operacion': operacion, 'paso': 5}) }}"
+                           class='btn btn-primary'>{{ u.nombre }}</a>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-
-  </div>
-
-  <div class="row">
-    <div class="col-xs-12">
-
-      <div class="box">
-          <div class="box-header">
-              <h3 class="box-title">Validación AOI</h3>
-          </div>
-          <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
-
-            <div id="divAlert" class=""></div>
-            <div id="divAlertInfo" class=""></div>
-
-            <table id="checklist">
-              <thead>
-                <th>Comprobar</th>
-                <th>Respuesta</th>
-              </thead>
-              <tbody>
-                <tr>
-                    <td>Introduce Nombre Programa:</td>
-                    <td><input id="programa" type="text" name="programa" value="{{ log.programa }}" /><span id="resul"></span><a id="cmdgrabar" href="#"><i class="fa fa-floppy-o"></i></a></td>
-                </tr>
-                <tr>
-                    <td>¿Muestra patrón correcta?</td>
-                    <td>
-                        {% if log.aoipatron == 1 %}
-                            <button class="btnCheck btnAoi btn btn-sm btn-success btn-delete"><i class="fa fa-check"></i></button>
-                        {% else %}
-                            <button class="btnCheck btnAoi btn btn-sm btn-danger btn-delete"><i class="fa fa-exclamation-circle"></i></button>
-                        {% endif %}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-          </div>
-        </div> {# box #}
-    </div> {# col-xs-12 #}
-  </div> {# row #}
-
-
-
-
-  <input type="hidden" id="leidos" value="" />
-  <input type="hidden" id="logid" value="{{ log.id }}" />
-  <input type="hidden" id="miope" value="{{ log.operacion }}" />
 {% endblock %}
 
 {% block javascripts %}
 
-  {{ parent() }}
+    {{ parent() }}
 
-  <script type="text/javascript">
+    <script type="text/javascript">
 
-    $(function() {
+        $(function () {
 
-        $('.btnAoi').on('click', function(){
-            var that = $(this);
-            var milogid = $('#logid').val();
-            var url = Routing.generate('api_1_post_aoipatron');
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                data: {logid:milogid}
-            })
-            .done(function(data) {
-                location.reload();
-            })
-            .fail(function() {
-                console.log("error");
-            })
-            .always(function() {
-                console.log("complete");
+            $('.btnAoi').on('click', function () {
+                var that = $(this);
+                var milogid = $('#logid').val();
+                var url = Routing.generate('api_1_post_aoipatron');
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {logid: milogid}
+                })
+                        .done(function (data) {
+                            location.reload();
+                        })
+                        .fail(function () {
+                            console.log("error");
+                        })
+                        .always(function () {
+                            console.log("complete");
+                        });
+
             });
 
-        });
-
-        $('#cmdgrabar').on('click', function() {
-            var milogid = $('#logid').val();
-            var programa = $('#programa').val();
-            var url = Routing.generate('api_1_post_logprograma');
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                data: {logid:milogid, programa:programa}
-            })
-            .done(function(data) {
-                $('#resul').append('<i class="fa fa-check-circle"></i>');
-            })
-            .fail(function() {
-                console.log("error");
-            })
-            .always(function() {
-                console.log("complete");
+            $('#cmdgrabar').on('click', function () {
+                var milogid = $('#logid').val();
+                var programa = $('#programa').val();
+                var url = Routing.generate('api_1_post_logprograma');
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {logid: milogid, programa: programa}
+                })
+                        .done(function (data) {
+                            $('#resul').append('<i class="fa fa-check-circle"></i>');
+                        })
+                        .fail(function () {
+                            console.log("error");
+                        })
+                        .always(function () {
+                            console.log("complete");
+                        });
             });
-        });
 
-        var zenbat =  $('.btn-success').length;
-
-        if ( ($('#programa').val()) && (parseInt(zenbat)>0) ) {
-            var ope = $('#miope').val();
-            var url = Routing.generate('dovalidacion5',{operacion: ope});
-//            var miTexto ="<div class='alert alert-success alert-dismissable'>" +
-//                    "<h4> <i class='icon fa fa-check'></i>¡COMPLETADO!</h4>" +
-//                    "<p>Revisa la lista y si todo está correcto haz click en el botón para continuar.</p>" +
-//                    "<p><a href="+ url +" class='btn btn-block btn-primary'>ACEPTAR</a></p>" +
-//                    "</div>";
-//            $('#divAlertInfo').append(miTexto);
-
-            var miTexto = "<div class='modal fade' id='myModal2' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
-                    "<div class='modal-dialog'>" +
-                    "<div class='modal-content'>" +
-                    "<div class='modal-header'>" +
-                    "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-                    "<h4 class='modal-title' id='myModalLabel'>COMPLETADO!</h4>" +
-                    "</div>" +
-                    "<div class='modal-body'>" +
-                    "Proceso completado correctamente. ¿Quieres terminar el proceso y pasar a la siguiente fase?" +
-                    "</div>" +
-                    "<div class='modal-footer'>" +
-                    "<a href='#' data-dismiss='modal' class='btn'>CERRAR</a>" +
-                    "<a href="+ url +" class='btn btn-primary'>ACEPTAR</a>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>";
-            $('#divAlertInfo').append(miTexto);
-            $('#myModal2').modal('show');
-
-        }
-
-        $('#checklist').DataTable( {
-            language: {
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix":    "",
-                "sSearch":         "Buscar:",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst":    "Primero",
-                    "sLast":     "Último",
-                    "sNext":     "Siguiente",
-                    "sPrevious": "Anterior"
+            $('#checklist').DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
                 },
-                "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                bFilter: false,
+                paging: false,
+                "fnDrawCallback": function (oSettings) {
+                    // var leidos = oSettings.fnRecordsTotal() );
+                    $('#leidos').val(oSettings.fnRecordsTotal());
                 }
-            },
-            bFilter: false,
-            paging: false,
-            "fnDrawCallback": function( oSettings ) {
-                // var leidos = oSettings.fnRecordsTotal() );
-                $('#leidos').val(oSettings.fnRecordsTotal());
+            });
+
+            $esperandovalidacion = $('#codval5').val();
+            if ( ($esperandovalidacion !== "") && ($esperandovalidacion !== undefined) && ($esperandovalidacion.length > 0) ) {
+                // Quitamos la habilidad de hacer click
+                $('body').off('click','.btnCheck');
+            } else {
+                var zenbat = $('.btn-success').length;
+
+                if (($('#programa').val()) && (parseInt(zenbat) > 0)) {
+
+                    $('#myModal2').modal('show');
+
+                }
             }
+
         });
 
-    });
 
-
-  </script>
+    </script>
 
 {% endblock javascripts %}

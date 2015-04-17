@@ -107,7 +107,7 @@
     {% if menu > 1 %}
         <li>
             <a href="{{ path('validacion1', { operacion: log.operacion }) }}">
-                <i class="fa fa-gavel"></i> <span>1-. Material</span>
+                <i class="fa fa-gavel"></i> <span>1-. Material</span>  {% if log.validacion1 ==1 %}<i class="fa fa-check"></i>{% elseif log.codval1 is defined %}<i class="fa fa-exclamation-circle"></i>{% endif %}
             </a>
         </li>
     {% endif %}
@@ -115,7 +115,7 @@
     {% if menu > 2 %}
         <li>
             <a href="{{ path('validacion2', { operacion: log.operacion }) }}">
-                <i class="fa fa-gavel"></i> <span>2-. Validación serigrafía</span>
+                <i class="fa fa-gavel"></i> <span>2-. Validación serigrafía</span>  {% if log.validacion2 ==1 %}<i class="fa fa-check"></i>{% elseif log.codval2 is defined %}<i class="fa fa-exclamation-circle"></i>{% endif %}
             </a>
         </li>
     {% endif %}
@@ -123,7 +123,7 @@
     {% if menu > 3 %}
         <li>
             <a href="{{ path('validacion3', { operacion: log.operacion }) }}">
-                <i class="fa fa-gavel"></i> <span>3-. Validación Pick&Place</span>
+                <i class="fa fa-gavel"></i> <span>3-. Validación Pick&Place</span>  {% if log.validacion3 ==1 %}<i class="fa fa-check"></i>{% elseif log.codval3 is defined %}<i class="fa fa-exclamation-circle"></i>{% endif %}
             </a>
         </li>
     {% endif %}
@@ -131,7 +131,7 @@
     {% if menu > 4 %}
         <li>
             <a href="{{ path('validacion4', { operacion: log.operacion }) }}">
-                <i class="fa fa-gavel"></i> <span>4-. Validación Horno</span>
+                <i class="fa fa-gavel"></i> <span>4-. Validación Horno</span>  {% if log.validacion4 ==1 %}<i class="fa fa-check"></i>{% elseif log.codval4 is defined %}<i class="fa fa-exclamation-circle"></i>{% endif %}
             </a>
         </li>
     {% endif %}
@@ -139,7 +139,7 @@
     {% if menu > 5 %}
         <li>
             <a href="{{ path('validacion5', { operacion: log.operacion }) }}">
-                <i class="fa fa-gavel"></i> <span>5-. Validación AOI</span>
+                <i class="fa fa-gavel"></i> <span>5-. Validación AOI</span> {% if log.validacion5 ==1 %}<i class="fa fa-check"></i>{% elseif log.codval5 is defined %}<i class="fa fa-exclamation-circle"></i>{% endif %}
             </a>
         </li>
     {% endif %}
@@ -147,7 +147,7 @@
     {% if menu > 6 %}
         <li>
             <a href="{{ path('validacion6', { operacion: log.operacion }) }}">
-                <i class="fa fa-gavel"></i> <span>6-. Completado</span>
+                <i class="fa fa-gavel"></i> <span>6-. Completado</span>  {% if log.validacion6 ==1 %}<i class="fa fa-check"></i>{% elseif log.codval6 is defined %}<i class="fa fa-exclamation-circle"></i>{% endif %}
             </a>
         </li>
     {% endif %}

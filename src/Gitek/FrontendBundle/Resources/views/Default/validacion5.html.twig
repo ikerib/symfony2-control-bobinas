@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-    {% elseif not log.codval2 is  empty %}
+    {% elseif not log.codval5 is  empty %}
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-solid bg-yellow">
@@ -174,9 +174,6 @@
                         })
                         .fail(function () {
                             console.log("error");
-                        })
-                        .always(function () {
-                            console.log("complete");
                         });
 
             });
@@ -193,6 +190,7 @@
                 })
                         .done(function (data) {
                             $('#resul').append('<i class="fa fa-check-circle"></i>');
+                            location.reload();
                         })
                         .fail(function () {
                             console.log("error");

@@ -172,10 +172,10 @@ class ApiController extends FOSRestController
             $view = $this->view($statusCode);
             return $this->handleView($view);
         } else {
-            if ( $log->getValidacion4() == 1 ) {
-                $log->setValidacion4(0);
+            if ( $log->getValidacion4usuario() == 1 ) {
+                $log->setValidacion4usuario(0);
             } else {
-                $log->setValidacion4(1);
+                $log->setValidacion4usuario(1);
             }
             $em->persist($log);
             $em->flush();

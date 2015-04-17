@@ -87,6 +87,13 @@ class Log
     private $validacion4;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="validacion4usuario", type="boolean", nullable=true)
+     */
+    private $validacion4usuario;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="codval4", type="string", length=255, nullable=true)
@@ -742,5 +749,28 @@ class Log
     public function getCodval6()
     {
         return $this->codval6;
+    }
+
+    /**
+     * Set validacion4usuario
+     *
+     * @param boolean $validacion4usuario
+     * @return Log
+     */
+    public function setValidacion4usuario($validacion4usuario)
+    {
+        $this->validacion4usuario = $validacion4usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get validacion4usuario
+     *
+     * @return boolean 
+     */
+    public function getValidacion4usuario()
+    {
+        return $this->validacion4usuario;
     }
 }

@@ -281,26 +281,26 @@ class DefaultController extends Controller
         $codigo = rand(0, 9999);
         $asunto = 'Validación OF: ' . $log->getOf();
         $para = $encargado->getEmail();
-        $mensaje = "Tienes que validar la OF: " . $log->getOf() . " Operación: " . $log->getOperacion() . " <br>";
+        $mensaje = "Tienes que validar la OF: " . $log->getOf() . " Operación: " . $log->getOperacion() . " \n";
         switch ($paso) {
             case 1:
-                $mensaje = $mensaje . "Paso: 1., Recogida material <br>";
+                $mensaje = $mensaje . "Paso: 1., Recogida material \n";
                 $log->setCodval1($codigo);
                 break;
             case 2:
-                $mensaje = $mensaje . "Paso: 2., Validación Serigrafía <br>";
+                $mensaje = $mensaje . "Paso: 2., Validación Serigrafía \n";
                 $log->setCodval2($codigo);
                 break;
             case 3:
-                $mensaje = $mensaje . "Paso: 3., Validación Pick & Place <br>";
+                $mensaje = $mensaje . "Paso: 3., Validación Pick & Place \n";
                 $log->setCodval3($codigo);
                 break;
             case 4:
-                $mensaje = $mensaje . "Paso: 4., Validación Horno <br>";
+                $mensaje = $mensaje . "Paso: 4., Validación Horno \n";
                 $log->setCodval4($codigo);
                 break;
             case 5:
-                $mensaje = $mensaje . "Paso: 5., Validación AOI <br>";
+                $mensaje = $mensaje . "Paso: 5., Validación AOI \n";
                 $log->setCodval5($codigo);
                 break;
         }
@@ -534,11 +534,8 @@ class DefaultController extends Controller
 
             $det->setComponente($componente);
             $det->setDescripcion($bilaketa[0]["DescArticulo"]);
-//            $det->setDescripcion("-");
             $det->setPosicion1($bilaketa[0]["PosicionFeeder"]);
-//            $det->setPosicion1("-");
             $det->setPosicion2($bilaketa[0]["Observaciones"]);
-//            $det->setPosicion2("-");
             $det->setCantidad($cantidad);
             if (($lote != "") && ($lote != null)) {
                 $det->setLote($lote);
@@ -550,17 +547,6 @@ class DefaultController extends Controller
 
             $em->persist($det);
             $em->flush();
-
-            // Comprobar si completado:
-            $jsoncount = count($datos);
-            $logcount = count($log->getDetalles());
-
-            if ($jsoncount == $logcount) {
-
-                $log->setValidacion1(true);
-                $em->flush();
-
-            }
 
             $serializador = $this->container->get('serializer');
             $respuesta = new Response($serializador->serialize($det, 'json'));

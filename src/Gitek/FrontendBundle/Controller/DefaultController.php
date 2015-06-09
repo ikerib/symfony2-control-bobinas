@@ -45,14 +45,38 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('dashboard'));
         }
 
-        $usuarios = $em->getRepository('BackendBundle:Usuario')->findAll();
-
+        $usuarios = $em->getRepository('BackendBundle:Usuario')->findOperarios();
 
         return $this->render('FrontendBundle:Default:index.html.twig', array(
             'usuarios' => $usuarios,
             'error' => $error
         ));
     }
+
+    public function adminAction(Request $request)
+    {
+        $session = $request->getSession();
+
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(
+                SecurityContextInterface::AUTHENTICATION_ERROR
+            );
+        } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+        } else {
+            $error = '';
+        }
+        $em = $this->getDoctrine()->getManager();
+        $usuarios = $em->getRepository('BackendBundle:Usuario')->findAmins();
+
+        return $this->render('FrontendBundle:Default:index.html.twig', array(
+            'usuarios' => $usuarios,
+            'error' => $error
+        ));
+    }
+
 
     public function logincheckAction(Request $request)
     {

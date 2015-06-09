@@ -38,4 +38,28 @@ class UsuarioRepository extends EntityRepository
         return $consulta->getResult();
     }
 
+    public function findAmins()
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT u
+                    FROM BackendBundle:Usuario u
+                    WHERE u.admin=1";
+
+        $consulta = $em->createQuery($dql);
+        return $consulta->getResult();
+    }
+
+    public function findOperarios()
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT u
+                    FROM BackendBundle:Usuario u
+                    WHERE u.encargado=0 AND u.admin=0";
+
+        $consulta = $em->createQuery($dql);
+        return $consulta->getResult();
+    }
+
 }

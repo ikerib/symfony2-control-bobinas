@@ -309,7 +309,7 @@ class DefaultController extends Controller
 
         $message = \Swift_Message::newInstance()
             ->setSubject($asunto)
-            ->setFrom('planificacion@gureak.com')
+            ->setFrom('validaciones@mail.gureak.com')
             ->setTo($para)
             ->setBody($mensaje);
         $resp = $this->get('mailer')->send($message);

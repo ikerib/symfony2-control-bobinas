@@ -52,4 +52,25 @@ class LogdetailRepository extends EntityRepository
 //        print_r($consulta->getSQL());
         return $consulta->getResult();
     }
+
+
+    public function findCheckExisteComponente($of, $operacion, $componente)
+    {
+        $em = $this->getEntityManager();
+
+        $dql = "SELECT l
+                    FROM FrontendBundle:Logdetail l
+                    INNER JOIN l.log g
+                    WHERE g.of = :of
+                    AND g.operacion = :operacion
+                    AND l.componente = :componente";
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('of', $of);
+        $consulta->setParameter('operacion', $operacion);
+        $consulta->setParameter('componente', $componente);
+        
+        return $consulta->getResult();
+    }
+
 }

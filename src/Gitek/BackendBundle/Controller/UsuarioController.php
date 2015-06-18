@@ -44,6 +44,10 @@ class UsuarioController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if ( ($entity->getAvatar()==null) )
+            {
+                $entity->setAvatar('avatar2.png');
+            }
             $em->persist($entity);
             $em->flush();
 

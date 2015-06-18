@@ -175,6 +175,7 @@
             </div> {# col-xs-12 #}
         </div> {# row #}
         <input type="hidden" id="leidos" value="{{ log.detalles | length }}"/>
+        <input type="hidden" id="comptotal" value="{{ mijson | length }}" />
         <input type="hidden" id="codval1" value="{{ log.codval1 }}"/>
     {% endif %}
 
@@ -267,23 +268,25 @@
             if (($esperandovalidacion !== "") && ($esperandovalidacion !== undefined)) {
 
             } else {
-                var zenbatguztira = $('#leidos').val();
+                //var zenbatguztira = $('#leidos').val();
+                var zenbatguztira = $('#comptotal').val();
                 var zenbat = $('.btn-delete').length;
                 var zenbatrequerido = $('.requerido').length;
+
 
                 if ((zenbat != 0) && (parseInt(zenbatguztira) === parseInt(zenbat)) && (zenbatrequerido == 0)) {
 
                     $('#myModal2').modal('show');
 
                 } else {
-                    if (zenbat != 0) {
-                        var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
-                                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
-                                "<h4><i class='icon fa fa-ban'></i> Alert!</h4>" +
-                                "Comprueba que has introducido todos los datos necesarios." +
-                                "</div>";
-                        $('#divAlert').append(miTexto);
-                    }
+                    // if (zenbat != 0) {
+                    //     var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                    //             "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                    //             "<h4><i class='icon fa fa-ban'></i> Alert!</h4>" +
+                    //             "Comprueba que has introducido todos los datos necesarios." +
+                    //             "</div>";
+                    //     $('#divAlert').append(miTexto);
+                    // }
                 }
             }
 

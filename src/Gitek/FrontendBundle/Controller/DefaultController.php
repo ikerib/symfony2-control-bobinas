@@ -77,7 +77,6 @@ class DefaultController extends Controller
         ));
     }
 
-
     public function logincheckAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -514,8 +513,8 @@ class DefaultController extends Controller
         }
 
         $midet = $em->getRepository('FrontendBundle:Logdetail')->findByComponentedatamatrix($componente, $lote, $uuid);
-
-        if (count($midet) > 0) {
+        $midet2 = $em->getRepository('FrontendBundle:Logdetail')->findCheckExisteComponente($of, $operacion, $componente);
+        if ((count($midet) > 0) || (count($midet2) > 0)) {
             $resp = array('existe' => 1);
             $serializador = $this->container->get('serializer');
             $respuesta = new Response($serializador->serialize($resp, 'json'));

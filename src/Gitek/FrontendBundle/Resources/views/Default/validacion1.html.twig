@@ -119,6 +119,26 @@
                                 <input type="hidden" id="logid" name="logid"
                                        value="{% if log.id is defined %}{{ log.id }}{% endif %}"/>
                             </div>
+                                                       
+                            <div id="addBIN" style="display:none;">
+                                <h3 class="box-title">Introduce BIN:</h3>
+                                <div class="box-tools pull-left">
+                                    <input type="text" id="BinManual" name="BinManual"
+                                           class="form-control input-sm pull-left" style="width: 150px;" />
+                                    <button id="cmdAddBinManual" class="btn btn-sm btn-default"><i
+                                                class="fa fa-barcode"></i></button>
+                                </div>
+                            </div>
+
+                            <div id="addLote" style="display:none;">
+                                <h3 class="box-title">Introduce LOTE:</h3>
+                                <div class="box-tools pull-left">
+                                    <input type="text" id="lotemanual" name="lotemanual"
+                                           class="form-control input-sm pull-left" style="width: 150px;" />
+                                    <button id="cmdAddLoteManual" class="btn btn-sm btn-default"><i
+                                                class="fa fa-barcode"></i></button>
+                                </div>
+                            </div> 
                         {% endif %}
                     </div>
                     <div class="box-body table-responsive" class="dataTables_wrapper form-inline" role="grid">
@@ -134,8 +154,8 @@
                             <th>Posicion MSL</th>
                             <th>Cantidad</th>
                             <th>Lote</th>
-                            <th>Bin1</th>
-                            <th>Bin2</th>
+                            <th>Bin</th>
+                            <!-- <th>Bin2</th> -->
                             <th></th>
                             </thead>
                             <tbody>
@@ -147,9 +167,9 @@
                                         <td class="td{{ loop.index0 }}">{{ componente.posicion1 }}</td>
                                         <td class="td{{ loop.index0 }}">{{ componente.posicion2 }}</td>
                                         <td class="td{{ loop.index0 }}">{{ componente.cantidad }}</td>
-                                        <td class="td{{ loop.index0 }} {% if componente.lote == -1 %}requerido{% endif %}">{{ componente.lote }}</td>
-                                        <td class="td{{ loop.index0 }} {% if componente.bin1 == -1 %}requerido{% endif %}">{{ componente.bin1 }}</td>
-                                        <td class="td{{ loop.index0 }} {% if componente.bin2 == -1 %}requerido{% endif %}">{{ componente.bin2 }}</td>
+                                        <td class="td{{ loop.index0 }}">{{ componente.lote }}</td>
+                                        <td class="td{{ loop.index0 }}">{{ componente.bin1 }}</td>
+                                        <!-- <td class="td{{ loop.index0 }}">{{ componente.bin2 }}</td> -->
 
                                         <td>
                                             <button class="btn btn-sm btn-danger btn-delete"
@@ -247,6 +267,59 @@
     <script type="text/javascript">
 
         $(function () {
+
+            // Comprobamos que el BIN corresponde al de la OF
+            $('#BinManual').keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    var binValido = (function(){
+                        var micom = $('#codbarcomponente').val();
+                        var miope = $('#miope').val();
+                        var mibin = $('#BinManual').val();
+                        var url = Routing.generate('api_1_post_checkbinof');
+                        var resp;
+                        $.ajax({
+                            url: url,
+                            method: 'POST',
+                            dataType: 'json',
+                            async:false,
+                            data: { operacion: miope, componente: micom, bin: mibin }
+                        })
+                        .done(function (data, textStatus, jqXHR) {
+                            if (data === 200) {
+                                resp=true;
+                            } else {
+                                resp=false;
+                            }
+                        }).fail(function (jqXHR, textStatus) {
+                            resp=false;
+                        });
+                        return resp;
+                    })();
+
+                    if ( binValido === false ) {
+                        var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
+                                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
+                                "<h4><i class='icon fa fa-ban'></i> Alert!</h4>" +
+                                "EL BIN NO ES VÁLIDO." +
+                                "</div>";
+                        $('#divAlert').append(miTexto);
+                    } else {
+                        // EL BIN ES VALIDO
+                        // Miramos si ha introducido Datamatrix
+                        $('#divAlert').hide();
+                        var arr = $('#codbarcomponente').val().split('/');
+                        if ( arr.length > 1 ) {
+                            formAddComponentSubmit();
+                        } else {
+                            $('#addLote').show();
+                            $('#lotemanual').focus();                
+                        }
+
+                    }
+
+                }
+            });
 
             $('.btnadd').on('click', function () {
                 var li = $(this).data('ldi');
@@ -366,14 +439,84 @@
             $('#codbarcomponente').keypress(function (event) {
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 if (keycode == '13') {
-                    formAddComponentSubmit();
+                    // R11DL1F0022$3813712832-PE268754C101$3000$4642
+                    var binbehar = (function() {
+                        var micom = $('#codbarcomponente').val();
+                        var resp;
+                        var url = Routing.generate('api_1_post_checkifneedtoaskbin');
+                        $.ajax({
+                            url:url,
+                            method:'POST',
+                            dataType:'json',
+                            async: false,
+                            data: { ref: micom }
+                        }).done(function (data, textStatus, jqXHR) {
+                            if (data === 200) {
+                                resp = true;
+                            } else {
+                                resp = false;
+                            }
+                        }).fail(function (jqXHR, textStatus) {
+                            resp = false;
+                        });
+                        return resp;
+                    })();
+
+                    if ( binbehar === true ) {
+                        $('#addBIN').show();
+                        $('#BinManual').focus();
+                        return;
+                    }
+
+                    // Comprobamos si es datamatrix
+                    var arr = $('#codbarcomponente').val().split('/');
+                    if ( arr.length > 1 ) {
+                        formAddComponentSubmit();
+                    } else {
+                        $('#addLote').show();
+                        $('#lotemanual').focus();                
+                    }
                 }
             });
+
+
+            $('#lotemanual').keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if ( $('#lotemanual').val().length > 1 ) {
+                        formAddComponentSubmit();
+                    }
+                }
+            });
+
 
             $('#cmdAddComponent').on('click', function () {
                 formAddComponentSubmit();
                 cleanAlerts();
             });
+
+            function checkIfNeedAskBin() {
+                var micom = $('#codbarcomponente').val();
+                
+                var url = Routing.generate('api_1_get_checkifneedtoaskbin');
+                $.ajax({
+                    url:url,
+                    method:'GET',
+                    dataType:'json',
+                    async: false,
+                    data: { ref: micom }
+                }).done(function (data, textStatus, jqXHR) {
+                    if (data === 200) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }).fail(function (jqXHR, textStatus) {
+                    return false;
+                });
+                
+
+            }
 
             function formAddComponentSubmit() {
                 var micom = $('#codbarcomponente').val();
@@ -381,12 +524,19 @@
                 var miope = $('#miope').val();
                 var logid = $('#logid').val();
                 var miurl = Routing.generate('addComponente');
+                var lote = $('#lotemanual').val();
+                var bin = $('#BinManual').val();
                 $('#codbarcomponente').val('');
                 $('#codbarcomponente').text('');
+                $('#lotemanual').val('');
+                $('#lotemanual').text('');
+                $('#BinManual').val('');
+                $('#BinManual').text('');
+
                 $.ajax({
                     method: 'POST',
                     url: miurl,
-                    data: {of: miof, operacion: miope, componente: micom, logid: logid}
+                    data: {of: miof, operacion: miope, componente: micom, logid: logid, lotemanual:lote, binmanual: bin}
                 }).done(function (data, textStatus, jqXHR) {
                     if (jqXHR.status === 204) {
                         var miTexto = "<div class='alert alert-danger alert-dismissable'>" +
@@ -395,6 +545,9 @@
                                 "Este componente es incorrecto. No correspone a esta Operación u OF." +
                                 "</div>";
                         $('#divAlert').append(miTexto);
+                        $('#lotemanual').val('');
+                        $('#addLote').hide();
+                        $('#codbarcomponente').focus();
                     } else if (data.existe === 1) {
                         var miTexto = "<div class='alert alert-warning alert-dismissable'>" +
                                 "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>" +
@@ -402,6 +555,9 @@
                                 "El componente ya está en la lista" +
                                 "</div>";
                         $('#divAlertInfo').append(miTexto);
+                        $('#lotemanual').val('');
+                        $('#addLote').hide();
+                        $('#codbarcomponente').focus();
                     } else {
                         location.reload(true);
                     }
@@ -409,6 +565,8 @@
                     console.log("Request failed: " + textStatus);
                 });
             }
+
+
 
         });
 

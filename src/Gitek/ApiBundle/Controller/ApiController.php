@@ -2,8 +2,6 @@
 
 namespace Gitek\ApiBundle\Controller;
 
-use Gitek\FrontendBundle\Entity\LogPickplace;
-use Gitek\FrontendBundle\Entity\LogSerigrafia;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,10 +14,68 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Gitek\BackendBundle\Entity\ValidacionSerigrafia;
 use Gitek\BackendBundle\Entity\Usuario;
 use Gitek\FrontendBundle\Entity\Logdetail;
+use Gitek\FrontendBundle\Entity\LogPickplace;
+use Gitek\FrontendBundle\Entity\LogSerigrafia;
+use Gitek\BackendBundle\Entity\AuxDiodos;
 
 
 class ApiController extends FOSRestController
 {
+
+    /**
+     * @Rest\View
+     */
+    public function postCheckbinofAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $bin = $request->request->get('bin');
+        $componente = $request->request->get('componente');
+        $operacion = $request->request->get('operacion');
+        
+        $log = $em->getRepository('BackendBundle:AuxDiodos')->findByReferencia($componente);
+
+        $client = $this->get('guzzle.client');
+        $request = $client->get('http://10.0.0.12:5080/expertis/poroperacion?operacion=' . $operacion);
+        $response = $request->send();
+        $componentes = $response->json();
+
+
+        foreach ($componentes as $object) {
+            if (isset($object['IDComponente']) && (strtoupper($object['IDComponente']) == strtoupper($componente))) {
+                if ( $object['BIN'] == $bin ) {
+                    $statusCode = 200;
+                    $view = $this->view($statusCode);
+                    return $this->handleView($view);
+                } else {
+                    $statusCode = 204;
+                    $view = $this->view($statusCode);
+                    return $this->handleView($view);
+                }
+            }
+        }
+
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function postCheckifneedtoaskbinAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ref = $request->request->get('ref');
+        
+        $log = $em->getRepository('BackendBundle:AuxDiodos')->findByReferencia($ref);
+
+        if ((!$log) || (count($log)==0)) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            $statusCode = 200;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        }
+    }
 
     /**
      * @Rest\View

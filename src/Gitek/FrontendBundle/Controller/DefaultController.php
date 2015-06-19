@@ -458,6 +458,8 @@ class DefaultController extends Controller
         $of = $request->request->get("of");
         $operacion = $request->request->get("operacion");
         $postcomponente = $request->request->get("componente");
+        $lotemanual = $request->request->get("lotemanual");
+        $binmanual = $request->request->get("binmanual");
 
         $compo = explode("$", $postcomponente);
 
@@ -473,7 +475,7 @@ class DefaultController extends Controller
                 return $response;
             }
             $componente = $postcomponente;
-            $lote = "";
+            $lote = $lotemanual;
             $cantidad = "";
             $uuid = "";
         }
@@ -522,20 +524,20 @@ class DefaultController extends Controller
             return $respuesta;
         } else {
             // Check si es Diodo Led y hay que pedir bin o no
-            $four = substr($componente, 0, 4);
-            $pedirbin = false;
-            if (($four == "11DL") || ($four == "18DL")) {
-                // Es diodo LED
-                // Miramos si está en la tabla Auxliar
-                $esta = $em->getRepository('BackendBundle:AuxDiodos')->findBy(array('referencia' => $componente));
+            // $four = substr($componente, 0, 4);
+            // $pedirbin = false;
+            // if (($four == "11DL") || ($four == "18DL")) {
+            //     // Es diodo LED
+            //     // Miramos si está en la tabla Auxliar
+            //     $esta = $em->getRepository('BackendBundle:AuxDiodos')->findBy(array('referencia' => $componente));
 
-                if (count($esta) > 0) {
-                    $pedirbin = true;
-                } else {
-                    $pedirbin = false;
-                }
+            //     if (count($esta) > 0) {
+            //         $pedirbin = true;
+            //     } else {
+            //         $pedirbin = false;
+            //     }
 
-            }
+            // }
 
             //R11DL1F0022$3813712832-PE268754C101$3000$4642
 
@@ -543,17 +545,20 @@ class DefaultController extends Controller
             $det->setLog($log);
             $user = $em->getRepository('BackendBundle:Usuario')->find($usuario->getId());
             //$det->setUsuario($user);
-            if ($pedirbin == true) {
-                $det->setBin1("-1");
-            } else {
-                $det->setBin1("0");
-            }
+            // if ($pedirbin == true) {
+            //     $det->setBin1("-1");
+            // } else {
+            //     $det->setBin1("0");
+            // }
 
-            if ($pedirbin == true) {
-                $det->setBin2("-1");
-            } else {
-                $det->setBin2("0");
-            }
+            // if ($pedirbin == true) {
+            //     $det->setBin2("-1");
+            // } else {
+            //     $det->setBin2("0");
+            // }
+            
+            $det->setBin1($binmanual);    
+            
 
             $det->setComponente($componente);
             $det->setDescripcion($bilaketa[0]["DescArticulo"]);

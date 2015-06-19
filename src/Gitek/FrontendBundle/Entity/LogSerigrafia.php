@@ -40,6 +40,13 @@ class LogSerigrafia
     private $respuesta;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="obs", type="string", length=255)
+     */
+    private $obs;
+
+    /**
      * @var \DateTime $created_at
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
@@ -196,5 +203,28 @@ class LogSerigrafia
     public function getLog()
     {
         return $this->log;
+    }
+
+    /**
+     * Set obs
+     *
+     * @param string $obs
+     * @return LogSerigrafia
+     */
+    public function setObs($obs)
+    {
+        $this->obs = $obs;
+
+        return $this;
+    }
+
+    /**
+     * Get obs
+     *
+     * @return string 
+     */
+    public function getObs()
+    {
+        return $this->obs;
     }
 }

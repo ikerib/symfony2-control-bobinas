@@ -9,8 +9,8 @@ set :scm,         :git
 set :scm_verbose, true
 set :branch,      "master"
 set :repository,  "file:///Users/ikerib/www/controlbobinas"
-#set :deploy_via,  :copy
-set :deploy_via, :rsync_with_remote_cache
+set :deploy_via,  :copy
+#set :deploy_via, :rsync_with_remote_cache
 
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, or `none`
 

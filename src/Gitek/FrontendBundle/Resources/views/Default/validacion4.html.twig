@@ -94,6 +94,7 @@
                         <thead>
                         <th>Comprobar</th>
                         <th>Respuesta</th>
+                        <th>Observaciones</th>
                         </thead>
                         <tbody>
                         <tr>
@@ -106,6 +107,10 @@
                                     <button class="btnCheck btn btn-sm btn-danger btn-delete"><i
                                                 class="fa fa-exclamation-circle"></i></button>
                                 {% endif %}
+                            </td>
+                            <td>
+                                <input id="myobs" type="text" data-id="{{log.id}}" class="obs" value="{{ log.obsval4}}" />
+                                <span class="savespan"></span><a id="cmdgrabar" href="#"><i class="fa fa-floppy-o"></i></a>   
                             </td>
                         </tr>
                         </tbody>
@@ -151,6 +156,32 @@
     <script type="text/javascript">
 
         $(function () {
+
+            $('body').on('click', '#cmdgrabar', function(event) {
+
+                event.preventDefault();
+                var that = $(this);
+                var datua = $('#myobs').val();
+                var miid =  $('#myobs').data('id');
+                var url = Routing.generate('api_1_post_obsval4');
+
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType:'json',
+                    data: { logid: miid, obs: datua }
+                })
+                .done(function(data) {
+
+                    $(that).append('<i class="fa fa-check-circle"></i>');
+
+                })
+                .fail(function () {
+                    console.log("error");
+                });
+
+            });
 
             $('body').on('click', '.btnCheck', function (event) {
                 event.preventDefault();

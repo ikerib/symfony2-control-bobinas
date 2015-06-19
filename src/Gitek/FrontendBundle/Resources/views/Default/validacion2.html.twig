@@ -96,6 +96,7 @@
                         <thead>
                         <th>Comprobar</th>
                         <th>Respuesta</th>
+                        <th>Observaciones</th>
                         </thead>
                         <tbody>
                         {% for q in questions %}
@@ -120,6 +121,19 @@
                                             class="btnCheck btn btn-sm btn-danger btn-delete" data-logserigrafiaid=""
                                         {% endif %}  data-idlogdetail="{{ q.id }}">{% if aurkitua==false %}<i class="fa fa-exclamation-circle"></i>{% else %}<i class="fa fa-check"></i>{% endif %}</i>
                                     </button>
+                                </td>
+                                <td>
+                                    {% set break = false %}
+                                    {% set aurkitua = false %}
+                                    {% for d in log.logserigrafia if not break %}
+                                            {% if d.pregunta == q %}
+                                                <input type="text" data-id="{{d.id}}" class="obs" value="{{ d.obs}}" />
+                                                <span class="savespan"></span><a class="cmdgrabar" href="#"><i class="fa fa-floppy-o"></i></a>   
+
+                                                {% set break = true %}
+                                                {% set aurkitua = true %}
+                                            {% endif %}
+                                        {% endfor %}
                                 </td>
                             </tr>
                         {% endfor %}
@@ -168,6 +182,32 @@
     <script type="text/javascript">
 
         $(function () {
+
+            $('body').on('click', '.cmdgrabar', function(event){
+                event.preventDefault();
+                var that = $(this);
+                var sib = $(this).siblings('.obs');
+                var sibobs= $(sib).val();
+                var sibid = $(sib).data('id');
+
+                var url = Routing.generate('api_1_post_obsval2');
+
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    dataType:'json',
+                    data: { logserigrafiaid: sibid, obs: sibobs}
+                })
+                .done(function(data) {
+
+                    $(that).append('<i class="fa fa-check-circle"></i>');
+                    // location.reload();
+
+                })
+                .fail(function () {
+                    console.log("error");
+                });
+            });
 
             $('body').on('click', '.btnCheck', function (event) {
                 event.preventDefault();

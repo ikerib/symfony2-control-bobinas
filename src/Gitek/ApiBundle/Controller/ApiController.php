@@ -17,8 +17,59 @@ use Gitek\BackendBundle\Entity\ValidacionSerigrafia;
 use Gitek\BackendBundle\Entity\Usuario;
 use Gitek\FrontendBundle\Entity\Logdetail;
 
+
 class ApiController extends FOSRestController
 {
+
+    /**
+     * @Rest\View
+     */
+    public function postObsval4Action(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $logid = $request->request->get('logid');
+        $obs = $request->request->get('obs');
+
+        $log = $em->getRepository('FrontendBundle:Log')->find($logid);
+
+        if ((!$log) || (count($log)==0)) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            $log->setObsval4($obs);
+            $em->persist($log);
+            $em->flush();
+            $statusCode = 200;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        }
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function postObsval2Action(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $logserigrafiaid = $request->request->get('logserigrafiaid');
+        $obs = $request->request->get('obs');
+
+        $log = $em->getRepository('FrontendBundle:LogSerigrafia')->find($logserigrafiaid);
+
+        if ((!$log) || (count($log)==0)) {
+            $statusCode = 204;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        } else {
+            $log->setObs($obs);
+            $em->persist($log);
+            $em->flush();
+            $statusCode = 200;
+            $view = $this->view($statusCode);
+            return $this->handleView($view);
+        }
+    }
 
     /**
      * @Rest\View
